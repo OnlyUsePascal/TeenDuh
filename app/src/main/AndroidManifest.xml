@@ -13,6 +13,9 @@
       android:theme="@style/Theme.TeenDuh"
       tools:targetApi="31">
         <activity
+          android:name=".view.activity.MainLayout"
+          android:exported="false" />
+        <activity
           android:name=".view.activity.TestSuccess"
           android:exported="false" />
         <activity

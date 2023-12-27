@@ -1,5 +1,5 @@
- package com.example.teenduh.view.activity;
 
+package com.example.teenduh.view.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;

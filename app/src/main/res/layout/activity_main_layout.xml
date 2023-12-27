@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".view.activity.MainLayout">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frame"
+    >
+
+
+    <FrameLayout
+      android:id="@+id/container"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:layout_above="@+id/navbar"
+      android:layout_alignParentTop="true"
+      />
+
+    <com.google.android.material.card.MaterialCardView
+      android:layout_marginHorizontal="15dp"
+      android:layout_marginBottom="15dp"
+      android:id="@+id/navbar"
+      android:layout_width="match_parent"
+      android:layout_height="60dp"
+      app:cardBackgroundColor="#FFEBD8"
+      android:layout_alignParentBottom="true"
+      app:strokeWidth="2dp"
+      app:strokeColor="@color/black"
+      app:cardCornerRadius="5dp"
+      />
+  </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
