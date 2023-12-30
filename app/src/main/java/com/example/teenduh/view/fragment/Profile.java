@@ -13,17 +13,17 @@ import androidx.fragment.app.Fragment;
 import com.example.teenduh.R;
 import com.example.teenduh.util.Util;
 
-public class TinDuh extends Fragment {
+public class Profile extends Fragment {
   Context context;
   
-  public TinDuh() {
+  public Profile(){
     context = Util.getContext();
   }
   
-  @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_tinduh, container, false);
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.fragment_profile, container, false);
   }
   
   @Override

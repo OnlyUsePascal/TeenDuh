@@ -7,32 +7,30 @@
   tools:context=".view.activity.MainLayout">
 
   <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:id="@+id/frame"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <FrameLayout
       android:id="@+id/container"
-      android:layout_height="wrap_content"
       android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:layout_above="@+id/navbar"
       android:layout_alignParentTop="true"
       />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/navbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/navbar"
-      app:menu="@menu/navbar_menu"
       android:layout_alignParentBottom="true"
       android:layout_marginHorizontal="15dp"
-      app:itemIconSize="30dp"
       android:layout_marginBottom="10dp"
-      app:labelVisibilityMode="unlabeled"
+      android:background="@drawable/navbar_bg"
+      app:itemIconSize="30dp"
       app:itemIconTint="@color/navbar_icon"
-      android:background="@drawable/bg_navbar"
-      />
+      app:labelVisibilityMode="unlabeled"
+      app:menu="@menu/navbar_menu" />
   </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

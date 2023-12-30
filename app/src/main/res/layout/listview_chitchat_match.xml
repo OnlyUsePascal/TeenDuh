@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:padding="5dp">
+
+  <androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:id="@+id/match_card"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/match_img"
+      android:layout_width="100dp"
+      android:layout_height="150dp"
+      android:scaleType="centerCrop"
+      android:src="@drawable/match_img" />
+  </androidx.cardview.widget.CardView>
+
+  <TextView
+    android:id="@+id/textView5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/match_card"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="2dp"
+    android:text="Giga Nguyen"
+    android:textColor="@color/black"
+    android:textStyle="bold" />
+
+</RelativeLayout>

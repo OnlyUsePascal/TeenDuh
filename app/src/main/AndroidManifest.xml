@@ -24,10 +24,7 @@
             android:label="@string/title_activity_auth"
             android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity
@@ -43,7 +40,13 @@
         <activity
             android:name=".view.activity.TestFeature"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

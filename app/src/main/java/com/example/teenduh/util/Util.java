@@ -19,6 +19,10 @@ public class Util {
     Util.context = context;
   }
   
+  public static void initData(){
+  
+  }
+  
   public static void _startActivity(Context context, Class<?> target){
     Intent intent = new Intent(context, target);
     context.startActivity(intent);
