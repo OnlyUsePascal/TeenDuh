@@ -62,4 +62,7 @@ dependencies {
   implementation("com.google.firebase:firebase-firestore:24.10.0")
   implementation("com.google.android.gms:play-services-auth:20.7.0")
   implementation("com.makeramen:roundedimageview:2.3.0")
+  implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.23")
+  implementation ("com.google.android.material:material:1.0.0")
+
 }

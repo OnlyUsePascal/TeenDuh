@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.DistancePreferenceFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your distance preference?"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use the slider to set the maximum distance you want your matches to be located."
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance Preference"
+            android:textSize="15dp"
+            android:layout_marginHorizontal="20dp"
+            android:textStyle="bold"
+            />
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50 km"
+                android:textSize="15dp"
+                android:layout_marginStart="120dp"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:max="100"
+            android:progressDrawable="@drawable/custom_seekbar"
+            android:progress="50"
+            android:thumb="@drawable/custom_seekbar_button"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Aligning at the bottom and centering horizontally -->
+            <TextView
+                android:id="@+id/radioButtonShowInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="130dp"
+                android:text="You can change this later in your settings."
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/nextButton"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="72dp"
+                android:background="@drawable/btn_layout"
+                android:gravity="center"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="200dp"
+                android:background="#E8E9EE" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
