@@ -21,17 +21,18 @@
       android:layout_alignParentTop="true"
       />
 
-    <com.google.android.material.card.MaterialCardView
-      android:layout_marginHorizontal="15dp"
-      android:layout_marginBottom="15dp"
-      android:id="@+id/navbar"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
       android:layout_width="match_parent"
-      android:layout_height="60dp"
-      app:cardBackgroundColor="#FFEBD8"
+      android:layout_height="wrap_content"
+      android:id="@+id/navbar"
+      app:menu="@menu/navbar_menu"
       android:layout_alignParentBottom="true"
-      app:strokeWidth="2dp"
-      app:strokeColor="@color/black"
-      app:cardCornerRadius="5dp"
+      android:layout_marginHorizontal="15dp"
+      app:itemIconSize="30dp"
+      android:layout_marginBottom="10dp"
+      app:labelVisibilityMode="unlabeled"
+      app:itemIconTint="@color/navbar_icon"
+      android:background="@drawable/bg_navbar"
       />
   </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
