@@ -36,28 +36,28 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        listView = findViewById(R.id.list_view);
-        textMessage = findViewById(R.id.text_message);
-        buttonSend = findViewById(R.id.button_send);
-
-        listMessage.add("Hello");
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listMessage);
-        listView.setAdapter(adapter);
-
-        buttonSend.setOnClickListener(v -> {
-            String message = textMessage.getText().toString();
-            //send data
-            Intent intent = new Intent();
-            intent.setAction(ACTION_MESSSAGE);
-            intent.putExtra("message", message);
-            sendBroadcast(intent);
-        });
-
-        MessageReceiver receiver = new MessageReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(ACTION_MESSSAGE);
-        registerReceiver(receiver, filter);
+//        listView = findViewById(R.id.list_view);
+//        textMessage = findViewById(R.id.text_message);
+//        buttonSend = findViewById(R.id.button_send);
+//
+//        listMessage.add("Hello");
+//
+//        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listMessage);
+//        listView.setAdapter(adapter);
+//
+//        buttonSend.setOnClickListener(v -> {
+//            String message = textMessage.getText().toString();
+//            //send data
+//            Intent intent = new Intent();
+//            intent.setAction(ACTION_MESSSAGE);
+//            intent.putExtra("message", message);
+//            sendBroadcast(intent);
+//        });
+//
+//        MessageReceiver receiver = new MessageReceiver();
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction(ACTION_MESSSAGE);
+//        registerReceiver(receiver, filter);
 
     }
 

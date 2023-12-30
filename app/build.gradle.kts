@@ -1,5 +1,6 @@
 plugins {
   id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -43,9 +44,14 @@ dependencies {
 
   // packaging
   implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+  implementation("com.hbb20:ccp:2.5.0")
+  implementation("com.github.dhaval2404:imagepicker:2.1")
+  implementation("com.github.bumptech.glide:glide:4.15.1")
+  implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
   // loading animation
   coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+  //  New plugins
   implementation("com.airbnb.android:lottie:6.2.0")
 
   //map
@@ -56,9 +62,20 @@ dependencies {
   implementation("com.google.maps.android:android-maps-utils:3.8.0");
   implementation("com.google.android.libraries.places:places:2.6.0")
 
+
+
+
   //firebase
   implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
   implementation("com.google.firebase:firebase-auth:22.3.0")
-  implementation("com.google.firebase:firebase-firestore:24.10.0")
+
+//  implementation("com.google.firebase:firebase-firestore:24.10.0")
+//  New plugins
+  implementation("com.google.firebase:firebase-firestore-ktx:24.4.4")
+  implementation("com.google.firebase:firebase-storage-ktx:20.1.0")
+  implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
+  implementation("com.google.firebase:firebase-auth")
+  implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
+
   implementation("com.google.android.gms:play-services-auth:20.7.0")
 }
