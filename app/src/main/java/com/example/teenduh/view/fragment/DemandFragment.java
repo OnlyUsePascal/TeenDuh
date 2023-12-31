@@ -68,7 +68,10 @@ public class DemandFragment extends Fragment {
                LinearLayout linearLayout = (LinearLayout) selectedCard.getChildAt(0);
                 TextView textView = (TextView) linearLayout.getChildAt(1);
                 String demand = textView.getText().toString();
-                System.out.println(demand);
+                //Store data
+
+               //Replace fragment
+                signUpPage.replaceFragment(new LifeStyleFragment());
            }
          });
         return view;
