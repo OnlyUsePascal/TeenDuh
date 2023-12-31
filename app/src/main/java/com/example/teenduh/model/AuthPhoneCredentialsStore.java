@@ -1,4 +1,4 @@
-package com.example.teenduh.stores.auth;
+package com.example.teenduh.model;
 
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;

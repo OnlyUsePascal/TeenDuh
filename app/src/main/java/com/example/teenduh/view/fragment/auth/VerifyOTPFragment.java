@@ -24,17 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teenduh.R;
-import com.example.teenduh.stores.auth.AuthPhoneCredentialsStore;
-import com.example.teenduh.stores.auth.BaseAuthClientStore;
-import com.example.teenduh.stores.auth.UserStore;
-import com.example.teenduh.util.Util;
-import com.example.teenduh.view.activity.MainLayout;
+import com.example.teenduh.model.AuthPhoneCredentialsStore;
+import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh.util.FirebaseUtil;
 import com.example.teenduh.view.activity.TestSuccess;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -133,14 +129,14 @@ public class VerifyOTPFragment extends Fragment {
         actionLayout.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
 
-        BaseAuthClientStore.getFirebaseAuth().signInWithCredential(credential)
+        FirebaseUtil.getFirebaseAuth().signInWithCredential(credential)
             .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "signInWithCredential:success");
 
-                    UserStore.setUser(task.getResult().getUser());
+                    FirebaseUtil.setUser(task.getResult().getUser());
 
-                    Util._startActivity(getContext(), TestSuccess.class);
+                    AndroidUtil._startActivity(getContext(), TestSuccess.class);
 
                     Intent intent = new Intent();
                     getActivity().setResult(RESULT_OK, intent);
@@ -236,7 +232,7 @@ public class VerifyOTPFragment extends Fragment {
 
             if (isAllEditTextsFilled()) {
                 otpEditTexts.get(index).clearFocus();
-                Util._hideKeyboardFrom(getContext(), verifyOTPView);
+                AndroidUtil._hideKeyboardFrom(getContext(), verifyOTPView);
                 verifyOTP();
             }
         }

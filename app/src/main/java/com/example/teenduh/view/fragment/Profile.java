@@ -11,13 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.Util;
+import com.example.teenduh.util.AndroidUtil;
 
 public class Profile extends Fragment {
   Context context;
   
   public Profile(){
-    context = Util.getContext();
+    context = AndroidUtil.getContext();
   }
   
   @Override

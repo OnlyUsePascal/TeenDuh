@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-public class Util {
+public class AndroidUtil {
   private static Context context;
   
   public static Context getContext() {
@@ -16,7 +16,7 @@ public class Util {
   }
   
   public static void setContext(Context context) {
-    Util.context = context;
+    AndroidUtil.context = context;
   }
   
   public static void initData(){

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.Util;
+import com.example.teenduh.util.AndroidUtil;
 import com.example.teenduh.view.activity.auth.AuthLayout;
 
 public class TestFeature extends AppCompatActivity {
@@ -18,12 +18,12 @@ public class TestFeature extends AppCompatActivity {
   }
   
   public void toMainLayout(View view){
-    Util._startActivity(this, MainLayout.class);
+    AndroidUtil._startActivity(this, MainLayout.class);
     
   }
   
   public void toAuthLayout(View view){
-    Util._startActivity(this, AuthLayout.class);
+    AndroidUtil._startActivity(this, AuthLayout.class);
     
   }
 }

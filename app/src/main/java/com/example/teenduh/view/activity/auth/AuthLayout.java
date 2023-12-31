@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.Util;
+import com.example.teenduh.util.AndroidUtil;
 
 public class AuthLayout extends AppCompatActivity {
     private final String TAG = "AuthLayout";
@@ -18,7 +18,7 @@ public class AuthLayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_layout);
 
-        Util.setContext(AuthLayout.this);
+        AndroidUtil.setContext(AuthLayout.this);
     }
 
     @Override
@@ -36,14 +36,14 @@ public class AuthLayout extends AppCompatActivity {
     }
 
     public void phoneLogin(View view) {
-        Util._startActivityForResult(AuthLayout.this, PhoneAuthLayout.class, null, PHONE_AUTH_REQUEST_CODE);
+        AndroidUtil._startActivityForResult(AuthLayout.this, PhoneAuthLayout.class, null, PHONE_AUTH_REQUEST_CODE);
     }
 
     public void redirectTermsOfService(View view) {
-        Util._openExternalURL(AuthLayout.this, getResources().getString(R.string.terms_of_service_url));
+        AndroidUtil._openExternalURL(AuthLayout.this, getResources().getString(R.string.terms_of_service_url));
     }
 
     public void redirectPrivacyPolicy(View view) {
-        Util._openExternalURL(AuthLayout.this, getResources().getString(R.string.privacy_policy_url));
+        AndroidUtil._openExternalURL(AuthLayout.this, getResources().getString(R.string.privacy_policy_url));
     }
 }

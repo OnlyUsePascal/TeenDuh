@@ -11,13 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.Util;
+import com.example.teenduh.util.AndroidUtil;
 
 public class TeenDuh extends Fragment {
   Context context;
   
   public TeenDuh() {
-    context = Util.getContext();
+    context = AndroidUtil.getContext();
   }
   
   @Nullable

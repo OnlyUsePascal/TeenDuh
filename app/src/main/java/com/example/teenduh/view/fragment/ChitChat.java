@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.Util;
+import com.example.teenduh.util.AndroidUtil;
 
 public class ChitChat extends Fragment {
   private Context context;
@@ -23,7 +23,7 @@ public class ChitChat extends Fragment {
   
   public ChitChat() {
     // Required empty public constructor
-    context = Util.getContext();
+    context = AndroidUtil.getContext();
   }
   
   @Override

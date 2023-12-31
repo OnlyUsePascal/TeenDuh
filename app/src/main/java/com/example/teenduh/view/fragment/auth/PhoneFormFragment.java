@@ -13,17 +13,14 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.teenduh.R;
-import com.example.teenduh.stores.auth.AuthPhoneCredentialsStore;
-import com.example.teenduh.stores.auth.BaseAuthClientStore;
-import com.example.teenduh.util.Util;
+import com.example.teenduh.model.AuthPhoneCredentialsStore;
+import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh.util.FirebaseUtil;
 import com.example.teenduh.util.Validators;
 import com.example.teenduh.view.activity.TestSuccess;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -55,7 +52,7 @@ public class PhoneFormFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     View phoneFormView = inflater.inflate(R.layout.fragment_phone_form, container, false);
-    Util.setContext(getActivity());
+    AndroidUtil.setContext(getActivity());
     initView(phoneFormView);
     callbackHandler = new CallbackHandler();
   
@@ -112,8 +109,8 @@ public class PhoneFormFragment extends Fragment {
     public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
       Log.d(TAG, "onVerificationCompleted:" + credential);
       
-      Util._startActivity(getActivity(), TestSuccess.class);
-      BaseAuthClientStore.setCredential(credential);
+      AndroidUtil._startActivity(getActivity(), TestSuccess.class);
+      FirebaseUtil.setCredential(credential);
     }
     
     @Override

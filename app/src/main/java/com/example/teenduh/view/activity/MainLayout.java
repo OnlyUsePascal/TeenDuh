@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.Util;
+import com.example.teenduh.util.AndroidUtil;
 import com.example.teenduh.view.fragment.ChitChat;
 import com.example.teenduh.view.fragment.Profile;
 import com.example.teenduh.view.fragment.TeenDuh;
@@ -26,7 +26,7 @@ public class MainLayout extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main_layout);
-    Util.setContext(this);
+    AndroidUtil.setContext(this);
     
     frameLayout = findViewById(R.id.container);
     navBar = findViewById(R.id.navbar);
