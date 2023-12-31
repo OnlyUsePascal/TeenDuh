@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TeenDuh</string>
-    <string name="title_activity_auth">AuthActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Time to meet new friends!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="terms_of_service"><u>Terms of Service</u></string>
-    <string name="privacy_policy"><u>Privacy Policy</u></string>
+  <string name="app_name">TeenDuh</string>
+  <string name="title_activity_auth">AuthActivity</string>
+  <string name="prompt_email">Email</string>
+  <string name="prompt_password">Password</string>
+  <string name="action_sign_in">Sign in or register</string>
+  <string name="action_sign_in_short">Sign in</string>
+  <string name="welcome">"Time to meet new friends!"</string>
+  <string name="invalid_username">Not a valid username</string>
+  <string name="invalid_password">Password must be >5 characters</string>
+  <string name="login_failed">"Login failed"</string>
+  <string name="terms_of_service"><u>Terms of Service</u></string>
+  <string name="privacy_policy"><u>Privacy Policy</u></string>
 
-    <string name="phone_number_form_title">Enter phone number</string>
-    <string name="phone_number_form_description">We need your phone number to confirm your identity. Once you enter it, you\'ll receive a 6-digit code to verify your account</string>
-    <string name="phone_number_invalid">Invalid phone number. Please try again</string>
+  <string name="phone_number_form_title">Enter phone number</string>
+  <string name="phone_number_form_description">We need your phone number to confirm your identity. Once you enter it, you\'ll receive a 6-digit code to verify your account</string>
+  <string name="phone_number_invalid">Invalid phone number. Please try again</string>
 
-    <string name="verify_otp_form_title">Enter 6-digit code</string>
-    <string name="verify_otp_form_description">We\'ve just sent you the code. Type it below to finish verification</string>
-    <string name="verify_otp_invalid">Invalid code. Please try again</string>
+  <string name="verify_otp_form_title">Enter 6-digit code</string>
+  <string name="verify_otp_form_description">We\'ve just sent you the code. Type it below to finish verification</string>
+  <string name="verify_otp_invalid">Invalid code. Please try again</string>
 
-    // TODO: Change these URLs
-    <string name="terms_of_service_url">https://www.termsfeed.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
-    <string name="privacy_policy_url">https://www.privacypolicies.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
+  // TODO: Change these URLs
+  <string name="terms_of_service_url">https://www.termsfeed.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
+  <string name="privacy_policy_url">https://www.privacypolicies.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
 
-    <string name="lorem_ipsum">
+  <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
         dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
@@ -61,6 +61,5 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -72,4 +72,9 @@ dependencies {
 
   // international phone number hadling
   implementation("com.fredporciuncula:phonemoji:1.5.2")
+
+  //drawing
+  implementation("com.makeramen:roundedimageview:2.3.0")
+  implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.23")
+  implementation ("com.google.android.material:material:1.0.0")
 }

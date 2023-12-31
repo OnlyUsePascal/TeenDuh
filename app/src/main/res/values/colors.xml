@@ -69,6 +69,8 @@
   <color name="teal_700">#FF018786</color>
   <color name="black">#FF000000</color>
   <color name="white">#FFFFFFFF</color>
+  <color name="grey">#F2F0F6</color>
+  <color name="red">#D7849A</color>
   <color name="light_white">#D2D2D2</color>
   <color name="pink1">#FF90BC</color>
 </resources>

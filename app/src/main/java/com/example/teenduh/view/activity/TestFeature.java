@@ -26,4 +26,13 @@ public class TestFeature extends AppCompatActivity {
     AndroidUtil._startActivity(this, AuthLayout.class);
     
   }
+  
+  public void toWelcome(View view){
+    AndroidUtil._startActivity(this, WelcomeActivity.class);
+    
+  }
+  
+  public void toSignUp(View view){
+    AndroidUtil._startActivity(this, SignUpPage.class);
+  }
 }

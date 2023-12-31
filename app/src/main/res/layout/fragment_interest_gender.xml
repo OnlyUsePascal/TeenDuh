@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.signup.NameFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Who are you interested in seeing?"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            />
+        <RadioGroup
+
+            android:paddingBottom="10dp"
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="20dp">
+            <RadioButton
+                android:gravity="center"
+                android:padding="10dp"
+                android:id="@+id/radioButtonMen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:textColor="@drawable/text_color"
+                android:elevation="4dp"
+                android:text="Man"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                />
+            <RadioButton
+                android:gravity="center"
+                android:padding="10dp"
+                android:id="@+id/radioButtonWomen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Woman"
+                android:textSize="20dp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:textColor="@drawable/text_color"
+                android:elevation="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                />
+            <RadioButton
+                android:gravity="center"
+                android:padding="10dp"
+                android:id="@+id/radioButtonOther"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Everyone"
+                android:textSize="20dp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:textColor="@drawable/text_color"
+                android:elevation="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"/>
+        </RadioGroup>
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Aligning at the bottom and centering horizontally -->
+
+            <TextView
+                android:id="@+id/nextButton"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="72dp"
+                android:background="@drawable/btn_unselected"
+                android:gravity="center"
+                android:text="Next"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:enabled="false"
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
