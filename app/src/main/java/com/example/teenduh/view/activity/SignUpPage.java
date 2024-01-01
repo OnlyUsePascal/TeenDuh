@@ -43,8 +43,10 @@ public class SignUpPage extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment);
         fragmentTransaction.commit();
-        //Add to back stack
-        fragmentTransaction.addToBackStack(fragment.getClass().getName());
+
+        if (!(fragment instanceof NameFragment)) {
+            fragmentTransaction.addToBackStack(fragment.getClass().getName());
+        }
     }
     public void backFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
