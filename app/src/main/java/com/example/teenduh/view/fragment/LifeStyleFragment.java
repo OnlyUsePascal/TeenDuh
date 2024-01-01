@@ -49,6 +49,8 @@ public class LifeStyleFragment extends Fragment {
 //            System.out.println("workout habit: " + workoutHabit);
 //            System.out.println("smoke habit: " + smokeHabit);
 //            System.out.println("pet habit: " + petHabit);
+            signUpPage.currentProgress += 10;
+            signUpPage.progressBar.setProgress(signUpPage.currentProgress);
             signUpPage.replaceFragment(new FurtherLifeStyleFragment());
 
         });

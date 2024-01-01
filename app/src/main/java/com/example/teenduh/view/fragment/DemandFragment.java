@@ -71,7 +71,9 @@ public class DemandFragment extends Fragment {
                 //Store data
 
                //Replace fragment
-                signUpPage.replaceFragment(new LifeStyleFragment());
+               signUpPage.currentProgress += 10;
+               signUpPage.progressBar.setProgress(signUpPage.currentProgress);
+               signUpPage.replaceFragment(new LifeStyleFragment());
            }
          });
         return view;

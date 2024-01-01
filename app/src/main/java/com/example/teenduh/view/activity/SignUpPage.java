@@ -34,11 +34,11 @@ public class SignUpPage extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         back = findViewById(R.id.backButton);
+        progressBar.setMax(100);
 
         back.setOnClickListener(v -> {
-            currentProgress -= 30;
+            currentProgress -= 10;
             progressBar.setProgress(currentProgress);
-            progressBar.setMax(100);
             backFragment();
         });
 

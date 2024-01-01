@@ -43,9 +43,12 @@ public class FurtherLifeStyleFragment extends Fragment {
         initZodiacCard();
         next.setEnabled(true);
         next.setOnClickListener(v -> {
-            System.out.println("communication habit: " + communicationHabit);
-            System.out.println("education habit: " + educationHabit);
-            System.out.println("zodiac habit: " + zodiacHabit);
+//            System.out.println("communication habit: " + communicationHabit);
+//            System.out.println("education habit: " + educationHabit);
+//            System.out.println("zodiac habit: " + zodiacHabit);
+            signUpPage.currentProgress += 10;
+            signUpPage.progressBar.setProgress(signUpPage.currentProgress);
+            signUpPage.replaceFragment(new PictureProfileFragment());
         });
 
         return view;

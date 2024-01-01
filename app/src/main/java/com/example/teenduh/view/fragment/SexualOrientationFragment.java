@@ -59,6 +59,8 @@ public class SexualOrientationFragment extends Fragment {
             //Store sexual orientation to user
             Util.curUser.setSexualOrientationList(sexualOrientation);
             // Go to next fragment
+            signUpPage.currentProgress += 10;
+            signUpPage.progressBar.setProgress(signUpPage.currentProgress);
             signUpPage.replaceFragment(new InterestGender());
 
         });

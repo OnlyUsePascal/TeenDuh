@@ -49,6 +49,8 @@ public class GenderFragment extends Fragment {
         next.setOnClickListener(v -> {
             if(gender!= null){
                 Util.curUser.setGender(gender);
+                signUpPage.currentProgress += 10;
+                signUpPage.progressBar.setProgress(signUpPage.currentProgress);
                 signUpPage.replaceFragment(new SexualOrientationFragment());
             }
 
