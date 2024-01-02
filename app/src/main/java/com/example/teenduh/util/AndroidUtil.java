@@ -46,6 +46,11 @@ public class AndroidUtil {
     }
     activity.startActivityForResult(intent, code);
   }
+
+  public static void _startActivityForResult(Activity activity, Intent intent
+    , int code) {
+    activity.startActivityForResult(intent, code);
+  }
   
   public static void _hideKeyboardFrom(Context context, View view) {
     InputMethodManager imm = (InputMethodManager)
