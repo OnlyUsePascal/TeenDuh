@@ -65,6 +65,7 @@ public class ChatActivity extends AppCompatActivity {
 
         //get UserModel
         otherUser = AndroidUtil.getUserModelFromIntent(getIntent());
+        System.out.println("otherUser: "+otherUser.getUserId());
         chatroomId = FirebaseUtil.getChatroomId(FirebaseUtil.currentUserId(),otherUser.getUserId());
 
         messageInput = findViewById(R.id.chat_message_input);

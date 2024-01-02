@@ -58,4 +58,13 @@ public class UserModel {
     public void setFcmToken(String fcmToken) {
         this.fcmToken = fcmToken;
     }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "phone='" + phone + '\'' +
+                ", username='" + username + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
+    }
 }

@@ -1,9 +1,13 @@
 package com.example.teenduh.view.activity.utils;
 
+import android.widget.Toast;
+
+import com.example.teenduh.view.activity.model.UserModel;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -76,6 +80,56 @@ public class FirebaseUtil {
     public static StorageReference  getOtherProfilePicStorageRef(String otherUserId){
         return FirebaseStorage.getInstance().getReference().child("profile_pic")
                 .child(otherUserId);
+    }
+
+//    public static void getUserModelFromPhone(String phone, OnUserDataReceivedListener listener){
+//        //search query
+//        UserModel userModel = new UserModel();
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        db.collection("users").whereEqualTo("phone",phone).get().addOnCompleteListener(task -> {
+//            if(task.isSuccessful()){
+//                if(task.getResult().size()>0){
+//                    userModel.setPhone(task.getResult().getDocuments().get(0).getString("phone"));
+//                    userModel.setUsername(task.getResult().getDocuments().get(0).getString("username"));
+//                    userModel.setUserId(task.getResult().getDocuments().get(0).getString("userId"));
+//                    userModel.setFcmToken(task.getResult().getDocuments().get(0).getString("fcmToken"));
+//                }
+//            }
+//        });
+//        listener.onReceived(userModel);
+////        return userModel;
+//    }
+
+    public static void getUserModelFromPhone(String phone, OnUserDataReceivedListener listener) {
+        if (phone == null) {
+            // Handle the case where phone is null
+            listener.onReceived(null);
+            return;
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").whereEqualTo("phone", phone).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                UserModel userModel = new UserModel();
+                userModel.setPhone(document.getString("phone"));
+                userModel.setUsername(document.getString("username"));
+                userModel.setUserId(document.getString("userId"));
+                userModel.setFcmToken(document.getString("fcmToken"));
+                System.out.println("userModel123123: " + userModel);
+                listener.onReceived(userModel);
+
+            } else {
+                // Handle the case where the task is not successful or no results are found
+                System.out.println("task unsuccessful");
+                listener.onReceived(null);
+            }
+        });
+    }
+
+
+    public static interface OnUserDataReceivedListener {
+        void onReceived(UserModel userModel);
     }
 
 

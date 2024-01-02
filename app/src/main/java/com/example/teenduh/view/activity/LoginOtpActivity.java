@@ -74,6 +74,7 @@ public class LoginOtpActivity extends AppCompatActivity {
     void sendOtp(String phoneNumber,boolean isResend){
         startResendTimer();
         setInProgress(true);
+        Toast.makeText(this, phoneNumber, Toast.LENGTH_SHORT).show();
         PhoneAuthOptions.Builder builder =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(phoneNumber)
@@ -135,7 +136,6 @@ public class LoginOtpActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 
