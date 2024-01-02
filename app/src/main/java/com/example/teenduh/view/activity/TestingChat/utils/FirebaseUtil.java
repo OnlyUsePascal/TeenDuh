@@ -1,8 +1,6 @@
-package com.example.teenduh.view.activity.utils;
+package com.example.teenduh.view.activity.TestingChat.utils;
 
-import android.widget.Toast;
-
-import com.example.teenduh.view.activity.model.UserModel;
+import com.example.teenduh.view.activity.TestingChat.model.UserModel;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;

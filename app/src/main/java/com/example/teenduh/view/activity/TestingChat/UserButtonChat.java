@@ -10,13 +10,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.teenduh.R;
-import com.example.teenduh.view.activity.ChatActivity;
-import com.example.teenduh.view.activity.LoginOtpActivity;
-import com.example.teenduh.view.activity.LoginUsernameActivity;
-import com.example.teenduh.view.activity.MainActivity;
-import com.example.teenduh.view.activity.model.UserModel;
-import com.example.teenduh.view.activity.utils.AndroidUtil;
-import com.example.teenduh.view.activity.utils.FirebaseUtil;
+import com.example.teenduh.view.activity.TestingChat.model.UserModel;
+import com.example.teenduh.view.activity.TestingChat.utils.AndroidUtil;
+import com.example.teenduh.view.activity.TestingChat.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -49,7 +45,7 @@ public class UserButtonChat extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_button_chat);
+        setContentView(R.layout.activity_user_button_chat_test);
         buttonA = findViewById(R.id.btn_user_a);
         buttonB = findViewById(R.id.btn_user_b);
         buttonLogout = findViewById(R.id.btn_logout);

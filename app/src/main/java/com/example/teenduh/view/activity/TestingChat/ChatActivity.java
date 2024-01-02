@@ -1,4 +1,4 @@
-package com.example.teenduh.view.activity;
+package com.example.teenduh.view.activity.TestingChat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,32 +7,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.view.activity.adapter.ChatRecyclerAdapter;
-import com.example.teenduh.view.activity.model.ChatMessageModel;
-import com.example.teenduh.view.activity.model.ChatroomModel;
-import com.example.teenduh.view.activity.model.UserModel;
-import com.example.teenduh.view.activity.utils.AndroidUtil;
-import com.example.teenduh.view.activity.utils.FirebaseUtil;
+import com.example.teenduh.view.activity.TestingChat.adapter.ChatRecyclerAdapter;
+import com.example.teenduh.view.activity.TestingChat.model.ChatMessageModel;
+import com.example.teenduh.view.activity.TestingChat.model.ChatroomModel;
+import com.example.teenduh.view.activity.TestingChat.model.UserModel;
+import com.example.teenduh.view.activity.TestingChat.utils.AndroidUtil;
+import com.example.teenduh.view.activity.TestingChat.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-import org.checkerframework.checker.units.qual.C;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.Arrays;
 
 import okhttp3.Call;
@@ -61,7 +57,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_chat_test);
 
         //get UserModel
         otherUser = AndroidUtil.getUserModelFromIntent(getIntent());

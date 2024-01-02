@@ -1,4 +1,4 @@
-package com.example.teenduh.view.activity.adapter;
+package com.example.teenduh.view.activity.TestingChat.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,16 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.teenduh.R;
-import com.example.teenduh.view.activity.ChatActivity;
-import com.example.teenduh.view.activity.model.ChatroomModel;
-import com.example.teenduh.view.activity.model.UserModel;
-import com.example.teenduh.view.activity.utils.AndroidUtil;
-import com.example.teenduh.view.activity.utils.FirebaseUtil;
+import com.example.teenduh.view.activity.TestingChat.ChatActivity;
+import com.example.teenduh.view.activity.TestingChat.model.ChatroomModel;
+import com.example.teenduh.view.activity.TestingChat.model.UserModel;
+import com.example.teenduh.view.activity.TestingChat.utils.AndroidUtil;
+import com.example.teenduh.view.activity.TestingChat.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatroomModel, RecentChatRecyclerAdapter.ChatroomModelViewHolder> {
 
@@ -75,7 +71,7 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<Chatroom
     @NonNull
     @Override
     public ChatroomModelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recent_chat_recycler_row,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recent_chat_recycler_row_test,parent,false);
         return new ChatroomModelViewHolder(view);
     }
 

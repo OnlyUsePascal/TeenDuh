@@ -1,4 +1,4 @@
-package com.example.teenduh.view.activity;
+package com.example.teenduh.view.activity.TestingChat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 

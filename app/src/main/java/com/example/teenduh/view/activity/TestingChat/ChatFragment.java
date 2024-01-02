@@ -1,4 +1,4 @@
-package com.example.teenduh.view.activity;
+package com.example.teenduh.view.activity.TestingChat;
 
 import android.os.Bundle;
 
@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.teenduh.R;
-import com.example.teenduh.view.activity.adapter.RecentChatRecyclerAdapter;
-import com.example.teenduh.view.activity.model.ChatroomModel;
-import com.example.teenduh.view.activity.utils.FirebaseUtil;
+import com.example.teenduh.view.activity.TestingChat.adapter.RecentChatRecyclerAdapter;
+import com.example.teenduh.view.activity.TestingChat.model.ChatroomModel;
+import com.example.teenduh.view.activity.TestingChat.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
@@ -28,7 +28,7 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_chat, container, false);
+        View view =  inflater.inflate(R.layout.fragment_chat_test, container, false);
         recyclerView = view.findViewById(R.id.recyler_view);
         setupRecyclerView();
 

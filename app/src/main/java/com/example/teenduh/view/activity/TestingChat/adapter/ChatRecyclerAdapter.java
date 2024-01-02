@@ -1,12 +1,10 @@
-package com.example.teenduh.view.activity.adapter;
+package com.example.teenduh.view.activity.TestingChat.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.view.activity.model.ChatMessageModel;
-import com.example.teenduh.view.activity.utils.FirebaseUtil;
+import com.example.teenduh.view.activity.TestingChat.model.ChatMessageModel;
+import com.example.teenduh.view.activity.TestingChat.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
@@ -45,7 +43,7 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
     @NonNull
     @Override
     public ChatModelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.chat_message_recycler_row,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.chat_message_recycler_row_test,parent,false);
         return new ChatModelViewHolder(view);
     }
 

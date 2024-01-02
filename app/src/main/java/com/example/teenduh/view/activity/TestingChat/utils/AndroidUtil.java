@@ -1,4 +1,4 @@
-package com.example.teenduh.view.activity.utils;
+package com.example.teenduh.view.activity.TestingChat.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +8,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.teenduh.view.activity.model.UserModel;
-import com.google.firebase.firestore.auth.User;
+import com.example.teenduh.view.activity.TestingChat.model.UserModel;
 
 public class AndroidUtil {
 

@@ -1,4 +1,4 @@
-package com.example.teenduh.view.activity.adapter;
+package com.example.teenduh.view.activity.TestingChat.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.view.activity.ChatActivity;
-import com.example.teenduh.view.activity.model.UserModel;
-import com.example.teenduh.view.activity.utils.AndroidUtil;
-import com.example.teenduh.view.activity.utils.FirebaseUtil;
+import com.example.teenduh.view.activity.TestingChat.ChatActivity;
+import com.example.teenduh.view.activity.TestingChat.model.UserModel;
+import com.example.teenduh.view.activity.TestingChat.utils.AndroidUtil;
+import com.example.teenduh.view.activity.TestingChat.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
@@ -57,7 +57,7 @@ public class SearchUserRecyclerAdapter extends FirestoreRecyclerAdapter<UserMode
     @NonNull
     @Override
     public UserModelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.search_user_recycler_row,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.search_user_recycler_row_test,parent,false);
         return new UserModelViewHolder(view);
     }
 

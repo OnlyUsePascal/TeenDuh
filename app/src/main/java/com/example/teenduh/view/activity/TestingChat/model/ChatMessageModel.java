@@ -1,4 +1,4 @@
-package com.example.teenduh.view.activity.model;
+package com.example.teenduh.view.activity.TestingChat.model;
 
 import com.google.firebase.Timestamp;
 

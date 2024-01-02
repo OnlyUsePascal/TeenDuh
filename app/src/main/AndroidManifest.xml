@@ -64,7 +64,7 @@
             android:resource="@color/my_primary" />
 
         <activity
-            android:name=".view.activity.ChatActivity"
+            android:name=".view.activity.TestingChat.ChatActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -132,7 +132,7 @@
         </activity>
 
         <service
-            android:name=".view.activity.FCMNotificationService"
+            android:name=".view.activity.TestingChat.FCMNotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
