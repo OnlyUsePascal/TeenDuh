@@ -15,26 +15,29 @@
       android:id="@+id/button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Welcome page" />
+      android:onClick="toWelcome"
+      android:text="Welcome page x" />
 
     <Button
       android:id="@+id/button2"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="authenticate" />
+      android:onClick="toAuthLayout"
+      android:text="authenticate (otp x, gg)" />
 
     <Button
       android:id="@+id/button3"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Sign up info" />
+      android:onClick="toSignUp"
+      android:text="Sign up info x" />
 
     <Button
       android:id="@+id/button6"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:onClick="toMainLayout"
-      android:text="main layout" />
+      android:text="main layout x" />
 
     <Button
       android:id="@+id/button4"

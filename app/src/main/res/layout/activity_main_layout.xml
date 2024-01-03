@@ -7,31 +7,30 @@
   tools:context=".view.activity.MainLayout">
 
   <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:id="@+id/frame"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <FrameLayout
       android:id="@+id/container"
-      android:layout_height="wrap_content"
       android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:layout_above="@+id/navbar"
       android:layout_alignParentTop="true"
       />
 
-    <com.google.android.material.card.MaterialCardView
-      android:layout_marginHorizontal="15dp"
-      android:layout_marginBottom="15dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/navbar"
       android:layout_width="match_parent"
-      android:layout_height="60dp"
-      app:cardBackgroundColor="#FFEBD8"
+      android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      app:strokeWidth="2dp"
-      app:strokeColor="@color/black"
-      app:cardCornerRadius="5dp"
-      />
+      android:layout_marginHorizontal="15dp"
+      android:layout_marginBottom="10dp"
+      android:background="@drawable/navbar_bg"
+      app:itemIconSize="30dp"
+      app:itemIconTint="@color/navbar_icon"
+      app:labelVisibilityMode="unlabeled"
+      app:menu="@menu/navbar_menu" />
   </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

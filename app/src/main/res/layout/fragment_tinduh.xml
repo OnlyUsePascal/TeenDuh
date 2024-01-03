@@ -39,8 +39,8 @@
     android:layout_below="@+id/relativeLayout"
     android:layout_alignParentBottom="true"
     app:cardBackgroundColor="#FFE5E5"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="50dp"
     app:strokeColor="@color/black"
-    app:strokeWidth="2dp" />
+    app:strokeWidth="1dp" />
 
 </RelativeLayout>

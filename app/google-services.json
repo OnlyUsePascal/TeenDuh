@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "808273656584",
+    "project_id": "teenduh-t1",
+    "storage_bucket": "teenduh-t1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808273656584:android:a6667202af580735dacabd",
+        "android_client_info": {
+          "package_name": "com.example.teenduh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXCNoyCG7fnT3Zt3nhYFfQTwFkM-XZkPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

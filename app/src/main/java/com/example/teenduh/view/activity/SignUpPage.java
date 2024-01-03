@@ -5,19 +5,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Dialog;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.view.fragment.GenderFragment;
-import com.example.teenduh.view.fragment.NameFragment;
-
-import pl.droidsonroids.gif.GifImageView;
+import com.example.teenduh.view.fragment.signup.NameFragment;
 
 public class SignUpPage extends AppCompatActivity {
     public int currentProgress = 0;
@@ -49,8 +43,10 @@ public class SignUpPage extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment);
         fragmentTransaction.commit();
-        //Add to back stack
-        fragmentTransaction.addToBackStack(fragment.getClass().getName());
+
+        if (!(fragment instanceof NameFragment)) {
+            fragmentTransaction.addToBackStack(fragment.getClass().getName());
+        }
     }
     public void backFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();

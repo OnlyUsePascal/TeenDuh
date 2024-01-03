@@ -1,14 +1,13 @@
 package com.example.teenduh.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.Util;
-import com.example.teenduh.view.fragment.TinDuh;
+import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh.view.activity.auth.AuthLayout;
 
 public class TestFeature extends AppCompatActivity {
   
@@ -19,6 +18,21 @@ public class TestFeature extends AppCompatActivity {
   }
   
   public void toMainLayout(View view){
-    Util._startActivity(this, MainLayout.class);
+    AndroidUtil._startActivity(this, MainLayout.class);
+    
+  }
+  
+  public void toAuthLayout(View view){
+    AndroidUtil._startActivity(this, AuthLayout.class);
+    
+  }
+  
+  public void toWelcome(View view){
+    AndroidUtil._startActivity(this, WelcomeActivity.class);
+    
+  }
+  
+  public void toSignUp(View view){
+    AndroidUtil._startActivity(this, SignUpPage.class);
   }
 }

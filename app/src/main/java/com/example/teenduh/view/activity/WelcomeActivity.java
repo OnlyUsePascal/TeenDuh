@@ -1,7 +1,5 @@
 package com.example.teenduh.view.activity;
 
-import static androidx.core.os.HandlerCompat.postDelayed;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -11,8 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.Image;
-import com.example.teenduh.util.ImageAdapter;
+import com.example.teenduh.model.Image;
+import com.example.teenduh.view.adapter.ImageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
