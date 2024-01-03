@@ -45,7 +45,7 @@ public class MessagesPreviewAdapter extends RecyclerView.Adapter<MessagesPreview
     if (unreadAmount == 0) {
       holder.unreadContainer.setVisibility(View.GONE);
     } else {
-      holder.unreadCount.setText(unreadAmount.toString());
+      holder.unreadCount.setText(unreadAmount < 10 ? unreadAmount.toString() : "9+");
       holder.unreadContainer.setVisibility(View.VISIBLE);
     }
 
