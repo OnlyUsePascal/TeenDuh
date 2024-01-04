@@ -47,7 +47,8 @@ public class BDayFragment extends Fragment {
         });
         nextButton.setOnClickListener(v -> {
             System.out.println(dayValues + " " + monthValues + " " + yearValues);
-            signUpPage.progressBar.setProgress(signUpPage.currentProgress += 30);
+            signUpPage.currentProgress += 10;
+            signUpPage.progressBar.setProgress(signUpPage.currentProgress);
             signUpPage.replaceFragment(new GenderFragment());
         });
         return view;

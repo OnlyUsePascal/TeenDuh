@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background shape for the button -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="#FF4D4F" />
+        </shape>
+    </item>
+
+    <!-- Icon at the center of the button -->
+    <item android:drawable="@drawable/baseline_add_24"
+        android:gravity="center" />
+
+</layer-list>

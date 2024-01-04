@@ -58,6 +58,8 @@ public class DistancePreferenceFragment extends Fragment {
             public void onClick(View v) {
                 signUpPage = (SignUpPage) getActivity();
                 AndroidUtil.getCurUser().setDistancePreference(distancePreference);
+                signUpPage.currentProgress += 10;
+                signUpPage.progressBar.setProgress(signUpPage.currentProgress);
                 signUpPage.replaceFragment(new DemandFragment());
             }
         });

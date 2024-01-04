@@ -66,9 +66,8 @@ public class NameFragment extends Fragment {
             public void onClick(View v) {
                 // Dismiss the dialog when the OK button is clicked
                 dialog.dismiss();
-                signUpPage.currentProgress += 30;
+                signUpPage.currentProgress += 10;
                 signUpPage.progressBar.setProgress(signUpPage.currentProgress);
-                signUpPage.progressBar.setMax(100);
                 AndroidUtil.getCurUser().setName(firstName);
                 signUpPage.replaceFragment(new BDayFragment());
             }
