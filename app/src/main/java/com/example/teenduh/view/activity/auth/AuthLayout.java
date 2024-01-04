@@ -95,10 +95,6 @@ public class AuthLayout extends AppCompatActivity {
 
   }
 
-  public void facebookLogin(View view) {
-    Toast.makeText(this, "facebook login", Toast.LENGTH_SHORT).show();
-  }
-
   public void googleLogin(View view) {
     Toast.makeText(this, "google login", Toast.LENGTH_SHORT).show();
     AndroidUtil._startActivityForResult(AuthLayout.this,

@@ -44,17 +44,6 @@
             android:onClick="googleLogin" />
 
         <Button
-            android:id="@+id/btn_facebook_log_in"
-            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/facebook_circled"
-            android:onClick="facebookLogin"
-            android:text="Log In With Facebook"
-            android:textSize="20sp" />
-
-        <Button
             android:id="@+id/btn_phone_log_in"
             style="@style/Widget.Material3.Button.OutlinedButton.Icon"
             android:layout_width="match_parent"
