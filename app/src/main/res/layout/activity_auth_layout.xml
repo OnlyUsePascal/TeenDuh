@@ -43,6 +43,13 @@
             android:drawableLeft="@drawable/google_circled"
             android:onClick="googleLogin" />
 
+        <com.facebook.login.widget.LoginButton
+          android:id="@+id/login_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="20dp" />
+
         <Button
             android:id="@+id/btn_facebook_log_in"
             style="@style/Widget.Material3.Button.OutlinedButton.Icon"
