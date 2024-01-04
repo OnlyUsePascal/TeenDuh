@@ -94,14 +94,18 @@ public class UserButtonChat extends AppCompatActivity {
     }
 
     void loginAsUserA() {
-        Intent intent = new Intent(UserButtonChat.this, ChatActivity.class);
-        AndroidUtil.passUserModelAsIntent(intent,userB);
+        Intent intent = new Intent(UserButtonChat.this, MainChatActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+//        Intent intent = new Intent(UserButtonChat.this, ChatActivity.class);
+//        AndroidUtil.passUserModelAsIntent(intent,userB);
         startActivity(intent);
     }
 
     void loginAsUserB() {
-        Intent intent = new Intent(UserButtonChat.this, ChatActivity.class);
-        AndroidUtil.passUserModelAsIntent(intent,userA);
+        Intent intent = new Intent(UserButtonChat.this, MainChatActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+//        Intent intent = new Intent(UserButtonChat.this, ChatActivity.class);
+//        AndroidUtil.passUserModelAsIntent(intent,userA);
         startActivity(intent);
     }
 
