@@ -28,9 +28,9 @@
   <string name="default_web_client_id">808273656584-tta8a8rvasoe9tuv6mp4qdpchfv9ocdj.apps.googleusercontent.com</string>
   <string name="web_client_secret">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</string>
 
-  <string name="facebook_app_id">741400340849185</string>
-  <string name="fb_login_protocol_scheme">fb741400340849185</string>
-  <string name="facebook_client_token">741400340849185|qjrRLJph-UJs3wcBAEzd4_iRLBg</string>
+  <string name="facebook_app_id">1234</string>
+  <string name="fb_login_protocol_scheme">fb1234</string>
+  <string name="facebook_client_token">56789</string>
 
   <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
