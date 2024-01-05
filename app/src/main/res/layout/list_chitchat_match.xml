@@ -32,7 +32,7 @@
     android:minWidth="70dp"
     android:maxWidth="100dp"
     android:maxLines="1"
-    android:text=""
+    android:text="Text here"
     android:textColor="@color/black"
     android:textStyle="bold" />
 

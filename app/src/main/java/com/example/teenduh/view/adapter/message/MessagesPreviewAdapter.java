@@ -37,9 +37,10 @@ public class MessagesPreviewAdapter extends RecyclerView.Adapter<MessagesPreview
 
   @Override
   public void onBindViewHolder(@NonNull MessagesPreviewAdapter.ViewHolder holder, int position) {
-    holder.name.setText(messagesList.get(position).getName());
-    holder.messagePreview.setText(messagesList.get(position).getMessagePreview());
-    holder.date.setText(messagesList.get(position).getPreviewDate());
+    MessageViewModel messageViewModel = messagesList.get(position);
+    holder.name.setText(messageViewModel.getName());
+    holder.messagePreview.setText(messageViewModel.getMessagePreview());
+    holder.date.setText(messageViewModel.getPreviewDate());
 
     Integer unreadAmount = unreadAmountList.get(position);
     if (unreadAmount == 0) {
@@ -66,6 +67,7 @@ public class MessagesPreviewAdapter extends RecyclerView.Adapter<MessagesPreview
     private TextView messagePreview;
     private ImageView image;
     private RelativeLayout unreadContainer;
+    
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 

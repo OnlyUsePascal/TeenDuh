@@ -1,4 +1,4 @@
-package com.example.teenduh.model.message;
+package com.example.teenduh.model.message.matches;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,6 @@ public class NewMatchesStore {
   public static void fetch() {
     // TODO: fetch matches from database
     matchesList.clear();
-
     matchesList.add(new NewMatchesViewModel("John Doe", "https://i.imgur.com/1XZV3cj.jpg"));
     matchesList.add(new NewMatchesViewModel("Kevin Nguyen", "https://i.imgur.com/1XZV3cj.jpg"));
     matchesList.add(new NewMatchesViewModel("Khanh Nhu", "https://i.imgur.com/1XZV3cj.jpg"));

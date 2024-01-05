@@ -1,4 +1,4 @@
-package com.example.teenduh.model.message;
+package com.example.teenduh.model.message.matches;
 
 public class NewMatchesViewModel {
   private String name;

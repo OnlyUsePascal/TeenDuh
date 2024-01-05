@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.model.message.NewMatchesViewModel;
+import com.example.teenduh.model.message.matches.NewMatchesViewModel;
 import com.example.teenduh.util.AndroidUtil;
 import com.example.teenduh.view.activity.TestSuccess;
 
