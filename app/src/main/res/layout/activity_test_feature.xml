@@ -37,18 +37,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:onClick="toMainLayout"
-      android:text="main layout x" />
+      android:text="main layout (swipe, chat, profile)" />
 
     <Button
       android:id="@+id/button4"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Permission" />
-
-    <Button
-      android:id="@+id/button5"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="Messaging" />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

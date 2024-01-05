@@ -8,6 +8,7 @@ import android.view.View;
 import com.example.teenduh.R;
 import com.example.teenduh.util.AndroidUtil;
 import com.example.teenduh.view.activity.auth.AuthLayout;
+import com.example.teenduh.view.fragment.message.ChitChat;
 
 public class TestFeature extends AppCompatActivity {
   
@@ -35,4 +36,5 @@ public class TestFeature extends AppCompatActivity {
   public void toSignUp(View view){
     AndroidUtil._startActivity(this, SignUpPage.class);
   }
+  
 }
