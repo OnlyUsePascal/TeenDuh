@@ -6,7 +6,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 
 public class FirebaseUtil {
   private static FirebaseUser user;
-  private static FirebaseAuth firebaseAuth;
+  private static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
   private static PhoneAuthCredential credential;
   
   public static void setCredential(PhoneAuthCredential _credential) {
@@ -23,9 +23,10 @@ public class FirebaseUtil {
   }
   
   public static FirebaseAuth getFirebaseAuth() {
-    if (firebaseAuth == null) {
-      firebaseAuth = FirebaseAuth.getInstance();
-    }
     return firebaseAuth;
+  }
+
+  public static FirebaseUser getUser() {
+    return getFirebaseAuth().getCurrentUser();
   }
 }
