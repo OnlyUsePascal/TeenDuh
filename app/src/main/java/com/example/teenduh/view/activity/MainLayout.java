@@ -10,8 +10,7 @@ import android.widget.FrameLayout;
 
 import com.example.teenduh.R;
 import com.example.teenduh.util.AndroidUtil;
-import com.example.teenduh.view.fragment.ChitChat;
-import com.example.teenduh.view.fragment.MainDashboard2Fragment;
+import com.example.teenduh.view.fragment.message.ChitChat;
 import com.example.teenduh.view.fragment.Profile;
 import com.example.teenduh.view.fragment.TeenDuh;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

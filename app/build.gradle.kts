@@ -69,6 +69,7 @@ dependencies {
   implementation("com.google.firebase:firebase-firestore:24.10.0")
   implementation("com.google.firebase:firebase-analytics")
   implementation("com.google.android.gms:play-services-auth:20.7.0")
+  implementation("com.facebook.android:facebook-login:latest.release")
 
   // international phone number hadling
   implementation("com.fredporciuncula:phonemoji:1.5.2")

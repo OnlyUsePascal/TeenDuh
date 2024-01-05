@@ -10,6 +10,9 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.teenduh.model.User;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class AndroidUtil {
   private static Context context;
   private static User curUser = new User();
@@ -46,6 +49,11 @@ public class AndroidUtil {
     }
     activity.startActivityForResult(intent, code);
   }
+
+  public static void _startActivityForResult(Activity activity, Intent intent
+    , int code) {
+    activity.startActivityForResult(intent, code);
+  }
   
   public static void _hideKeyboardFrom(Context context, View view) {
     InputMethodManager imm = (InputMethodManager)
@@ -56,5 +64,10 @@ public class AndroidUtil {
   public static void _openExternalURL(Context context, String url) {
     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     context.startActivity(intent);
+  }
+
+  public static Date parseDate(int year, int month, int day, int hour, int minute) {
+    return Date.from(LocalDateTime.of(year, month, day, hour, minute).atZone(
+        java.time.ZoneId.systemDefault()).toInstant());
   }
 }
