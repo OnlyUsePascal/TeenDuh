@@ -51,7 +51,7 @@ public class TeenDuh extends Fragment {
   private CardStackView cardStackView;
   Button  btnLike, btnCancel, btnSuperLike;
   GifImageView imageCancel;
-  GifImageView gifLike;
+  GifImageView gifLike, gifSuperLike;
 
   public TeenDuh() {
     context = AndroidUtil.getContext();
@@ -102,13 +102,19 @@ public class TeenDuh extends Fragment {
 
     });
     btnSuperLike.setOnClickListener(v -> {
-        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
-        manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
-                .setDirection(Direction.Top)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(new AccelerateInterpolator())
-                .build());
-        cardStackView.swipe();
+      Handler handler = new Handler();
+        gifSuperLike.setVisibility(View.VISIBLE);
+        gifSuperLike.bringToFront();
+        handler.postDelayed(() -> {
+          manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+          manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+                  .setDirection(Direction.Top)
+                  .setDuration(Duration.Normal.duration)
+                  .setInterpolator(new AccelerateInterpolator())
+                  .build());
+          gifSuperLike.setVisibility(View.INVISIBLE);
+          cardStackView.swipe();
+        }, 1000);
     });
 
 
@@ -124,8 +130,10 @@ public class TeenDuh extends Fragment {
     cardStackView = root.findViewById(R.id.card_stack_view);
     imageCancel = root.findViewById(R.id.nope);
     gifLike = root.findViewById(R.id.like);
+    gifSuperLike = root.findViewById(R.id.superLike);
     gifLike.bringToFront();
     imageCancel.bringToFront();
+    gifSuperLike.bringToFront();
     manager = new CardStackLayoutManager(getContext(), new CardStackListener() {
       @Override
       public void onCardDragging(Direction direction, float ratio) {
