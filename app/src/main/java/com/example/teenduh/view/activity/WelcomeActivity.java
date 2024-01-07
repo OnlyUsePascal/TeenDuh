@@ -11,6 +11,7 @@ import android.os.Handler;
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.view.adapter.ImageAdapter;
+import com.example.teenduh.view.adapter.WelcomeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 public class WelcomeActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
     private List<Image> imageList;
-    private ImageAdapter imageAdapter;
+    private WelcomeAdapter imageAdapter;
     private Handler sliderHandler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
         imageList.add(new Image(R.drawable.modric, "Luka Modric"));
 
 
-        viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
+        viewPager2.setAdapter(new WelcomeAdapter(imageList, viewPager2));
         viewPager2.setOffscreenPageLimit(3);
         viewPager2.setClipChildren(false);
         viewPager2.setClipToPadding(false);
