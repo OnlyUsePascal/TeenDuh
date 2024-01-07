@@ -9,14 +9,93 @@
     app:cardUseCompatPadding="true"
     app:cardPreventCornerOverlap="false"
     app:cardCornerRadius="8dp">
-
-    <ImageView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="30dp"
+            android:id="@+id/firstStage"
+            android:layout_height="5dp"
+            android:layout_margin="10dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:scaleType="centerCrop"
+                android:src="@color/white" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/secondStage"
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:layout_margin="10dp">
+            <ImageView
+                android:id="@+id/secondStageImage"
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:src="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/thirdStage"
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:layout_margin="10dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:src="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fourthStage"
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:layout_margin="10dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:src="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fifthStage"
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:layout_margin="10dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:src="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/sixthStage"
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:layout_margin="10dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/item_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:translationZ="-90dp"/>
-
 
     <LinearLayout
         android:orientation="vertical"

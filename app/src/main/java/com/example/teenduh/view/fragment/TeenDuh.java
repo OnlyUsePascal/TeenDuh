@@ -49,7 +49,8 @@ public class TeenDuh extends Fragment {
   private CardStackLayoutManager manager;
   private CardStackAdapter adapter;
   private CardStackView cardStackView;
-  Button  btnLike, btnCancel, btnSuperLike;
+  TextView btnLike, btnSuperLike, btnCancel;
+
   GifImageView imageCancel;
   GifImageView gifLike, gifSuperLike;
 
@@ -79,7 +80,8 @@ public class TeenDuh extends Fragment {
                   .setInterpolator(new AccelerateInterpolator())
                   .build());
           gifLike.setVisibility(View.INVISIBLE);
-
+          btnCancel.setVisibility(View.VISIBLE);
+          btnSuperLike.setVisibility(View.VISIBLE);
           cardStackView.swipe();
           }, 1000);
 
@@ -137,6 +139,19 @@ public class TeenDuh extends Fragment {
     manager = new CardStackLayoutManager(getContext(), new CardStackListener() {
       @Override
       public void onCardDragging(Direction direction, float ratio) {
+        if(direction == Direction.Right){
+          btnLike.setVisibility(View.VISIBLE);
+          btnCancel.setVisibility(View.INVISIBLE);
+          btnSuperLike.setVisibility(View.INVISIBLE);
+        } else if(direction == Direction.Left){
+          btnSuperLike.setVisibility(View.INVISIBLE);
+          btnCancel.setVisibility(View.VISIBLE);
+          btnLike.setVisibility(View.INVISIBLE);
+        } else if(direction == Direction.Top){
+          btnSuperLike.setVisibility(View.VISIBLE);
+          btnLike.setVisibility(View.INVISIBLE);
+          btnCancel.setVisibility(View.INVISIBLE);
+        }
       }
 
       @Override
@@ -149,7 +164,6 @@ public class TeenDuh extends Fragment {
 //          Toast.makeText(getContext(), "Direction Top", Toast.LENGTH_SHORT).show();
         }
         if (direction == Direction.Left){
-//          Toast.makeText(getContext(), "Direction Left", Toast.LENGTH_SHORT).show();
         }
         if (direction == Direction.Bottom){
 //          Toast.makeText(getContext(), "Direction Bottom", Toast.LENGTH_SHORT).show();
@@ -164,29 +178,33 @@ public class TeenDuh extends Fragment {
 
       @Override
       public void onCardRewound() {
-
+          btnCancel.setVisibility(View.VISIBLE);
+          btnSuperLike.setVisibility(View.VISIBLE);
+          btnLike.setVisibility(View.VISIBLE);
       }
 
       @Override
       public void onCardCanceled() {
-        Log.d(TAG, "onCardRewound: " + manager.getTopPosition());
+        btnCancel.setVisibility(View.VISIBLE);
+        btnSuperLike.setVisibility(View.VISIBLE);
+        btnLike.setVisibility(View.VISIBLE);
       }
 
       @Override
       public void onCardAppeared(View view, int position) {
-        TextView tv = view.findViewById(R.id.item_name);
-        Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
+        btnCancel.setVisibility(View.VISIBLE);
+        btnSuperLike.setVisibility(View.VISIBLE);
+        btnLike.setVisibility(View.VISIBLE);
       }
 
       @Override
       public void onCardDisappeared(View view, int position) {
         TextView tv = view.findViewById(R.id.item_name);
-        Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
       }
     });
     manager.setStackFrom(StackFrom.None);
     manager.setVisibleCount(3);
-    manager.setTranslationInterval(8.0f);
+    manager.setTranslationInterval(12.0f);
     manager.setScaleInterval(0.95f);
     manager.setSwipeThreshold(0.3f);
     manager.setMaxDegree(20.0f);
@@ -194,7 +212,7 @@ public class TeenDuh extends Fragment {
     manager.setCanScrollHorizontal(true);
     manager.setSwipeableMethod(SwipeableMethod.Manual);
     manager.setOverlayInterpolator(new LinearInterpolator());
-    adapter = new CardStackAdapter(addList());
+    adapter = new CardStackAdapter(addList(), getContext());
     cardStackView.setLayoutManager(manager);
     cardStackView.setAdapter(adapter);
     cardStackView.setItemAnimator(new DefaultItemAnimator());

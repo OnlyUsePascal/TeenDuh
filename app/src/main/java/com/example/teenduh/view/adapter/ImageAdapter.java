@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -33,10 +34,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         holder.imageView.setImageResource(imageList.get(position).getImage());
-        holder.textView.setText(imageList.get(position).getText());
-        if(position == imageList.size() - 2){
-            viewPager2.post(runnable);
-        }
     }
 
     @Override
@@ -46,18 +43,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     public class ImageViewHolder extends RecyclerView.ViewHolder{
         private ImageView imageView;
-        private TextView textView;
+
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
-            textView = itemView.findViewById(R.id.textView);
         }
     }
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            imageList.addAll(imageList);
-            notifyDataSetChanged();
-        }
-    };
+
 }
