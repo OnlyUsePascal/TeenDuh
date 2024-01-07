@@ -1,5 +1,6 @@
 package com.example.teenduh.view.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -26,7 +27,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.adapter.ImageAdapter;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Profile extends Fragment {
-  Context context;
+  Activity activity;
   Button buttonSuperLike;
   Button buttonSuperFind;
   boolean isProceedPayment;
@@ -51,7 +52,7 @@ public class Profile extends Fragment {
   };
   
   public Profile() {
-    context = AndroidUtil.getContext();
+    activity = AndroidUtil.getActivity();
     sliderHandler = new Handler();
     
   }
@@ -65,12 +66,12 @@ public class Profile extends Fragment {
     progressIndicator = view.findViewById(R.id.progressBar);
     
     buttonSuperLike.setOnClickListener(v -> {
-      Toast.makeText(context, "Super Like", Toast.LENGTH_SHORT).show();
+      Toast.makeText(activity, "Super Like", Toast.LENGTH_SHORT).show();
       showSuperLikeDialog();
     });
     
     buttonSuperFind.setOnClickListener(v -> {
-      Toast.makeText(context, "Super Find", Toast.LENGTH_SHORT).show();
+      Toast.makeText(activity, "Super Find", Toast.LENGTH_SHORT).show();
       showSuperLikeDialog();
     });
     
@@ -193,14 +194,14 @@ public class Profile extends Fragment {
         public void onProceedClicked() {
           // Handle proceed action
           // You can return a value or perform any needed action here
-          Toast.makeText(context, "Sucessfully!", Toast.LENGTH_SHORT).show();
+          Toast.makeText(activity, "Sucessfully!", Toast.LENGTH_SHORT).show();
           showSuperLikeDialog();
           isProceedPayment = true;
         }
         
         @Override
         public void onCancelClicked() {
-          Toast.makeText(context, "You cancel the payment!", Toast.LENGTH_SHORT).show();
+          Toast.makeText(activity, "You cancel the payment!", Toast.LENGTH_SHORT).show();
           showSuperLikeDialog();
           // Handle cancel action
           isProceedPayment = false;
@@ -208,7 +209,7 @@ public class Profile extends Fragment {
         
         @Override
         public void onReturnClicked() {
-          Toast.makeText(context, "You return to payment!", Toast.LENGTH_SHORT).show();
+          Toast.makeText(activity, "You return to payment!", Toast.LENGTH_SHORT).show();
           showSuperLikeDialog();
           // Handle cancel action
           isProceedPayment = false;
@@ -222,14 +223,14 @@ public class Profile extends Fragment {
         public void onProceedClicked() {
           // Handle proceed action
           // You can return a value or perform any needed action here
-          Toast.makeText(context, "You proceed to deposit payment!", Toast.LENGTH_SHORT).show();
+          Toast.makeText(activity, "You proceed to deposit payment!", Toast.LENGTH_SHORT).show();
           showSuperLikeDialog();
           isDeposit = true;
         }
         
         @Override
         public void onCancelClicked() {
-          Toast.makeText(context, "You cancel deposit!", Toast.LENGTH_SHORT).show();
+          Toast.makeText(activity, "You cancel deposit!", Toast.LENGTH_SHORT).show();
           showSuperLikeDialog();
           // Handle cancel action
           isDeposit = false;
@@ -237,7 +238,7 @@ public class Profile extends Fragment {
         
         @Override
         public void onReturnClicked() {
-          Toast.makeText(context, "You return to payment!", Toast.LENGTH_SHORT).show();
+          Toast.makeText(activity, "You return to payment!", Toast.LENGTH_SHORT).show();
           showSuperLikeDialog();
           // Handle cancel action
           isDeposit = false;
@@ -255,7 +256,7 @@ public class Profile extends Fragment {
     dialog.setContentView(R.layout.proceed_payment_layout);
     
     dialog.setOnCancelListener(dialogInterface -> {
-      Toast.makeText(context, "You cancel the payment!", Toast.LENGTH_SHORT).show();
+      Toast.makeText(activity, "You cancel the payment!", Toast.LENGTH_SHORT).show();
       showSuperLikeDialog();
     });
     
@@ -269,7 +270,7 @@ public class Profile extends Fragment {
     buttonProceed.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Toast.makeText(context, "Proceed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Proceed", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
 //                showProceedPaymentDialog(coin,callback);
         callback.onProceedClicked(); // Invoke the callback
@@ -279,7 +280,7 @@ public class Profile extends Fragment {
     buttonCancel.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Toast.makeText(context, "Cancel", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Cancel", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
 //                showProceedPaymentDialog(coin,callback);
         callback.onCancelClicked(); // Invoke the callback
@@ -309,7 +310,7 @@ public class Profile extends Fragment {
     dialog.setContentView(R.layout.deposit_layout);
     
     dialog.setOnCancelListener(dialogInterface -> {
-      Toast.makeText(context, "You cancel deposit!", Toast.LENGTH_SHORT).show();
+      Toast.makeText(activity, "You cancel deposit!", Toast.LENGTH_SHORT).show();
       showSuperLikeDialog();
     });
     
@@ -323,7 +324,7 @@ public class Profile extends Fragment {
     buttonYes.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Toast.makeText(context, "Yes", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Yes", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
         callback.onProceedClicked(); // Invoke the callback
       }
@@ -332,7 +333,7 @@ public class Profile extends Fragment {
     buttonNo.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Toast.makeText(context, "No", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "No", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
         callback.onCancelClicked(); // Invoke the callback
       }

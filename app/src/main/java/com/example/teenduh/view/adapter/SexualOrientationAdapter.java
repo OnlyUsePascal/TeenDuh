@@ -27,7 +27,7 @@ public class SexualOrientationAdapter extends RecyclerView.Adapter<SexualOrienta
     @NonNull
     @Override
     public SexualOrientationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_orientation_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_orientation_layout, parent, false);
         return new SexualOrientationAdapter.ViewHolder(view);
     }
 

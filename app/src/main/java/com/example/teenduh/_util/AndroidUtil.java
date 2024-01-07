@@ -1,0 +1,233 @@
+package com.example.teenduh._util;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.teenduh.R;
+import com.example.teenduh.model.User;
+import com.example.teenduh.model.message.Chat;
+import com.example.teenduh.model.message.ChatRoom;
+import com.example.teenduh.view.adapter.message.ChatAdapter;
+import com.google.firebase.Firebase;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
+public class AndroidUtil {
+  private static Activity activity;
+  private static User curUser;
+  private static ChatRoom curChatRoom;
+  private static List<User> users;
+  private static List<ChatRoom> chatRooms;
+  private static List<Chat> chats;
+  private static RecyclerView chatView;
+  private static ChatAdapter chatAdapter;
+  
+  public static ChatAdapter getChatAdapter() {
+    return chatAdapter;
+  }
+  
+  public static void setChatAdapter(ChatAdapter chatAdapter) {
+    AndroidUtil.chatAdapter = chatAdapter;
+  }
+  
+  public static List<Chat> getChats() {
+    return chats;
+  }
+  
+  public static void setChats(List<Chat> chats) {
+    AndroidUtil.chats = chats;
+  }
+  
+  public static RecyclerView getChatView() {
+    return chatView;
+  }
+  
+  public static void setChatView(RecyclerView chatView) {
+    AndroidUtil.chatView = chatView;
+  }
+  
+  public static Activity getActivity() { return activity; }
+  
+  public static void setActivity(Activity activity) {
+    AndroidUtil.activity = activity;
+  }
+
+  
+  public static void init(Activity activity) {
+    AndroidUtil.activity = activity;
+    users = new ArrayList<>();
+    chatRooms = new ArrayList<>();
+    
+    // curUser = new User();
+    fetchUsers(null);
+  }
+  
+  public static ChatRoom getCurChatRoom() {
+    return curChatRoom;
+  }
+  
+  public static void setCurChatRoom(ChatRoom curChatRoom) {
+    AndroidUtil.curChatRoom = curChatRoom;
+  }
+  
+  public static List<User> getUsers() {
+    return users;
+  }
+  
+  public static void setUsers(List<User> users) {
+    AndroidUtil.users = users;
+  }
+  
+  public static List<ChatRoom> getChatRooms() {
+    return chatRooms;
+  }
+  
+  public static void setChatRooms(List<ChatRoom> chatRooms) {
+    AndroidUtil.chatRooms = chatRooms;
+  }
+  
+  public static User getCurUser() {
+    return curUser;
+  }
+  
+  public static void setCurUser(User curUser) {
+    AndroidUtil.curUser = curUser;
+  }
+  
+  public static User getUser(String id){
+    for (User user : users){
+      if (user.getId().equals(id)){
+        return user;
+      }
+    }
+    
+    return null;
+  }
+  
+  public static void setCurUser(String uid){
+    System.out.println("cur user " + uid);
+    for (User user : users) {
+      if (user.getId().equals(uid)) {
+        curUser = user;
+        return;
+      }
+    }
+  }
+  
+  public static void _startActivity(Context context, Class<?> target) {
+    Intent intent = new Intent(context, target);
+    context.startActivity(intent);
+  }
+  
+  public static void _startActivityForResult(Activity activity, Class<?> target
+      , Bundle bundle, int code) {
+    Intent intent = new Intent(activity, target);
+    if (bundle != null) {
+      intent.putExtras(bundle);
+    }
+    activity.startActivityForResult(intent, code);
+  }
+  
+  public static void _startActivityForResult(Activity activity, Intent intent
+      , int code) {
+    activity.startActivityForResult(intent, code);
+  }
+  
+  public static void _hideKeyboardFrom(Context context, View view) {
+    InputMethodManager imm = (InputMethodManager)
+                                 context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+  }
+  
+  public static void _openExternalURL(Context context, String url) {
+    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+    context.startActivity(intent);
+  }
+  
+  public static Date parseDate(int year, int month, int day, int hour, int minute) {
+    return Date.from(LocalDateTime.of(year, month, day, hour, minute).atZone(
+        java.time.ZoneId.systemDefault()).toInstant());
+  }
+  
+  public static void fetchUsers(Runnable runnable){
+    FirebaseUtil.fetchUsers(documentSnapshots -> {
+      for (DocumentSnapshot documentSnapshot : documentSnapshots){
+        String name = documentSnapshot.getString("name");
+        String fcm = documentSnapshot.getString("fcm");
+        String uid = documentSnapshot.getId();
+        
+        if (fcm == null) fcm = "blank";
+        User user = new User(uid, name, fcm);
+        users.add(user);
+      }
+      
+      System.out.println(users);
+      if (runnable != null) runnable.run();
+    });
+  }
+  
+  public static void fetchChatRooms(Runnable runnable){
+    chatRooms = new ArrayList<>();
+    FirebaseUtil.fetchChatRooms(documentSnapshots -> {
+      for (DocumentSnapshot documentSnapshot : documentSnapshots){
+        Timestamp lastAct = documentSnapshot.getTimestamp("lastActive");
+        String lastMess = documentSnapshot.getString("lastMess");
+        int lastSender =  documentSnapshot.getDouble("lastSender").intValue();
+        List<String> uids = (List<String>) documentSnapshot.get("users");
+        String id = documentSnapshot.getId();
+        
+        ChatRoom chatRoom = new ChatRoom(id, uids, lastAct, lastMess, lastSender);
+        chatRooms.add(chatRoom);
+      }
+      
+      System.out.println(chatRooms);
+      runnable.run();
+    });
+  }
+  
+  public static void fetchChats(Runnable runnable){
+    FirebaseUtil.fetchChats(documentSnapshots -> {
+      List<Chat> chats = new ArrayList<>();
+      for (DocumentSnapshot documentSnapshot : documentSnapshots){
+        String id = documentSnapshot.getId();
+        int user = documentSnapshot.getDouble("sender").intValue();
+        Timestamp timestamp = documentSnapshot.getTimestamp("time");
+        String mess = documentSnapshot.getString("mess");
+        
+        Chat chat = new Chat(id, mess, timestamp, user);
+        chats.add(chat);
+      }
+      
+      curChatRoom.setChats(chats);
+      System.out.println(chats);
+      if (runnable != null) runnable.run();
+    });
+  }
+  
+  public static void loginEmail(int btnId, Runnable runnable){
+    String mail = (btnId == R.id.button13) ? "usera@mail.com" : "userb@mail.com";
+    String pwd = "123123";
+    
+    FirebaseUtil.loginEmail(mail, pwd, () -> {
+      setCurUser(FirebaseUtil.getCurUser().getUid());
+      // TODO CHANGE FCM
+      HashMap<String, Object> data = new HashMap<>();
+      data.put("fcm", FirebaseUtil.getFcm());
+      FirebaseUtil.updateUser(curUser.getId(), data, runnable);
+    });
+  }
+}

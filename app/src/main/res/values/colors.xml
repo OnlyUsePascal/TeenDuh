@@ -62,15 +62,17 @@
   <color name="md_theme_dark_surfaceTint">#FFB3B5</color>
   <color name="md_theme_dark_outlineVariant">#524343</color>
   <color name="md_theme_dark_scrim">#000000</color>
-  <color name="purple_200">#FFBB86FC</color>
-  <color name="purple_500">#FF6200EE</color>
-  <color name="purple_700">#FF3700B3</color>
-  <color name="teal_200">#FF03DAC5</color>
-  <color name="teal_700">#FF018786</color>
-  <color name="black">#FF000000</color>
-  <color name="white">#FFFFFFFF</color>
   <color name="grey">#F2F0F6</color>
-  <color name="red">#D7849A</color>
   <color name="light_white">#D2D2D2</color>
   <color name="pink1">#FF90BC</color>
+  <color name="green">#4CAF50</color>
+  <color name="my_primary">#FF5964</color>
+  <color name="my_secondary">#FFE74C</color>
+  <color name="off_white">#FAFAFA</color>
+  <color name="light_gray">#C3C3C3</color>
+  <color name="chat_color_sender">#1E88E5</color>
+  <color name="chat_color_receiver">#7CB342</color>
+  <color name="black">#41444B</color>
+  <color name="white">#F9F5F6</color>
+  <color name="red">#FF8080</color>
 </resources>

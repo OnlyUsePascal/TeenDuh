@@ -1,4 +1,4 @@
-package com.example.teenduh.model.message.matches;
+package com.example.teenduh.model.matches;
 
 import java.util.ArrayList;
 import java.util.List;

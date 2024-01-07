@@ -12,11 +12,9 @@
   <string name="login_failed">"Login failed"</string>
   <string name="terms_of_service"><u>Terms of Service</u></string>
   <string name="privacy_policy"><u>Privacy Policy</u></string>
-
   <string name="phone_number_form_title">Enter phone number</string>
   <string name="phone_number_form_description">We need your phone number to confirm your identity. Once you enter it, you\'ll receive a 6-digit code to verify your account</string>
   <string name="phone_number_invalid">Invalid phone number. Please try again</string>
-
   <string name="verify_otp_form_title">Enter 6-digit code</string>
   <string name="verify_otp_form_description">We\'ve just sent you the code. Type it below to finish verification</string>
   <string name="verify_otp_invalid">Invalid code. Please try again</string>
@@ -24,13 +22,13 @@
   // TODO: Change these URLs
   <string name="terms_of_service_url">https://www.termsfeed.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
   <string name="privacy_policy_url">https://www.privacypolicies.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
-
   <string name="default_web_client_id">808273656584-tta8a8rvasoe9tuv6mp4qdpchfv9ocdj.apps.googleusercontent.com</string>
   <string name="web_client_secret">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</string>
-
   <string name="facebook_app_id">1234</string>
   <string name="fb_login_protocol_scheme">fb1234</string>
   <string name="facebook_client_token">56789</string>
+  <string name="cloud_mess_key">key=AAAAvDDdOwg:APA91bEfkGLdpigmZcT1KSn5F8nGhZqIB_eqkRmvw09E04Z6P84A7Wx5bxa7rbcdSgvy6VE0FwyDQMX4Mq1Lnex1zPDB33GoozflfjjXtIsOvv5QmaIwliyJSP-DMa6M10cABW2-LxCm</string>
+
 
   <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

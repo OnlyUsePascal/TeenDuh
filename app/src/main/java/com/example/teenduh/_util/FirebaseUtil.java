@@ -1,0 +1,176 @@
+package com.example.teenduh._util;
+
+import android.content.Context;
+
+import com.example.teenduh.model.message.Chat;
+import com.example.teenduh.model.message.ChatRoom;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.Consumer;
+
+public class FirebaseUtil {
+  private static Context context;
+  private static FirebaseUser curUser;
+  private static FirebaseFirestore firestore;
+  private static FirebaseMessaging messaging;
+  private static FirebaseAuth auth;
+  private static PhoneAuthCredential credential;
+  private static String fcm;
+  
+  public static void init() {
+    auth = FirebaseAuth.getInstance();
+    messaging = FirebaseMessaging.getInstance();
+    firestore = FirebaseFirestore.getInstance();
+    auth = FirebaseAuth.getInstance();
+    _getFcm();
+  }
+  
+  public static void _getFcm() {
+    messaging.getToken().addOnCompleteListener(task -> {
+      if (!task.isSuccessful()) {
+        task.getException().printStackTrace();
+        return;
+      }
+      
+      fcm = task.getResult();
+      System.out.println("fcm:" + task.getResult());
+    });
+  }
+  
+  public static void setFcm(String fcm) {
+    FirebaseUtil.fcm = fcm;
+  }
+  
+  public static String getFcm() {
+    return fcm;
+  }
+  
+  public static void setCredential(PhoneAuthCredential _credential) {
+    credential = _credential;
+  }
+  
+  public static void setCurUser(FirebaseUser _user) {
+    curUser = _user;
+  }
+  
+  public static void loginEmail(String mail, String pwd, Runnable cb) {
+    auth.signOut();
+    auth.signInWithEmailAndPassword(mail, pwd)
+        .addOnCompleteListener(task -> {
+          setCurUser(auth.getCurrentUser());
+          cb.run();
+        });
+  }
+  
+  public static PhoneAuthCredential getCredential() {
+    return credential;
+    
+  }
+  
+  public static FirebaseAuth getAuth() {
+    return auth;
+    
+  }
+  
+  public static FirebaseUser getCurUser() {
+    return getAuth().getCurrentUser();
+    
+  }
+  
+  public static void updateChatRoom(HashMap<String, Object> data, Runnable runnable) {
+    ChatRoom chatRoom = AndroidUtil.getCurChatRoom();
+    firestore.collection("chatRooms")
+        .document(chatRoom.getId())
+        .update(data).addOnCompleteListener(task -> {
+          if (!task.isSuccessful()) {
+            task.getException().printStackTrace();
+            return;
+          }
+          
+          if (runnable != null) runnable.run();
+        });
+  }
+  
+  public static void addChat(HashMap<String, Object> chat, Runnable runnable) {
+    ChatRoom chatRoom = AndroidUtil.getCurChatRoom();
+    firestore.collection("chatRooms")
+        .document(chatRoom.getId())
+        .collection("chats")
+        .add(chat).addOnCompleteListener(task -> {
+          if (!task.isSuccessful()) {
+            task.getException().printStackTrace();
+            return;
+          }
+          
+          HashMap<String, Object> data = new HashMap<>();
+          data.put("lastMess", chat.get("mess"));
+          data.put("lastActive", chat.get("time"));
+          data.put("lastSender", chat.get("sender"));
+          updateChatRoom(data, runnable);
+        });
+  }
+  
+  public static void updateUser(String id, HashMap<String, Object> data, Runnable runnable) {
+    firestore.collection("users").document(id)
+        .update(data)
+        .addOnCompleteListener(task -> {
+          if (!task.isSuccessful()) {
+            task.getException().printStackTrace();
+            return;
+          }
+          
+          if (runnable != null) runnable.run();
+        });
+  }
+  
+  public static void fetchUsers(Consumer<List<DocumentSnapshot>> cb) {
+    firestore.collection("users")
+        .get()
+        .addOnCompleteListener(task -> {
+          if (!task.isSuccessful()) {
+            task.getException().printStackTrace();
+            return;
+          }
+          cb.accept(task.getResult().getDocuments());
+        });
+  }
+  
+  public static void fetchChatRooms(Consumer<List<DocumentSnapshot>> cb) {
+    firestore.collection("chatRooms")
+        .whereArrayContains("users", AndroidUtil.getCurUser().getId())
+        .orderBy("lastActive", Query.Direction.DESCENDING)
+        .get()
+        .addOnCompleteListener(task -> {
+          if (!task.isSuccessful()) {
+            task.getException().printStackTrace();
+            return;
+          }
+          cb.accept(task.getResult().getDocuments());
+        });
+  }
+  
+  public static void fetchChats(Consumer<List<DocumentSnapshot>> cb) {
+    firestore.collection("chatRooms")
+        .document(AndroidUtil.getCurChatRoom().getId())
+        .collection("chats")
+        .orderBy("time", Query.Direction.ASCENDING)
+        .get()
+        .addOnCompleteListener(task -> {
+          if (!task.isSuccessful()) {
+            task.getException().printStackTrace();
+            return;
+          }
+          cb.accept(task.getResult().getDocuments());
+        });
+  }
+  
+  
+}

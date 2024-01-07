@@ -9,7 +9,8 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.view.fragment.message.ChitChat;
 import com.example.teenduh.view.fragment.Profile;
 import com.example.teenduh.view.fragment.TeenDuh;
@@ -26,7 +27,7 @@ public class MainLayout extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main_layout);
-    AndroidUtil.setContext(this);
+    AndroidUtil.setActivity(this);
     
     frameLayout = findViewById(R.id.container);
     navBar = findViewById(R.id.navbar);
@@ -35,6 +36,9 @@ public class MainLayout extends AppCompatActivity {
     fragChitChat = new ChitChat();
     fragProfile = new Profile();
     initNavBar();
+  
+    FirebaseUtil.init();
+    AndroidUtil.init(this);
   }
   
   @Override

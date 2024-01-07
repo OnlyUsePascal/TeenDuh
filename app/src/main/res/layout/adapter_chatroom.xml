@@ -30,6 +30,7 @@
     android:gravity="center_vertical">
 
     <LinearLayout
+      android:layout_marginTop="-5dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
@@ -38,8 +39,7 @@
 
       <TextView
         android:id="@+id/name"
-        android:minWidth="70dp"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:layout_weight="1"
@@ -52,11 +52,10 @@
 
       <TextView
         android:id="@+id/date"
-        android:maxWidth="80dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15dp"
-        android:text=""
+        android:text="Aug 22"
         android:gravity="end"
         android:textColor="@color/design_default_color_on_secondary" />
 
@@ -85,7 +84,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:id="@+id/unreadContainer"
-          android:visibility="gone">
+          android:visibility="gone"
+          >
 
           <ImageView
             android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
             android:id="@+id/unreadCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="2"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="13dp"

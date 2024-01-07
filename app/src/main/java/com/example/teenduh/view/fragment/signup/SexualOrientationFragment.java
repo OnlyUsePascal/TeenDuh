@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.teenduh.view.adapter.SexualOrientationAdapter;
 import com.example.teenduh.R;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.SexualOrientation;
 import com.example.teenduh.view.activity.SignUpPage;
 

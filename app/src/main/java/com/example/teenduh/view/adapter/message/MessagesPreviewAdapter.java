@@ -11,18 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.model.message.MessageViewModel;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh.model.message._MessageViewModel;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.activity.TestSuccess;
 
 import java.util.List;
 
 public class MessagesPreviewAdapter extends RecyclerView.Adapter<MessagesPreviewAdapter.ViewHolder> {
-  private List<MessageViewModel> messagesList;
+  private List<_MessageViewModel> messagesList;
   private List<Integer> unreadAmountList;
   private View mView;
 
-  public MessagesPreviewAdapter(List<MessageViewModel> messagesList, List<Integer> unreadAmountList, View view) {
+  public MessagesPreviewAdapter(List<_MessageViewModel> messagesList, List<Integer> unreadAmountList, View view) {
     this.messagesList = messagesList;
     this.unreadAmountList = unreadAmountList;
     this.mView = view;
@@ -31,13 +31,13 @@ public class MessagesPreviewAdapter extends RecyclerView.Adapter<MessagesPreview
   @NonNull
   @Override
   public MessagesPreviewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chitchat_messages, parent, false);
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_chatroom, parent, false);
     return new MessagesPreviewAdapter.ViewHolder(view);
   }
 
   @Override
   public void onBindViewHolder(@NonNull MessagesPreviewAdapter.ViewHolder holder, int position) {
-    MessageViewModel messageViewModel = messagesList.get(position);
+    _MessageViewModel messageViewModel = messagesList.get(position);
     holder.name.setText(messageViewModel.getName());
     holder.messagePreview.setText(messageViewModel.getMessagePreview());
     holder.date.setText(messageViewModel.getPreviewDate());

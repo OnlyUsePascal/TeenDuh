@@ -1,6 +1,6 @@
 package com.example.teenduh.view.fragment.message;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,66 +12,90 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.model.message.MessageViewModel;
-import com.example.teenduh.model.message.MessagesPreviewStore;
-import com.example.teenduh.model.message.matches.NewMatchesStore;
-import com.example.teenduh.model.message.matches.NewMatchesViewModel;
-import com.example.teenduh.util.AndroidUtil;
-import com.example.teenduh.view.adapter.message.MessagesPreviewAdapter;
-import com.example.teenduh.view.adapter.message.NewMatchesAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh.view.adapter.message.ChatRoomAdapter;
 
 public class ChitChat extends Fragment {
-  private Context context;
-  RecyclerView matches;
-  RecyclerView messages;
-  List<NewMatchesViewModel> matchesList = new ArrayList<>();
-  List<MessageViewModel> messagesList = new ArrayList<>();
-  List<Integer> unreadAmountList = new ArrayList<>();
-  
+  private Activity activity;
+  private RecyclerView chatRoomViews;
+  private RecyclerView matchViews;
+  private ChatRoomAdapter adapter;
+  private TextView user;
+  private Button stat;
+
   
   public ChitChat() {
-    // Required empty public constructor
-    context = AndroidUtil.getContext();
-  
-    initData();
-  }
-  
-  private void initData() {
-    NewMatchesStore.fetch();
-    MessagesPreviewStore.fetch();
-    
-    matchesList = NewMatchesStore.getMatchesList();
-    messagesList = MessagesPreviewStore.getMessagesList();
+    // matches = new ArrayList<>();
   }
   
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     View view =  inflater.inflate(R.layout.fragment_chit_chat, container, false);
+  
+    user = view.findViewById(R.id.textView2);
+    chatRoomViews = view.findViewById(R.id.messages);
+    matchViews = view.findViewById(R.id.matches);
+    stat = view.findViewById(R.id.button7);
+    view.findViewById(R.id.button13).setOnClickListener(this::testLogin);
+    view.findViewById(R.id.button14).setOnClickListener(this::testLogin);
+    view.findViewById(R.id.button15).setOnClickListener(this::getChatRooms);
     
-    matches = view.findViewById(R.id.matches);
-    matches.setLayoutManager(new
-      LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-    matches.setAdapter(new NewMatchesAdapter(matchesList, view));
+    activity = AndroidUtil.getActivity();
+    // getChatRooms();
     
-    messages = view.findViewById(R.id.messages);
-    messages.setLayoutManager(new
-      LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-
-    unreadAmountList = MessagesPreviewStore.getUnreadAmountList();
-    messages.setAdapter(new MessagesPreviewAdapter(messagesList, unreadAmountList, view));
+    // user.setText(AndroidUtil.getCurUser().getName());
+    
+    // match
+    // matchViews = view.findViewById(R.id.matches);
+    // matchViews.setLayoutManager(new
+    //   LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
+    // matchViews.setAdapter(new NewMatchesAdapter(matches, view));
+    
+    // chat room
+    // ChatRoomAdapter adapter = new ChatRoomAdapter();
+    // chatRoomViews.setLayoutManager(new
+    //   LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+    // unreadAmountList = MessagesPreviewStore.getUnreadAmountList();
+    // messages.setAdapter(new MessagesPreviewAdapter(messagesList, unreadAmountList, view));
+    
     return view;
   }
   
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    matches = view.findViewById(R.id.matches);
-    messages = view.findViewById(R.id.messages);
   }
+  
+  public void getChatRooms(View view){
+    if (AndroidUtil.getCurUser() == null) {
+      System.out.println("cur user null");
+      return;
+    }
+    
+    stat.setText("Stand by");
+    AndroidUtil.fetchChatRooms(() -> {
+      stat.setText("Have fun");
+      
+      adapter = new ChatRoomAdapter();
+      chatRoomViews.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.VERTICAL, false));
+      chatRoomViews.setAdapter(adapter);
+    });
+  }
+  
+  public void testLogin(View view){
+    int btnId = view.getId();
+    stat.setText("wait a minute");
+  
+    AndroidUtil.loginEmail(btnId, () -> {
+      stat.setText("user:" + AndroidUtil.getCurUser().getName());
+    });
+  }
+  
+  // TODO ON RESUME FOR FRAGMENT
 }

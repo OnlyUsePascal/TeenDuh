@@ -1,5 +1,6 @@
 package com.example.teenduh.view.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh._util.AndroidUtil;
 
 public class TeenDuh extends Fragment {
-  Context context;
+  Activity activity;
   
   public TeenDuh() {
-    context = AndroidUtil.getContext();
+    activity = AndroidUtil.getActivity();
   }
   
   @Nullable

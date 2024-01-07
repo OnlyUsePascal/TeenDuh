@@ -1,23 +1,22 @@
 package com.example.teenduh.model.message;
 
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh._util.AndroidUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class MessagesPreviewStore {
-  public static HashMap<String, MessageViewModel> messagesPreviewMap = new HashMap<>();
+public class _MessagesPreviewStore {
+  public static HashMap<String, _MessageViewModel> messagesPreviewMap = new HashMap<>();
   public static HashMap<String, Integer> unreadAmountMap = new HashMap<>();
 
-  public static void addMessage(MessageViewModel message) {
+  public static void addMessage(_MessageViewModel message) {
     // TODO: add message to database
     unreadAmountMap.merge(message.getSenderUid(), message.getUnread() ? 1 : 0, Integer::sum);
     messagesPreviewMap.put(message.getSenderUid(), message);
   }
 
-  public static List<MessageViewModel> getMessagesList() {
+  public static List<_MessageViewModel> getMessagesList() {
     return new ArrayList<>(messagesPreviewMap.values());
   }
 
@@ -29,7 +28,7 @@ public class MessagesPreviewStore {
     // TODO: fetch messages from database
     messagesPreviewMap.clear();
 
-    addMessage(new MessageViewModel(
+    addMessage(new _MessageViewModel(
       "1",
       "10",
       "20",
@@ -40,7 +39,7 @@ public class MessagesPreviewStore {
       true)
     );
 
-    addMessage(new MessageViewModel(
+    addMessage(new _MessageViewModel(
       "2",
       "11",
       "20",
@@ -51,7 +50,7 @@ public class MessagesPreviewStore {
       false)
     );
 
-    addMessage(new MessageViewModel(
+    addMessage(new _MessageViewModel(
       "3",
       "12",
       "20",
@@ -62,7 +61,7 @@ public class MessagesPreviewStore {
       true)
     );
 
-    addMessage(new MessageViewModel(
+    addMessage(new _MessageViewModel(
       "4",
       "13",
       "20",
@@ -73,7 +72,7 @@ public class MessagesPreviewStore {
       false)
     );
 
-    addMessage(new MessageViewModel(
+    addMessage(new _MessageViewModel(
       "5",
       "12",
       "20",

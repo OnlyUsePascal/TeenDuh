@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.model.message.matches.NewMatchesViewModel;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh.model.matches.NewMatchesViewModel;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.activity.TestSuccess;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class NewMatchesAdapter extends RecyclerView.Adapter<NewMatchesAdapter.Vi
   @NonNull
   @Override
   public NewMatchesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chitchat_match, parent, false);
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_chitchat_match, parent, false);
     return new NewMatchesAdapter.ViewHolder(view);
   }
 

@@ -1,13 +1,10 @@
 package com.example.teenduh.view.fragment.signup;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.activity.SignUpPage;
 import com.example.teenduh.view.activity.TestSuccess;
 import com.github.dhaval2404.imagepicker.ImagePicker;

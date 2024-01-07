@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-
+  implementation("com.google.android.gms:play-services-wallet:19.3.0-beta01")
   implementation("androidx.appcompat:appcompat:1.6.1")
   implementation("com.google.android.material:material:1.11.0")
   implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -42,8 +42,9 @@ dependencies {
   implementation("androidx.annotation:annotation:1.6.0")
   implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+  implementation("com.google.firebase:firebase-messaging:23.4.0")
 
-    // testing
+  // testing
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -67,9 +68,14 @@ dependencies {
   implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
   implementation("com.google.firebase:firebase-auth:22.3.0")
   implementation("com.google.firebase:firebase-firestore:24.10.0")
-  implementation("com.google.firebase:firebase-analytics")
+  implementation("com.google.firebase:firebase-analytics:21.5.0")
   implementation("com.google.android.gms:play-services-auth:20.7.0")
   implementation("com.facebook.android:facebook-login:latest.release")
+  implementation("com.squareup.okhttp3:okhttp:4.10.0")
+  implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
+  implementation("com.google.firebase:firebase-firestore-ktx:24.10.0")
+  implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+  implementation("com.google.firebase:firebase-messaging-ktx:23.4.0")
 
   // international phone number hadling
   implementation("com.fredporciuncula:phonemoji:1.5.2")

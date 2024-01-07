@@ -14,9 +14,9 @@ import android.widget.ProgressBar;
 
 import com.example.teenduh.R;
 import com.example.teenduh.model.AuthPhoneCredentialsStore;
-import com.example.teenduh.util.AndroidUtil;
-import com.example.teenduh.util.FirebaseUtil;
-import com.example.teenduh.util.Validators;
+import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh._util.Validators;
 import com.example.teenduh.view.activity.TestSuccess;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -52,7 +52,7 @@ public class PhoneFormFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     View phoneFormView = inflater.inflate(R.layout.fragment_phone_form, container, false);
-    AndroidUtil.setContext(getActivity());
+    AndroidUtil.setActivity(getActivity());
     initView(phoneFormView);
     callbackHandler = new CallbackHandler();
   

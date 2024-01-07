@@ -1,13 +1,11 @@
 package com.example.teenduh.model.message;
 
-import android.annotation.SuppressLint;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class MessageViewModel {
+public class _MessageViewModel {
   private String uid;
   private String senderUid;
   private String receiverUid;
@@ -17,7 +15,7 @@ public class MessageViewModel {
   private Date date;
   private Boolean isUnread;
 
-  public MessageViewModel(String uid, String senderUid, String receiverUid, String name, String message, String imageUrl, Date date, Boolean isUnread) {
+  public _MessageViewModel(String uid, String senderUid, String receiverUid, String name, String message, String imageUrl, Date date, Boolean isUnread) {
     this.uid = uid;
     this.senderUid = senderUid;
     this.receiverUid = receiverUid;

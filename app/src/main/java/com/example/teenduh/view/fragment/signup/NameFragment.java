@@ -12,9 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.activity.SignUpPage;
-import com.example.teenduh.view.fragment.signup.BDayFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 import pl.droidsonroids.gif.GifImageView;

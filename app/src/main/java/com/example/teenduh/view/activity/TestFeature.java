@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.teenduh.R;
-import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.view.activity.auth.AuthLayout;
-import com.example.teenduh.view.fragment.message.ChitChat;
 
 public class TestFeature extends AppCompatActivity {
   

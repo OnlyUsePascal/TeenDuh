@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:padding="8dp"
+  >
+
+  <com.google.android.material.card.MaterialCardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/chatFrame"
+    android:orientation="vertical">
+
+    <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingVertical="5dp"
+      android:paddingHorizontal="10dp"
+      >
+
+      <TextView
+        android:id="@+id/chatText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, mot con vit \nhai con vit"
+        android:textSize="18sp" />
+    </RelativeLayout>
+
+  </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

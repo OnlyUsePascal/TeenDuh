@@ -25,8 +25,8 @@ import android.widget.Toast;
 
 import com.example.teenduh.R;
 import com.example.teenduh.model.AuthPhoneCredentialsStore;
-import com.example.teenduh.util.AndroidUtil;
-import com.example.teenduh.util.FirebaseUtil;
+import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.view.activity.TestSuccess;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
@@ -129,12 +129,12 @@ public class VerifyOTPFragment extends Fragment {
         actionLayout.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
 
-        FirebaseUtil.getFirebaseAuth().signInWithCredential(credential)
+        FirebaseUtil.getAuth().signInWithCredential(credential)
             .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "signInWithCredential:success");
 
-                    FirebaseUtil.setUser(task.getResult().getUser());
+                    FirebaseUtil.setCurUser(task.getResult().getUser());
 
                     AndroidUtil._startActivity(getContext(), TestSuccess.class);
 
