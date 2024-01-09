@@ -3,6 +3,7 @@ package com.example.teenduh.view.fragment;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.teenduh.R;
 import com.example.teenduh.model.User;
 import com.example.teenduh.util.AndroidUtil;
+import com.example.teenduh.view.activity.SettingFilter;
 import com.example.teenduh.view.adapter.CardStackAdapter;
 import com.example.teenduh.view.adapter.CardStackCallback;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -53,6 +55,7 @@ public class TeenDuh extends Fragment {
 
   GifImageView imageCancel;
   GifImageView gifLike, gifSuperLike;
+  Button btnFilter;
 
   public TeenDuh() {
     context = AndroidUtil.getContext();
@@ -66,6 +69,12 @@ public class TeenDuh extends Fragment {
     btnLike = view.findViewById(R.id.like_action);
     btnCancel = view.findViewById(R.id.cancel_action);
     btnSuperLike = view.findViewById(R.id.super_like_action);
+    btnFilter = view.findViewById(R.id.filter_button);
+
+    btnFilter.setOnClickListener(v -> {
+      Intent intent = new Intent(getContext(), SettingFilter.class);
+      startActivity(intent);
+    });
 
 
     btnLike.setOnClickListener(v -> {

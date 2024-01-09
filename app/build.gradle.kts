@@ -77,7 +77,7 @@ dependencies {
   //drawing
   implementation("com.makeramen:roundedimageview:2.3.0")
   implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.23")
-  implementation ("com.google.android.material:material:1.0.0")
+
   implementation ("com.github.dhaval2404:imagepicker:2.1")
 
   implementation ("com.yuyakaido.android:card-stack-view:2.3.4")
