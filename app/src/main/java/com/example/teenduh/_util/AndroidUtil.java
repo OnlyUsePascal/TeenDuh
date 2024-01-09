@@ -213,7 +213,6 @@ public class AndroidUtil {
       }
       
       curChatRoom.setChats(chats);
-      System.out.println(chats);
       if (runnable != null) runnable.run();
     });
   }
@@ -230,4 +229,6 @@ public class AndroidUtil {
       FirebaseUtil.updateUser(curUser.getId(), data, runnable);
     });
   }
+  
+  
 }

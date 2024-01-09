@@ -43,7 +43,7 @@ public class CustomLayoutManager extends LinearLayoutManager {
   
     @Override
     protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-      return 1f; //pass as per your requirement
+      return 1.5f; //pass as per your requirement
     }
     
     @Override

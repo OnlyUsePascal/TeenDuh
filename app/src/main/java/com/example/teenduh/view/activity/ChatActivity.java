@@ -78,24 +78,25 @@ public class ChatActivity extends AppCompatActivity {
   }
   
   String messTxt;
+  Timestamp time;
+  int sender;
   
   public void sendChat(View view) throws Exception {
     stat.setText("wait");
     
-    messTxt = Integer.toString(new Random().nextInt());
-    int sender = chatRoom.getSenderIndex(AndroidUtil.getCurUser().getId());
-    Timestamp time = Timestamp.now();
-  
+    sender = chatRoom.getSenderIndex(AndroidUtil.getCurUser().getId());
+    time = Timestamp.now();
+    messTxt = time.toDate().toLocaleString() + "||" + AndroidUtil.getCurUser().getName();
     HashMap<String, Object> chatData = new HashMap<>();
     chatData.put("mess", messTxt);
     chatData.put("sender", sender);
     chatData.put("time", time);
-    System.out.println(chatData);
+    // firestore: chat, chatroom -> noti
     FirebaseUtil.addChat(chatData, this::sendNoti);
   }
   
-  private void sendNoti() {
-    if (true) return;
+  private void sendNoti(String chatId) {
+    stat.setText("send noti");
     try {
       String url = "https://fcm.googleapis.com/fcm/send";
       OkHttpClient client = new OkHttpClient();
@@ -103,8 +104,12 @@ public class ChatActivity extends AppCompatActivity {
       JSONObject jsonObject = new JSONObject();
       JSONObject dataObj = new JSONObject();
   
-      dataObj.put("_from", AndroidUtil.getCurUser().getId());
+      String id = AndroidUtil.getCurUser().getId();
+      dataObj.put("sender", sender);
       dataObj.put("mess", messTxt);
+      dataObj.put("time", time.toString());
+      dataObj.put("id", chatId);
+      
       jsonObject.put("data", dataObj);
       jsonObject.put("to", chatRoom.getOtherUser().getFcm());
       jsonObject.put("direct_boot_ok", true);
@@ -135,6 +140,10 @@ public class ChatActivity extends AppCompatActivity {
     } catch (Exception err) {
       err.printStackTrace();
     }
+  }
+  
+  public void reload(View view){
+    sendNoti(null);
   }
   
   public RecyclerView getChatView() {

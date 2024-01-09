@@ -1,6 +1,7 @@
 package com.example.teenduh._util;
 
 import android.content.Context;
+import android.os.Handler;
 
 import com.example.teenduh.model.message.Chat;
 import com.example.teenduh.model.message.ChatRoom;
@@ -61,12 +62,12 @@ public class FirebaseUtil {
     curUser = _user;
   }
   
-  public static void loginEmail(String mail, String pwd, Runnable cb) {
+  public static void loginEmail(String mail, String pwd, Runnable runnable) {
     auth.signOut();
     auth.signInWithEmailAndPassword(mail, pwd)
         .addOnCompleteListener(task -> {
           setCurUser(auth.getCurrentUser());
-          cb.run();
+          runRunnable(runnable);
         });
   }
   
@@ -85,7 +86,7 @@ public class FirebaseUtil {
     
   }
   
-  public static void updateChatRoom(HashMap<String, Object> data, Runnable runnable) {
+  public static void updateChatRoom(HashMap<String, Object> data, Consumer<String> consumer) {
     ChatRoom chatRoom = AndroidUtil.getCurChatRoom();
     firestore.collection("chatRooms")
         .document(chatRoom.getId())
@@ -95,11 +96,11 @@ public class FirebaseUtil {
             return;
           }
           
-          if (runnable != null) runnable.run();
+          consumer.accept(data.get("lastMessId").toString());
         });
   }
   
-  public static void addChat(HashMap<String, Object> chat, Runnable runnable) {
+  public static void addChat(HashMap<String, Object> chat, Consumer<String> consumer) {
     ChatRoom chatRoom = AndroidUtil.getCurChatRoom();
     firestore.collection("chatRooms")
         .document(chatRoom.getId())
@@ -114,7 +115,8 @@ public class FirebaseUtil {
           data.put("lastMess", chat.get("mess"));
           data.put("lastActive", chat.get("time"));
           data.put("lastSender", chat.get("sender"));
-          updateChatRoom(data, runnable);
+          data.put("lastMessId", task.getResult().getId());
+          updateChatRoom(data, consumer);
         });
   }
   
@@ -127,7 +129,7 @@ public class FirebaseUtil {
             return;
           }
           
-          if (runnable != null) runnable.run();
+          runRunnable(runnable);
         });
   }
   
@@ -153,6 +155,7 @@ public class FirebaseUtil {
             task.getException().printStackTrace();
             return;
           }
+          
           cb.accept(task.getResult().getDocuments());
         });
   }
@@ -168,9 +171,14 @@ public class FirebaseUtil {
             task.getException().printStackTrace();
             return;
           }
+          
           cb.accept(task.getResult().getDocuments());
         });
   }
   
-  
+  public static void runRunnable(Runnable runnable){
+    new Handler().postDelayed(() -> {
+      if (runnable != null) runnable.run();
+    }, 500);
+  }
 }

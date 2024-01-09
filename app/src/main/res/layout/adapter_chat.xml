@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:padding="8dp"
+  android:padding="10dp"
   >
 
   <com.google.android.material.card.MaterialCardView
@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello, mot con vit \nhai con vit"
+
         android:textSize="18sp" />
     </RelativeLayout>
 

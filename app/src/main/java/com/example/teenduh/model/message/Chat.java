@@ -30,6 +30,7 @@ public class Chat {
                "id='" + id + '\'' +
                ", mess='" + mess + '\'' +
                ", timestamp=" + timestamp +
+               ", user=" + user +
                '}';
   }
   

@@ -1,12 +1,10 @@
 package com.example.teenduh.view.adapter.message;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,13 +19,19 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-  Activity activity;
-  List<Chat> chats;
+  private Activity activity;
+  private List<Chat> chats;
+  private List<String> users;
+  private String yourId;
   
   public ChatAdapter() {
     this.activity = AndroidUtil.getActivity();
     this.chats = AndroidUtil.getCurChatRoom().getChats();
+    this.users = AndroidUtil.getCurChatRoom().getUsers();
+    this.yourId = AndroidUtil.getCurUser().getId();
   }
+  
+  
   
   @NonNull
   @Override
@@ -40,14 +44,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     Chat chat = chats.get(position);
+    System.out.println(chat);
     holder.chatText.setText(chat.getMess());
-    boolean isYou = AndroidUtil.getCurChatRoom()
-                        .getUsers()
-                        .get(chat.getUser())
-                        .equals(AndroidUtil.getCurUser().getId());
-    holder.chatFrame.setCardBackgroundColor((isYou) ? Color.parseColor("#D9EDBF") :
-                                               Color.parseColor("#FFB996"));
+    modifyChatRow(holder, chat);
+  }
+  
+  private void modifyChatRow(@NonNull ViewHolder holder, Chat chat) {
+    boolean isYou = users.get(chat.getUser()).equals(yourId);
     if (isYou) {
+      // attach to right + light font + red backgrund
+      holder.chatFrame.setCardBackgroundColor(Color.parseColor("#FF8080"));
+      holder.chatText.setTextColor(Color.parseColor("#FBF9F1"));
+      
       RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.chatFrame.getLayoutParams();
       params.addRule(RelativeLayout.ALIGN_PARENT_END);
       holder.chatFrame.setLayoutParams(params);

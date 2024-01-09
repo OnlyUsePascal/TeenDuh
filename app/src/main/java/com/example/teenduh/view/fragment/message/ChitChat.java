@@ -98,4 +98,12 @@ public class ChitChat extends Fragment {
   }
   
   // TODO ON RESUME FOR FRAGMENT
+  
+  @Override
+  public void onResume() {
+    super.onResume();
+    System.out.println("on resume");
+    if (adapter == null) return;
+    getChatRooms(null);
+  }
 }

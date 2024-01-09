@@ -32,16 +32,24 @@
       android:layout_alignParentEnd="true"
       android:text="stat" />
 
+    <Button
+      android:id="@+id/button8"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="10dp"
+      android:layout_toStartOf="@+id/button5"
+      android:onClick="reload"
+      android:text="Reload" />
+
   </RelativeLayout>
 
   <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/chat_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@+id/bottom_layout"
     android:layout_below="@id/toolbar"
-    android:layout_above="@id/bottom_layout"
-    android:layout_marginTop="450dp"
-    android:nestedScrollingEnabled="false"
-    android:id="@+id/chat_recycler_view"/>
+    />
 
   <RelativeLayout
     android:layout_width="match_parent"
