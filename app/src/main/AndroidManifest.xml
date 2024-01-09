@@ -47,7 +47,8 @@
       android:exported="true"
       android:screenOrientation="portrait" />
 
-    <activity android:name=".view.activity.ChatActivity"
+    <activity
+      android:name=".view.activity.ChatActivity"
       android:exported="true"
       android:screenOrientation="portrait" />
 
@@ -60,8 +61,11 @@
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
-
     </activity>
+
+    <activity
+      android:name=".view.activity.SettingFilter"
+      android:exported="true" />
 
     <service
       android:name="._util.CloudMessagingListener"

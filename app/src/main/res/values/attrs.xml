@@ -5,4 +5,11 @@
     <attr name="colorCustomColor1Container" format="color"/>
     <attr name="colorOnCustomColor1Container" format="color"/>
     <attr name="harmonizeCustomColor1" format="boolean"/>
+        <declare-styleable name="CustomLineDashedProgressBarView">
+            <attr name="sp_progressColor" format="color" />
+            <attr name="sp_bgColor" format="color" />
+            <attr name="sp_stokeWidth" format="float" />
+            <attr name="sp_progressWidth" format="float" />
+            <attr name="sp_dashedWidth" format="float" />
+        </declare-styleable>
 </resources>

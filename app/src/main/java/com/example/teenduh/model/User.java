@@ -15,7 +15,29 @@ public class User {
     private Boolean isShowInfoGender;
     private ArrayList<String> sexualOrientationList;
     private String InterestedIn;
-    
+    private int image;
+    private String age;
+    private String city;
+
+    public User(int image, String name, String age, String city){
+        this.name = name;
+        this.age = age;
+        this.city = city;
+        this.image = image;
+
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getCity() {
+        return city;
+    }
 
     public User(String name, String birthday, String gender, String interestPreference, String distancePreference, String lookingFor) {
         this.name = name;
