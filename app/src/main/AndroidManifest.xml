@@ -17,46 +17,63 @@
     tools:targetApi="31">
 
     <activity
+      android:name=".view.activity.payment.DropInClientActivity"
+      android:launchMode="singleTask"
+      android:exported="true" >
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="${applicationId}.braintree" />
+      </intent-filter>
+    </activity>
+
+<!--    <activity android:name="com.braintreepayments.api.DropInActivity"-->
+<!--      android:exported="true"-->
+<!--      tools:node="merge"-->
+<!--      >-->
+<!--      <intent-filter tools:node="removeAll" />-->
+<!--      <intent-filter>-->
+<!--        <action android:name="android.intent.action.VIEW" />-->
+<!--        <data android:scheme="my-custom-url-scheme" />-->
+<!--        <category android:name="android.intent.category.DEFAULT" />-->
+<!--        <category android:name="android.intent.category.BROWSABLE" />-->
+<!--      </intent-filter>-->
+<!--    </activity>-->
+
+    <activity
       android:name=".view.activity.auth.PhoneAuthLayout"
       android:exported="false"
       android:screenOrientation="portrait" />
-
     <activity
       android:name=".view.activity.auth.AuthLayout"
       android:exported="true"
       android:label="@string/title_activity_auth"
       android:screenOrientation="portrait" />
-
     <activity
       android:name=".view.activity.MainLayout"
       android:exported="false"
       android:screenOrientation="portrait" />
-
     <activity
       android:name=".view.activity.TestSuccess"
       android:exported="false"
       android:screenOrientation="portrait" />
-
     <activity
       android:name=".view.activity.SignUpPage"
       android:exported="true"
       android:screenOrientation="portrait" />
-
     <activity
       android:name=".view.activity.WelcomeActivity"
       android:exported="true"
       android:screenOrientation="portrait" />
-
     <activity
       android:name=".view.activity.ChatActivity"
       android:exported="true"
       android:screenOrientation="portrait" />
-
     <activity
       android:name=".view.activity.TestFeature"
       android:exported="true"
       android:screenOrientation="portrait">
-
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
@@ -75,4 +92,5 @@
       </intent-filter>
     </service>
   </application>
+
 </manifest>

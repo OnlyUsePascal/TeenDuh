@@ -223,7 +223,6 @@ public class AndroidUtil {
     
     FirebaseUtil.loginEmail(mail, pwd, () -> {
       setCurUser(FirebaseUtil.getCurUser().getUid());
-      // TODO CHANGE FCM
       HashMap<String, Object> data = new HashMap<>();
       data.put("fcm", FirebaseUtil.getFcm());
       FirebaseUtil.updateUser(curUser.getId(), data, runnable);
