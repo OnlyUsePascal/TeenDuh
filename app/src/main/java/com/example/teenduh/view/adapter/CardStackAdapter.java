@@ -2,6 +2,7 @@ package com.example.teenduh.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,12 +13,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.model.User;
+import com.example.teenduh.view.activity.MainLayout;
+import com.example.teenduh.view.activity.ShowMoreInfo;
+import com.example.teenduh.view.fragment.TeenDuh;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +32,14 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
   private final Context context;
   private List<User> userList;
+  private FragmentActivity mActivity;
   int diffElement = 0;
+  int currentPosition = 0;
 
-  public CardStackAdapter(List<User> userList, Context context) {
+  public CardStackAdapter(List<User> userList, Context context, FragmentActivity mainLayout) {
     this.userList = userList;
     this.context = context;
+    this.mActivity = mainLayout;
   }
 
   @NonNull
@@ -67,6 +76,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         imageView.setImageResource(R.drawable.btn_unselected);
       }
     }
+
       holder.viewPager2.setAdapter(new ImageAdapter(imageList, holder.viewPager2));
       holder.viewPager2.setOffscreenPageLimit(3);
       holder.viewPager2.setClipChildren(false);
@@ -92,7 +102,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     userList.remove(position);
   }
 
-  class ViewHolder extends RecyclerView.ViewHolder {
+  public class ViewHolder extends RecyclerView.ViewHolder {
     private final CardView cardView1;
     private final CardView cardView2;
     private final CardView cardView3;
@@ -100,16 +110,16 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     private final CardView cardView5;
     private final CardView cardView6;
     private final List<CardView> cardViewList = new ArrayList<>();
-    //        ImageView image;
     TextView name, age, city;
     ViewPager2 viewPager2;
     FrameLayout test;
+    ImageView showMoreInfo;
+
 
 
     @SuppressLint("ClickableViewAccessibility")
     ViewHolder(@NonNull View itemView) {
       super(itemView);
-//            image = itemView.findViewById(R.id.item_image);
       name = itemView.findViewById(R.id.item_name);
       age = itemView.findViewById(R.id.item_age);
       city = itemView.findViewById(R.id.item_city);
@@ -122,6 +132,20 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
       cardView5 = itemView.findViewById(R.id.fifthStage);
       cardView6 = itemView.findViewById(R.id.sixthStage);
 
+      showMoreInfo = itemView.findViewById(R.id.showInfo);
+      showMoreInfo.bringToFront();
+      showMoreInfo.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+          Intent intent = new Intent(context, ShowMoreInfo.class);
+          String currentPositionStr = String.valueOf(currentPosition);
+          intent.putExtra("position", currentPositionStr);
+          context.startActivity(intent);
+          mActivity.overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+
+        }
+      });
       cardViewList.add(cardView1);
       cardViewList.add(cardView2);
       cardViewList.add(cardView3);
@@ -149,22 +173,27 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
               if (finalX > cardCenterX) {
                 viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
                 int currentItem = viewPager2.getCurrentItem();
+                currentPosition = currentItem;
                 for (int i = 0; i < diffElement; i++) {
                   if (i == currentItem) {
                     ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
                     imageView.setImageResource(R.drawable.custom_dashline_layout);
+
                   }else{
                     ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
                     imageView.setImageResource(R.drawable.btn_unselected);
+
                   }
                 }
               } else {
                 viewPager2.setCurrentItem(viewPager2.getCurrentItem() - 1);
                 int currentItem = viewPager2.getCurrentItem();
+                currentPosition = currentItem;
                 for (int i = 0; i < diffElement; i++) {
                   if (i == currentItem) {
                     ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
                     imageView.setImageResource(R.drawable.custom_dashline_layout);
+
                   }
                   else {
                     ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
@@ -182,16 +211,9 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     }
 
     void setData(User data) {
-//            Picasso.get()
-//                    .load(data.getImage())
-//                    .fit()
-//                    .centerCrop()
-//                    .into(image);
       name.setText(data.getName());
       age.setText(data.getAge());
       city.setText(data.getCity());
     }
   }
-
-
 }
