@@ -20,6 +20,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
     private List<Image> imageList;
     private WelcomeAdapter imageAdapter;
+
     private Handler sliderHandler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         viewPager2 = findViewById(R.id.viewPager2);
+        viewPager2.bringToFront();
         imageList = new ArrayList<>();
         imageList.add(new Image(R.drawable.ronaldo, "Cristiano Ronaldo"));
         imageList.add(new Image(R.drawable.park_seo, "Park Seo Joon"));

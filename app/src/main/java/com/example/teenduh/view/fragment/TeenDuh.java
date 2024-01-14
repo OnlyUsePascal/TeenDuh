@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,7 @@ public class TeenDuh extends Fragment {
   GifImageView imageCancel;
   GifImageView gifLike, gifSuperLike;
   Button btnFilter;
+  ImageView showMoreInfo;
   
   public TeenDuh() {
     activity = AndroidUtil.getActivity();
@@ -70,13 +72,12 @@ public class TeenDuh extends Fragment {
     btnCancel = view.findViewById(R.id.cancel_action);
     btnSuperLike = view.findViewById(R.id.super_like_action);
     btnFilter = view.findViewById(R.id.filter_button);
-    
+
     btnFilter.setOnClickListener(v -> {
       Intent intent = new Intent(getContext(), SettingFilter.class);
       startActivity(intent);
     });
-    
-    
+
     btnLike.setOnClickListener(v -> {
       Handler handler = new Handler();
       gifLike.setVisibility(View.VISIBLE);
@@ -222,7 +223,7 @@ public class TeenDuh extends Fragment {
     manager.setCanScrollHorizontal(true);
     manager.setSwipeableMethod(SwipeableMethod.Manual);
     manager.setOverlayInterpolator(new LinearInterpolator());
-    adapter = new CardStackAdapter(addList(), getContext());
+    adapter = new CardStackAdapter(addList(), getContext(), getActivity());
     cardStackView.setLayoutManager(manager);
     cardStackView.setAdapter(adapter);
     cardStackView.setItemAnimator(new DefaultItemAnimator());
@@ -249,5 +250,72 @@ public class TeenDuh extends Fragment {
     users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
     
     return users;
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if(AndroidUtil.getFlagMatch()!= null){
+      if(AndroidUtil.getFlagMatch().equals("cancel")){
+        String flag = AndroidUtil.getFlagMatch();
+        System.out.println("flag: " + flag);
+          swipeLeft(imageCancel);
+      }else if(AndroidUtil.getFlagMatch().equals("like")){
+        String flag = AndroidUtil.getFlagMatch();
+        System.out.println("flag: " + flag);
+          swipeRight(gifLike);
+      } else if(AndroidUtil.getFlagMatch().equals("superlike")) {
+        String flag = AndroidUtil.getFlagMatch();
+        System.out.println("flag: " + flag);
+        swipeTop(gifSuperLike);
+      }
+    }
+  }
+  public void swipeLeft(GifImageView gifImage){
+    Handler handler = new Handler();
+    gifImage.setVisibility(View.VISIBLE);
+    gifImage.bringToFront();
+    handler.postDelayed(() -> {
+      manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+      manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+          .setDirection(Direction.Left)
+          .setDuration(Duration.Normal.duration)
+          .setInterpolator(new AccelerateInterpolator())
+          .build());
+      cardStackView.swipe();
+      gifImage.setVisibility(View.INVISIBLE);
+      AndroidUtil.setFlagMatch(null);
+    }, 1000);
+  }
+  public void swipeRight(GifImageView gifImage){
+    Handler handler = new Handler();
+    gifImage.setVisibility(View.VISIBLE);
+    gifImage.bringToFront();
+    handler.postDelayed(() -> {
+      manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+      manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+          .setDirection(Direction.Right)
+          .setDuration(Duration.Normal.duration)
+          .setInterpolator(new AccelerateInterpolator())
+          .build());
+      gifImage.setVisibility(View.INVISIBLE);
+      cardStackView.swipe();
+      AndroidUtil.setFlagMatch(null);
+    }, 1000);
+  }
+  public void swipeTop(GifImageView gifImage) {
+    Handler handler = new Handler();
+    gifImage.setVisibility(View.VISIBLE);
+    gifImage.bringToFront();
+    handler.postDelayed(() -> {
+      manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+      manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+          .setDirection(Direction.Top)
+          .setDuration(Duration.Normal.duration)
+          .setInterpolator(new AccelerateInterpolator())
+          .build());
+      gifImage.setVisibility(View.INVISIBLE);
+      cardStackView.swipe();
+    }, 1000);
   }
 }
