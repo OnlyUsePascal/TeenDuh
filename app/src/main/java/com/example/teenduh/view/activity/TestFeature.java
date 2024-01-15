@@ -16,6 +16,9 @@ public class TestFeature extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_test_feature);
+
+    FirebaseUtil.init();
+    AndroidUtil.init(this);
   }
   
   public void toMainLayout(View view){
