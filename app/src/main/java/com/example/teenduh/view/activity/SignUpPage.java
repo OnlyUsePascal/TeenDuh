@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.fragment.signup.NameFragment;
 
 public class SignUpPage extends AppCompatActivity {
@@ -36,6 +37,10 @@ public class SignUpPage extends AppCompatActivity {
             backFragment();
         });
 
+        // TODO: temp login, change in prod
+        AndroidUtil.loginEmail(R.id.button13, () -> {
+            System.out.println("--temp login");
+        });
     }
 
     public void replaceFragment(Fragment fragment) {
