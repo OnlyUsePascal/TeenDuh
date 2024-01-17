@@ -42,7 +42,11 @@ dependencies {
   implementation("androidx.annotation:annotation:1.6.0")
   implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-  implementation("com.google.firebase:firebase-messaging:23.4.0")
+
+  // auth
+  implementation("com.google.android.gms:play-services-auth:20.7.0")
+  implementation("com.facebook.android:facebook-login:latest.release")
+  implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
   // testing
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -69,13 +73,13 @@ dependencies {
   implementation("com.google.firebase:firebase-auth:22.3.0")
   implementation("com.google.firebase:firebase-firestore:24.10.0")
   implementation("com.google.firebase:firebase-analytics:21.5.0")
-  implementation("com.google.android.gms:play-services-auth:20.7.0")
-  implementation("com.facebook.android:facebook-login:latest.release")
-  implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
   implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
   implementation("com.google.firebase:firebase-firestore-ktx:24.10.0")
   implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
   implementation("com.google.firebase:firebase-messaging-ktx:23.4.0")
+  implementation("com.google.firebase:firebase-messaging:23.4.0")
+  implementation("com.google.firebase:firebase-storage")
 
   // international phone number hadling
   implementation("com.fredporciuncula:phonemoji:1.5.2")
@@ -83,14 +87,15 @@ dependencies {
   //drawing
   implementation("com.makeramen:roundedimageview:2.3.0")
   implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.23")
-
   implementation ("com.github.dhaval2404:imagepicker:2.1")
-
   implementation ("com.yuyakaido.android:card-stack-view:2.3.4")
   implementation ("com.squareup.picasso:picasso:2.71828")
   implementation("com.lorentzos.swipecards:library:1.0.9")
 
-
-
+  // payment
+//  implementation("com.braintreepayments.api:braintree:3.21.1")
+  implementation("com.braintreepayments.api:drop-in:6.14.0")
+  implementation("org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.7-5")
+  implementation("com.stripe:stripe-android:20.36.1")
 
 }

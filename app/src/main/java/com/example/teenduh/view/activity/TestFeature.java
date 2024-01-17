@@ -9,6 +9,7 @@ import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.view.activity.auth.AuthLayout;
+import com.example.teenduh.view.activity.payment.DropInClientActivity;
 
 public class TestFeature extends AppCompatActivity {
   
@@ -16,6 +17,9 @@ public class TestFeature extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_test_feature);
+
+    FirebaseUtil.init();
+    AndroidUtil.init(this);
   }
   
   public void toMainLayout(View view){
@@ -35,6 +39,10 @@ public class TestFeature extends AppCompatActivity {
   
   public void toSignUp(View view){
     AndroidUtil._startActivity(this, SignUpPage.class);
+  }
+  
+  public void toPayment(View view){
+    AndroidUtil._startActivity(this, DropInClientActivity.class);
   }
   
 }

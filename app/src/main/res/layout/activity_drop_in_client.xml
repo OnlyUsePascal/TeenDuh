@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:gravity="center"
+  android:layout_margin="15dp"
+  tools:context=".view.activity.payment.DropInClientActivity">
+
+  <Button
+    android:id="@+id/btn_phone_log_in"
+    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Paypal"
+    android:textSize="20sp"
+    android:onClick="launchPaypal" />
+
+  <Button
+    android:id="@+id/button12"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+    android:textSize="20dp"
+    android:text="Google Pay" />
+
+  <Button
+    android:id="@+id/button16"
+    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+    android:layout_width="match_parent"
+    android:textSize="20dp"
+    android:layout_height="wrap_content"
+    android:onClick="launchStripe"
+    android:text="Stripe" />
+
+</LinearLayout>

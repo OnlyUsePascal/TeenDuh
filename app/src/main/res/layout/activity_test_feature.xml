@@ -44,5 +44,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Permission" />
+
+    <Button
+      android:id="@+id/button9"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:onClick="toPayment"
+      android:text="Payment" />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ public class FirebaseUtil {
   private static Context context;
   private static FirebaseUser curUser;
   private static FirebaseFirestore firestore;
+  private static FirebaseStorage storage;
   private static FirebaseMessaging messaging;
   private static FirebaseAuth auth;
   private static PhoneAuthCredential credential;
@@ -180,5 +183,13 @@ public class FirebaseUtil {
     new Handler().postDelayed(() -> {
       if (runnable != null) runnable.run();
     }, 500);
+  }
+
+  public static void initStorage() {
+    storage = FirebaseStorage.getInstance("gs://teenduh-t1.appspot.com");
+  }
+
+  public static StorageReference getStorageRef() {
+    return storage.getReference();
   }
 }
