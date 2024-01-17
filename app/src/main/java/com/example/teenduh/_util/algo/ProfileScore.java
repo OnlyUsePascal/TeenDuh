@@ -1,4 +1,4 @@
-package com.example.teenduh.algo;
+package com.example.teenduh._util.algo;
 
 public class ProfileScore {
     String profileId;

@@ -1,18 +1,17 @@
-package com.example.teenduh.model;
+package com.example.teenduh._util;
 
-import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.io.Serializable;
 
-public class AuthPhoneCredentialsStore implements Serializable {
+public class PhoneCredentialUtil implements Serializable {
     private String phoneNumber;
     private String verificationID;
     private PhoneAuthProvider.ForceResendingToken resendingToken;
 
-    public AuthPhoneCredentialsStore() {}
+    public PhoneCredentialUtil() {}
 
-    public AuthPhoneCredentialsStore(String verificationID, PhoneAuthProvider.ForceResendingToken resendingToken, String phoneNumber) {
+    public PhoneCredentialUtil(String verificationID, PhoneAuthProvider.ForceResendingToken resendingToken, String phoneNumber) {
         this.verificationID = verificationID;
         this.resendingToken = resendingToken;
         this.phoneNumber = phoneNumber;

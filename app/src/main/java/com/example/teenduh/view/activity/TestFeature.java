@@ -27,7 +27,7 @@ public class TestFeature extends AppCompatActivity {
     
   }
   
-  public void toAuthLayout(View view){
+  public void toAuth(View view){
     AndroidUtil._startActivity(this, AuthLayout.class);
     
   }

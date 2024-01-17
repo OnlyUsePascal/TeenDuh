@@ -1,12 +1,9 @@
-package com.example.teenduh.algo;
-
-import com.example.teenduh.model.User;
+package com.example.teenduh._util.algo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 public class EloRecommendationSystem {
