@@ -22,7 +22,9 @@
   // TODO: Change these URLs
   <string name="terms_of_service_url">https://www.termsfeed.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
   <string name="privacy_policy_url">https://www.privacypolicies.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
-  <string name="default_web_client_id">808273656584-tta8a8rvasoe9tuv6mp4qdpchfv9ocdj.apps.googleusercontent.com</string>
+
+  // KEY
+  <string name="default_web_client_id">808273656584-t9vedurn56q1ih6omtlfd68g8g65plio.apps.googleusercontent.com</string>
   <string name="web_client_secret">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</string>
   <string name="facebook_app_id">1234</string>
   <string name="fb_login_protocol_scheme">fb1234</string>

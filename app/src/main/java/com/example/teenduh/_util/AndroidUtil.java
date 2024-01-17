@@ -77,7 +77,7 @@ public class AndroidUtil {
 
   
   public static void init(Activity activity) {
-    AndroidUtil.activity = activity;
+    if (activity != null) AndroidUtil.activity = activity;
     users = new ArrayList<>();
     chatRooms = new ArrayList<>();
     

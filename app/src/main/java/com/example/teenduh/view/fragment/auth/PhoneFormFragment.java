@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.teenduh.R;
-import com.example.teenduh.model.AuthPhoneCredentialsStore;
+import com.example.teenduh._util.PhoneCredentialUtil;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh._util.Validators;
@@ -31,92 +31,68 @@ import java.util.concurrent.TimeUnit;
 
 public class PhoneFormFragment extends Fragment {
   HashMap<String, Fragment> fragments = new HashMap<>();
+  HashMap<String, PhoneAuthProvider.ForceResendingToken> phoneToResendToken = new HashMap<>();
   private static final String TAG = "PhoneFormFragment";
   private ProgressBar progressBar;
   private TextInputLayout phoneNumberTextInputLayout;
   private TextInputEditText phoneNumberEditText;
   private Button proceedWithOTPButton;
   private String phoneNumber;
-  private CallbackHandler callbackHandler;
   
   public PhoneFormFragment() {
-  }
-  
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    
   }
   
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     View phoneFormView = inflater.inflate(R.layout.fragment_phone_form, container, false);
+    
     AndroidUtil.setActivity(getActivity());
     initView(phoneFormView);
-    callbackHandler = new CallbackHandler();
-  
+    
     proceedWithOTPButton.setOnClickListener(this::proceedOtp);
     return phoneFormView;
   }
   
   private void initView(View phoneFormView) {
-    phoneNumberTextInputLayout = (TextInputLayout)
-                                     phoneFormView.findViewById(R.id.phone_number_form_phone_number_layout);
-    phoneNumberEditText = (TextInputEditText)
-                              phoneFormView.findViewById(R.id.phone_number_form_phone_number);
-    progressBar = (ProgressBar)
-                      phoneFormView.findViewById(R.id.phone_number_form_progress_bar);
-    proceedWithOTPButton = (Button)
-                               phoneFormView.findViewById(R.id.phone_number_form_continue_button);
+    phoneNumberTextInputLayout = phoneFormView.findViewById(R.id.phone_number_form_phone_number_layout);
+    phoneNumberEditText = phoneFormView.findViewById(R.id.phone_number_form_phone_number);
+    progressBar = phoneFormView.findViewById(R.id.phone_number_form_progress_bar);
+    proceedWithOTPButton = phoneFormView.findViewById(R.id.phone_number_form_continue_button);
   }
   
   
-  public void proceedOtp(View view){
+  public void proceedOtp(View view) {
     phoneNumber = phoneNumberEditText.getText().toString();
+    phoneNumber = "+15 551234567";
     String[] formattedPhoneNumber = Validators.homeNumberValid(phoneNumber);
-  
+    
     if (formattedPhoneNumber == null) {
       phoneNumberTextInputLayout.setError(getResources().getString(R.string.phone_number_invalid));
       return;
     }
-  
+    
     progressBar.setVisibility(View.VISIBLE);
     proceedWithOTPButton.setVisibility(View.INVISIBLE);
-  
-    if (fragments.containsKey(phoneNumber)) {
-      Fragment verifyOTPFragment = fragments.get(phoneNumber);
     
-      getActivity().getSupportFragmentManager().beginTransaction()
-          .replace(R.id.phone_auth_fragment_container, verifyOTPFragment)
-          .setReorderingAllowed(true)
-          .addToBackStack(phoneNumber)
-          .commit();
-    } else {
-      PhoneAuthOptions options = PhoneAuthOptions.newBuilder()
-                                     .setPhoneNumber(formattedPhoneNumber[0] + formattedPhoneNumber[1])
-                                     .setTimeout(60L, TimeUnit.SECONDS)
-                                     .setActivity(getActivity())
-                                     .setCallbacks(callbackHandler)
-                                     .build();
-    
-      PhoneAuthProvider.verifyPhoneNumber(options);
-    }
+    PhoneAuthOptions.Builder optionsBuilder = PhoneAuthOptions.newBuilder()
+                                   .setPhoneNumber(formattedPhoneNumber[0] + formattedPhoneNumber[1])
+                                   .setTimeout(60L, TimeUnit.SECONDS)
+                                   .setActivity(getActivity())
+                                   .setCallbacks(new CallbackHandler());
+    PhoneAuthProvider.ForceResendingToken resendToken = phoneToResendToken.get(phoneNumber);
+    if (resendToken != null) optionsBuilder.setForceResendingToken(resendToken);
+    PhoneAuthProvider.verifyPhoneNumber(optionsBuilder.build());
+    // }
   }
   
   private class CallbackHandler extends OnVerificationStateChangedCallbacks {
     @Override
-    public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
-      Log.d(TAG, "onVerificationCompleted:" + credential);
-      
-      AndroidUtil._startActivity(getActivity(), TestSuccess.class);
-      FirebaseUtil.setCredential(credential);
-    }
+    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {}
     
     @Override
     public void onVerificationFailed(@NonNull FirebaseException e) {
       Log.w(TAG, "onVerificationFailed", e);
-      
       progressBar.setVisibility(View.INVISIBLE);
       proceedWithOTPButton.setVisibility(View.VISIBLE);
       phoneNumberTextInputLayout.setError(getResources().getString(R.string.phone_number_invalid));
@@ -126,25 +102,25 @@ public class PhoneFormFragment extends Fragment {
     public void onCodeSent(@NonNull String verificationId,
                            @NonNull PhoneAuthProvider.ForceResendingToken token) {
       Log.d(TAG, "onCodeSent:" + verificationId);
-  
-      Fragment verifyOTPFragment = new VerifyOTPFragment();
-  
-      AuthPhoneCredentialsStore authPhoneCredentialsStore =
-          new AuthPhoneCredentialsStore(verificationId, token, phoneNumber);
-  
+      PhoneCredentialUtil phoneCredentialUtil = new PhoneCredentialUtil(verificationId, token, phoneNumber);
       Bundle bundle = new Bundle();
-      bundle.putSerializable("credentials", authPhoneCredentialsStore);
-  
+      bundle.putSerializable("credentials", phoneCredentialUtil);
+      
+      Fragment verifyOTPFragment = new VerifyOTPFragment();
       verifyOTPFragment.setArguments(bundle);
-  
-      fragments.put(phoneNumber, verifyOTPFragment);
-  
-      getActivity().getSupportFragmentManager().beginTransaction()
-          .replace(R.id.phone_auth_fragment_container, verifyOTPFragment)
-          .setReorderingAllowed(true)
-          .addToBackStack(phoneNumber)
-          .commit();
+      
+      phoneToResendToken.put(phoneNumber, token);
+      changeFragment(verifyOTPFragment);
     }
+  
+  }
+  
+  public void changeFragment(Fragment fragment) {
+    getActivity().getSupportFragmentManager().beginTransaction()
+        .replace(R.id.phone_auth_fragment_container, fragment)
+        .setReorderingAllowed(true)
+        .addToBackStack(phoneNumber)
+        .commit();
   }
   
 }
