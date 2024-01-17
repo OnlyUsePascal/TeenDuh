@@ -3,19 +3,6 @@ plugins {
   id("com.google.gms.google-services")
 }
 
-//repositories {
-//  google()
-//  mavenCentral()
-//  gradlePluginPortal()
-//  maven{
-//    url = uri("https://cardinalcommerceprod.jfrog.io/artifactory/android")
-//    credentials{
-//      username = "braintree_team_sdk"
-//      password ="AKCp8jQcoDy2hxSWhDAUQKXLDPDx6NYRkqrgFLRc3qDrayg6rrCbJpsKKyMwaykVL8FWusJpp"
-//    }
-//  }
-//}
-
 android {
   namespace = "com.example.teenduh"
   compileSdk = 34
@@ -104,9 +91,10 @@ dependencies {
   implementation ("com.squareup.picasso:picasso:2.71828")
   implementation("com.lorentzos.swipecards:library:1.0.9")
 
-  // payment paypal
+  // payment
 //  implementation("com.braintreepayments.api:braintree:3.21.1")
   implementation("com.braintreepayments.api:drop-in:6.14.0")
   implementation("org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.7-5")
+  implementation("com.stripe:stripe-android:20.36.1")
 
 }

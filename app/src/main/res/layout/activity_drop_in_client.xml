@@ -14,8 +14,25 @@
     style="@style/Widget.Material3.Button.OutlinedButton.Icon"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Pay"
+    android:text="Paypal"
     android:textSize="20sp"
-    android:onClick="launchDropIn" />
+    android:onClick="launchPaypal" />
+
+  <Button
+    android:id="@+id/button12"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+    android:textSize="20dp"
+    android:text="Google Pay" />
+
+  <Button
+    android:id="@+id/button16"
+    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+    android:layout_width="match_parent"
+    android:textSize="20dp"
+    android:layout_height="wrap_content"
+    android:onClick="launchStripe"
+    android:text="Stripe" />
 
 </LinearLayout>
