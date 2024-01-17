@@ -3,7 +3,7 @@
     <!-- Background shape for the button -->
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="20dp" />
+            <corners android:radius="10dp" />
             <solid android:color="#FF4D4F" />
         </shape>
     </item>

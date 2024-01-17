@@ -35,7 +35,16 @@ public class AndroidUtil {
   private static List<Chat> chats;
   private static RecyclerView chatView;
   private static ChatAdapter chatAdapter;
-  
+  private static String flagMatch;
+
+  public static String getFlagMatch() {
+    return flagMatch;
+  }
+
+  public static void setFlagMatch(String flagMatch) {
+    AndroidUtil.flagMatch = flagMatch;
+  }
+
   public static ChatAdapter getChatAdapter() {
     return chatAdapter;
   }
