@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -24,6 +25,7 @@ import com.example.teenduh.model.User;
 import com.example.teenduh.view.activity.MainLayout;
 import com.example.teenduh.view.activity.ShowMoreInfo;
 import com.example.teenduh.view.fragment.TeenDuh;
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +89,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
   @Override
   public int getItemCount() {
+    //Toast.makeText(context, "size: " + userList.size(), Toast.LENGTH_SHORT).show();
     return userList.size();
   }
 
