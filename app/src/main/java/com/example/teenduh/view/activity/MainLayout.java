@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh.view.fragment.MatchFragment;
 import com.example.teenduh.view.fragment.message.ChitChat;
 import com.example.teenduh.view.fragment.Profile;
 import com.example.teenduh.view.fragment.TeenDuh;
@@ -22,6 +23,7 @@ public class MainLayout extends AppCompatActivity {
   private Profile fragProfile;
   private FrameLayout frameLayout;
   private BottomNavigationView navBar;
+  private MatchFragment fragMatch;
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainLayout extends AppCompatActivity {
     fragTeenDuh = new TeenDuh();
     fragChitChat = new ChitChat();
     fragProfile = new Profile();
+    fragMatch = new MatchFragment();
     initNavBar();
   
     FirebaseUtil.init();
@@ -67,6 +70,8 @@ public class MainLayout extends AppCompatActivity {
         changeFragment(fragChitChat);
       } else if (itemId == R.id.menu_profile) {
         changeFragment(fragProfile);
+      } else if(itemId == R.id.menu_matches){
+        changeFragment(fragMatch);
       }
       return true;
     });
