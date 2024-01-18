@@ -76,23 +76,17 @@ public class Profile extends Fragment {
     });
     
     viewPager2 = view.findViewById(R.id.viewPager2);
-    imageList = new ArrayList<>();
-    
-    Image image1 = new Image(R.drawable.ronaldo, "Cristiano Ronaldo");
-    Image image2 = new Image(R.drawable.park_seo, "Park Seo Joon");
-    Image image3 = new Image(R.drawable.modric, "Luka Modric");
-    
-    imageList.add(image1);
-    imageList.add(image2);
-    imageList.add(image3);
-    
+    viewPager2.bringToFront();
+    imageList = new ArrayList<Image>();
+    imageList.add(new Image(R.drawable.tinder_plus, "nuill"));
+    imageList.add(new Image(R.drawable.tinder_gold, "nuill"));
     viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
     viewPager2.setOffscreenPageLimit(3);
     viewPager2.setClipChildren(false);
     viewPager2.setClipToPadding(false);
-    
+
     viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
-    
+
     CompositePageTransformer transformer = new CompositePageTransformer();
     transformer.addTransformer(new MarginPageTransformer(40));
     transformer.addTransformer((page, position) -> {
@@ -100,16 +94,7 @@ public class Profile extends Fragment {
       page.setScaleY(0.85f + r * 0.15f);
     });
     viewPager2.setPageTransformer(transformer);
-    viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-      @Override
-      public void onPageSelected(int position) {
-        super.onPageSelected(position);
-        sliderHandler.removeCallbacks(runnable);
-        sliderHandler.postDelayed(runnable, 3000);
-      }
-    });
-    
-    
+
     return view;
   }
   
