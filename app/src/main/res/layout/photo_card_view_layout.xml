@@ -23,7 +23,7 @@
             android:layout_centerInParent="true"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/btn_round_layout"
+            android:background="@drawable/btn_icon_round_layout"
             android:gravity="center"
             android:textSize="20dp"
             android:textStyle="bold" />

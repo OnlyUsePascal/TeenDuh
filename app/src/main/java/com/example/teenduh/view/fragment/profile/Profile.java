@@ -1,4 +1,4 @@
-package com.example.teenduh.view.fragment;
+package com.example.teenduh.view.fragment.profile;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -28,15 +29,20 @@ import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.adapter.SubscriptionAdapter;
+
+import com.example.teenduh.view.activity.MainLayout;
+import com.example.teenduh.view.activity.profile.EditProfile;
+import com.example.teenduh.view.adapter.ImageAdapter;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Profile extends Fragment {
+  MainLayout mainLayout;
   Activity activity;
-  Button buttonSuperLike;
-  Button buttonSuperFind;
+  Button buttonSuperLike, buttonSuperFind;
+  AppCompatImageButton editProfile;
   boolean isProceedPayment;
   boolean isDeposit;
   ViewPager2 viewPager2;
@@ -67,6 +73,8 @@ public class Profile extends Fragment {
     viewPager2 = view.findViewById(R.id.viewPager2);
     circle1 = view.findViewById(R.id.circle1);
     circle2 = view.findViewById(R.id.circle2);
+    editProfile = view.findViewById(R.id.editProfile);
+    mainLayout = (MainLayout) getActivity();
     
     buttonSuperLike.setOnClickListener(v -> {
       Toast.makeText(activity, "Super Like", Toast.LENGTH_SHORT).show();
@@ -101,6 +109,22 @@ public class Profile extends Fragment {
       }
     });
 
+    editProfile.setOnClickListener(v -> {
+      AndroidUtil._startActivity(getContext(), EditProfile.class);
+    });
+    
+    viewPager2 = view.findViewById(R.id.viewPager2);
+    imageList = new ArrayList<>();
+    
+    Image image1 = new Image(R.drawable.ronaldo, "Cristiano Ronaldo");
+    Image image2 = new Image(R.drawable.park_seo, "Park Seo Joon");
+    Image image3 = new Image(R.drawable.modric, "Luka Modric");
+    
+    imageList.add(image1);
+    imageList.add(image2);
+    imageList.add(image3);
+    
+    viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
     viewPager2.setOffscreenPageLimit(3);
     viewPager2.setClipChildren(false);
     viewPager2.setClipToPadding(false);

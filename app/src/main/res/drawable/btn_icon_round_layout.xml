@@ -7,4 +7,9 @@
             <solid android:color="#FF4D4F" />
         </shape>
     </item>
+
+    <!-- Icon at the center of the button -->
+    <item android:drawable="@drawable/baseline_add_24"
+        android:gravity="center" />
+
 </layer-list>

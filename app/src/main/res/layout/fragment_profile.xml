@@ -96,7 +96,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatImageButton
-      android:id="@+id/edit"
+      android:id="@+id/editProfile"
       android:layout_width="40dp"
       android:layout_height="40dp"
       android:layout_alignTop="@+id/match_card"
