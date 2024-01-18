@@ -42,6 +42,8 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 import pl.droidsonroids.gif.GifImageView;
 
 public class TeenDuh extends Fragment {
@@ -52,11 +54,12 @@ public class TeenDuh extends Fragment {
   private CardStackAdapter adapter;
   private CardStackView cardStackView;
   TextView btnLike, btnSuperLike, btnCancel;
-  
+  PulsatorLayout pulsatorLayout;
   GifImageView imageCancel;
   GifImageView gifLike, gifSuperLike;
   Button btnFilter;
   ImageView showMoreInfo;
+  CircleImageView circleImageView;
   
   public TeenDuh() {
     activity = AndroidUtil.getActivity();
@@ -67,11 +70,24 @@ public class TeenDuh extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_tinduh, container, false);
-    init(view);
+
     btnLike = view.findViewById(R.id.like_action);
     btnCancel = view.findViewById(R.id.cancel_action);
     btnSuperLike = view.findViewById(R.id.super_like_action);
     btnFilter = view.findViewById(R.id.filter_button);
+    pulsatorLayout = view.findViewById(R.id.pulsator);
+    circleImageView = view.findViewById(R.id.profile_image);
+    pulsatorLayout.bringToFront();
+    circleImageView.bringToFront();
+    pulsatorLayout.start();
+    Handler handler2 = new Handler();
+    handler2.postDelayed(() -> {
+      pulsatorLayout.stop();
+      pulsatorLayout.setVisibility(View.GONE);
+      circleImageView.setVisibility(View.GONE);
+      init(view);
+    }, 5000);
+
 
     btnFilter.setOnClickListener(v -> {
       Intent intent = new Intent(getContext(), SettingFilter.class);
