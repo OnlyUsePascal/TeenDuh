@@ -146,12 +146,38 @@
 
   <androidx.viewpager2.widget.ViewPager2
       android:id="@+id/viewPager2"
-      android:layout_width="match_parent"
-      android:layout_height="350dp"
+      android:layout_width="350dp"
+      android:layout_height="300dp"
+      android:layout_centerHorizontal="true"
       android:layout_below="@+id/superbtn"
-      android:layout_marginTop="15dp"
-      android:paddingStart="40dp"
-      android:paddingEnd="40dp" />
+      android:layout_marginTop="10dp" />
+
+  <LinearLayout
+      android:id="@+id/linearLayout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/viewPager2"
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="10dp"
+      android:layout_centerHorizontal="true"
+      android:orientation="horizontal">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/circle1"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="100dp"
+        android:foreground="@color/black"
+        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/circle2"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="100dp"
+        android:foreground="@color/black"
+        />
+  </LinearLayout>
 
 </RelativeLayout>
 
