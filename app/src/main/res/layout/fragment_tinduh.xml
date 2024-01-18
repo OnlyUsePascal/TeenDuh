@@ -32,6 +32,25 @@
       android:text="Filter" />
 
   </RelativeLayout>
+  <pl.bclogic.pulsator4droid.library.PulsatorLayout
+      android:id="@+id/pulsator"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:pulse_count="2"
+      app:pulse_duration="6000"
+      app:pulse_repeat="0"
+      app:pulse_color="@color/seed"
+      app:pulse_startFromScratch="true"
+      app:pulse_interpolator="Decelerate">
+  </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+  <de.hdodenhof.circleimageview.CircleImageView
+      android:layout_centerInParent="true"
+      android:id="@+id/profile_image"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:src="@drawable/messi"
+      app:civ_border_width="2dp"
+      app:civ_border_color="#FF000000"/>
   <pl.droidsonroids.gif.GifImageView
       android:layout_width="300dp"
       android:layout_height="300dp"
@@ -68,8 +87,8 @@
       android:layout_height="wrap_content"
       android:layout_below="@+id/relativeLayout"
       android:layout_alignParentBottom="true"
-      android:layout_marginTop="9dp"
-      android:layout_marginBottom="16dp"
+      android:layout_marginTop="17dp"
+      android:layout_marginBottom="33dp"
       app:cardBackgroundColor="#FFE5E5"
       app:strokeColor="@color/black"
       app:strokeWidth="1dp" />
