@@ -184,6 +184,7 @@ public class TeenDuh extends Fragment {
       @Override
       public void onCardSwiped(Direction direction) {
         Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
+        Log.d(TAG, "Adapter size: " + adapter.getItemCount());
         if (direction == Direction.Right) {
 //          Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
         }
@@ -197,7 +198,8 @@ public class TeenDuh extends Fragment {
         }
         
         // Paginating
-        if (manager.getTopPosition() == adapter.getItemCount() - 5) {
+        if (manager.getTopPosition() == adapter.getItemCount() - 1) {
+          manager.setTopPosition(0);
           paginate();
         }
         

@@ -28,83 +28,85 @@ public class AuthLayout extends AppCompatActivity {
   private final int GOOGLE_AUTH_REQUEST_CODE = 2;
   private GoogleSignInOptions googleSignInOptions;
   private GoogleSignInClient googleSignInClient;
-
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_auth_layout);
-
-    AndroidUtil.setActivity(this);
-
-    googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-      .requestIdToken(getString(R.string.default_web_client_id))
-      .requestEmail()
-      .build();
-
-    googleSignInClient = GoogleSignIn.getClient(AuthLayout.this, googleSignInOptions);
-
-    FirebaseUser firebaseUser = FirebaseUtil.getCurUser();
-    if (firebaseUser != null) {
-      AndroidUtil._startActivity(AuthLayout.this, TestSuccess.class);
-      finish();
-    }
+    
+    AndroidUtil.init(this);
+    FirebaseUtil.init();
   }
-
+  
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
       case PHONE_AUTH_REQUEST_CODE:
-        finish();
+        // finish();
+        // if (resultCode == RESULT_OK) handlePhoneAccount();
         break;
       case GOOGLE_AUTH_REQUEST_CODE:
-        Task<GoogleSignInAccount> signInAccountTask =
-          GoogleSignIn.getSignedInAccountFromIntent(data)
-            .addOnCompleteListener(task -> {
-              try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account != null) {
-                  AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-
-                  FirebaseUtil.getAuth()
-                    .signInWithCredential(authCredential)
-                    .addOnCompleteListener(authResultTask -> {
-                      if (authResultTask.isSuccessful()) {
-                        FirebaseUtil.setCurUser(authResultTask.getResult().getUser());
-                        AndroidUtil._startActivity(AuthLayout.this, TestSuccess.class);
-                        finish();
-                      } else {
-                        Log.d("TAG", "onComplete: " + authResultTask.getException().getMessage());
-                      }
-                    });
-                }
-
-                Toast.makeText(this, "google sign in success", Toast.LENGTH_SHORT).show();
-              } catch (ApiException e) {
-                Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-                Toast.makeText(this, "google sign in failed", Toast.LENGTH_SHORT).show();
-              }
-            });
+        GoogleSignIn.getSignedInAccountFromIntent(data)
+            .addOnCompleteListener(this::handleGoogleAccount);
         break;
     }
-
+    
   }
-
+  
   public void googleLogin(View view) {
     Toast.makeText(this, "google login", Toast.LENGTH_SHORT).show();
-    AndroidUtil._startActivityForResult(AuthLayout.this,
-      googleSignInClient.getSignInIntent(), GOOGLE_AUTH_REQUEST_CODE);
+    googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                              .requestIdToken(getString(R.string.default_web_client_id))
+                              .requestEmail()
+                              .build();
+    googleSignInClient = GoogleSignIn.getClient(AuthLayout.this, googleSignInOptions);
+    googleSignInClient.signOut().addOnCompleteListener(task -> {
+      AndroidUtil._startActivityForResult(AuthLayout.this,
+          googleSignInClient.getSignInIntent(), GOOGLE_AUTH_REQUEST_CODE);
+    });
   }
-
+  
+  public void handleGoogleAccount(Task<GoogleSignInAccount> task) {
+    if (!task.isSuccessful()) {
+      task.getException().printStackTrace();
+      return;
+    }
+    
+    try {
+      GoogleSignInAccount account = task.getResult(ApiException.class);
+      AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+      
+      FirebaseUtil.getAuth()
+          .signInWithCredential(credential)
+          .addOnCompleteListener(task1 -> {
+            if (!task1.isSuccessful()){
+              task1.getException().printStackTrace();
+              return;
+            }
+            
+            FirebaseUtil.setCurUser(task1.getResult().getUser());
+            AndroidUtil._startActivity(AuthLayout.this, TestSuccess.class);
+          });
+    } catch (Exception err) {
+      err.printStackTrace();
+    }
+  }
+  
   public void phoneLogin(View view) {
-    AndroidUtil._startActivityForResult(AuthLayout.this, PhoneAuthLayout.class, null, PHONE_AUTH_REQUEST_CODE);
+    AndroidUtil._startActivityForResult(AuthLayout.this, PhoneAuthLayout.class
+        , null, PHONE_AUTH_REQUEST_CODE);
   }
-
+  
   public void redirectTermsOfService(View view) {
     AndroidUtil._openExternalURL(AuthLayout.this, getResources().getString(R.string.terms_of_service_url));
   }
-
+  
   public void redirectPrivacyPolicy(View view) {
     AndroidUtil._openExternalURL(AuthLayout.this, getResources().getString(R.string.privacy_policy_url));
+  }
+  
+  public void handlePhoneAccount(){
+    AndroidUtil._startActivity(AuthLayout.this, TestSuccess.class);
   }
 }

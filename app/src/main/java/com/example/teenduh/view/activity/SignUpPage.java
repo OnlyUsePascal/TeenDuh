@@ -18,7 +18,6 @@ public class SignUpPage extends AppCompatActivity {
     public int currentProgress = 0;
     public ProgressBar progressBar;
     public TextView progressText;
-
     private ImageView back;
 
     @Override
