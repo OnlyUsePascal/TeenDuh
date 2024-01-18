@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
-  android:layout_gravity="center"
   android:layout_margin="20dp"
-  tools:context=".view.fragment.NameFragment">
+  android:orientation="vertical"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_gravity="center|bottom">
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="center_horizontal">
+    android:orientation="vertical">
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Add your recent pictures"
+      android:text="Edit your pictures"
       android:textSize="30dp"
       android:textStyle="bold"
       android:layout_marginTop="10dp" />
 
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_gravity="center_horizontal">
+
       <GridLayout
-        android:layout_width="match_parent"
+        android:id="@+id/imageGrid"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:rowCount="2"
-        android:layout_marginTop="20dp"
+        android:layout_marginVertical="20dp"
         android:layout_gravity="center"
         android:alignmentMode="alignMargins"
-        android:useDefaultMargins="true">
+        android:useDefaultMargins="true"
+        android:visibility="visible">
 
         <androidx.cardview.widget.CardView
           app:cardCornerRadius="10dp"
@@ -329,86 +334,49 @@
 
       </GridLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:gravity="center">
-
-      <LinearLayout
-        android:id="@+id/progressInfoLayout"
-        android:layout_width="match_parent"
+      <ProgressBar
+        android:id="@+id/uploadProgressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal|bottom"
-        android:layout_marginVertical="30dp">
+        android:layout_gravity="center"
+        android:visibility="invisible" />
 
-        <RelativeLayout
-          android:layout_width="50dp"
-          android:layout_height="wrap_content">
+    </FrameLayout>
 
-          <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:indeterminateOnly="false"
-            android:max="6"
-            android:progress="0"
-            android:progressDrawable="@drawable/circular_progressbar_layout" />
+  </LinearLayout>
 
-          <TextView
-            android:id="@+id/progressBarNumberText"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="0/6"
-            android:textSize="15dp"
-            android:textStyle="bold" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="center_horizontal"
+    android:orientation="horizontal">
 
-        </RelativeLayout>
+    <Button
+      android:id="@+id/discardButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:background="@drawable/btn_outline"
+      android:gravity="center"
+      android:text="Discard"
+      android:textColor="#FF4D4F"
+      android:textSize="20sp"
+      android:textStyle="bold" />
 
-        <TextView
-          android:layout_marginStart="20dp"
-          android:id="@+id/tipTextView"
-          android:maxWidth="200dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:textStyle="bold"
-          android:text="Hey! Let's add 2 to start. We recommend a face pic." />
+    <Button
+      android:id="@+id/saveButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginLeft="5dp"
+      android:background="@drawable/btn_round_layout"
+      android:gravity="center"
+      android:text="Save"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      android:enabled="false" />
 
-      </LinearLayout>
+  </LinearLayout>
 
-      <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-          android:id="@+id/nextButton"
-          android:layout_width="300dp"
-          android:layout_height="50dp"
-          android:layout_gravity="center"
-          android:background="@drawable/btn_unselected"
-          android:enabled="false"
-          android:gravity="center"
-          android:text="Next"
-          android:textColor="@color/black"
-          android:textSize="20dp"
-          android:textStyle="bold" />
-
-        <ProgressBar
-          android:id="@+id/uploadProgressBar"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:visibility="invisible" />
-
-      </FrameLayout>
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

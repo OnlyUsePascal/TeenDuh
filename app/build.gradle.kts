@@ -95,7 +95,7 @@ dependencies {
   implementation("com.lorentzos.swipecards:library:1.0.9")
 
   // payment
-//  implementation("com.braintreepayments.api:braintree:3.21.1")
+  // implementation("com.braintreepayments.api:braintree:3.21.1")
   implementation("com.braintreepayments.api:drop-in:6.14.0")
   implementation("org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.7-5")
   implementation("com.stripe:stripe-android:20.36.1")
