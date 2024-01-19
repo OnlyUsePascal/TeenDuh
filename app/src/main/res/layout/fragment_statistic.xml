@@ -12,28 +12,21 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btn_age"
+            android:id="@+id/pie_chart"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:text="Age"
+            android:text="Pie Chart"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btn_gender"
+            android:id="@+id/line_chart"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:text="Gender"
+            android:text="Line Chart"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/btn_subscription"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:text="Subscription"
-            android:textSize="20sp" />
 
 
     </LinearLayout>

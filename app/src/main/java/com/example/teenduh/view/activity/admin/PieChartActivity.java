@@ -1,8 +1,10 @@
-package com.example.teenduh.view.activity;
+package com.example.teenduh.view.activity.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.teenduh.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -18,6 +20,7 @@ public class PieChartActivity extends AppCompatActivity {
     private PieChart pieChartAge;
     private PieChart pieChartGender;
     private PieChart pieChartMembership;
+    private ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +30,18 @@ public class PieChartActivity extends AppCompatActivity {
         pieChartAge = findViewById(R.id.pie_chart_age);
         pieChartGender = findViewById(R.id.pie_chart_gender);
         pieChartMembership = findViewById(R.id.pie_chart_membership);
+        btnBack = findViewById(R.id.back_button);
 //
         displayAgeDistribution();
         displayGenderDistribution();
         displayMembershipDistribution();
+
+        btnBack.setOnClickListener(v -> {
+            finish();
+        });
     }
 
-    void displayAgeDistribution() {
+    private void displayAgeDistribution() {
 
         List<PieEntry> pieEntries = new ArrayList<>();
 
@@ -104,7 +112,7 @@ public class PieChartActivity extends AppCompatActivity {
         pieChartAge.invalidate();
     }
 
-    void displayMembershipDistribution() {
+    private void displayMembershipDistribution() {
 
         List<PieEntry> pieEntries = new ArrayList<>();
 
@@ -171,7 +179,7 @@ public class PieChartActivity extends AppCompatActivity {
         pieChartMembership.invalidate();
     }
 
-    void displayGenderDistribution() {
+    private void displayGenderDistribution() {
 
         List<PieEntry> pieEntries = new ArrayList<>();
 
