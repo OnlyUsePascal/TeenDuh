@@ -86,7 +86,9 @@ public class AuthLayout extends AppCompatActivity {
             }
             
             FirebaseUtil.setCurUser(task1.getResult().getUser());
-            AndroidUtil._startActivity(AuthLayout.this, TestSuccess.class);
+            // AndroidUtil._startActivity(AuthLayout.this, TestSuccess.class);
+            // AndroidUtil._startActivityForResult(this, TestSuccess.class, TestSuccess.REQ_LOGIN);
+            AndroidUtil.setupLogin(this);
           });
     } catch (Exception err) {
       err.printStackTrace();
@@ -94,8 +96,7 @@ public class AuthLayout extends AppCompatActivity {
   }
   
   public void phoneLogin(View view) {
-    AndroidUtil._startActivityForResult(AuthLayout.this, PhoneAuthLayout.class
-        , null, PHONE_AUTH_REQUEST_CODE);
+    AndroidUtil._startActivityForResult(AuthLayout.this, PhoneAuthLayout.class , PHONE_AUTH_REQUEST_CODE);
   }
   
   public void redirectTermsOfService(View view) {

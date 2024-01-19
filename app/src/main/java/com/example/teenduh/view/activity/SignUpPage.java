@@ -35,9 +35,9 @@ public class SignUpPage extends AppCompatActivity {
             progressBar.setProgress(currentProgress);
             backFragment();
         });
-
-        // TODO: temp login, change in prod
-        AndroidUtil.loginEmail(R.id.button13, () -> {
+        
+        // // TODO: temp login, change in prod
+        AndroidUtil.loginEmail(R.id.button11, () -> {
             System.out.println("--temp login");
         });
     }

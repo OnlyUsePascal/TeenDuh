@@ -113,22 +113,22 @@ public class Profile extends Fragment {
       AndroidUtil._startActivity(getContext(), EditProfile.class);
     });
     
-    viewPager2 = view.findViewById(R.id.viewPager2);
-    imageList = new ArrayList<>();
-    
-    Image image1 = new Image(R.drawable.ronaldo, "Cristiano Ronaldo");
-    Image image2 = new Image(R.drawable.park_seo, "Park Seo Joon");
-    Image image3 = new Image(R.drawable.modric, "Luka Modric");
-    
-    imageList.add(image1);
-    imageList.add(image2);
-    imageList.add(image3);
-    
-    viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
+    //
+    // viewPager2 = view.findViewById(R.id.viewPager2);
+    // imageList = new ArrayList<>();
+    //2@
+    // Image image1 = new Image(R.drawable.ronaldo, "Cristiano Ronaldo");
+    // Image image2 = new Image(R.drawable.park_seo, "Park Seo Joon");
+    // Image image3 = new Image(R.drawable.modric, "Luka Modric");
+    //
+    // imageList.add(image1);
+    // imageList.add(image2);
+    // imageList.add(image3);
+    //
+    // viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
     viewPager2.setOffscreenPageLimit(3);
     viewPager2.setClipChildren(false);
     viewPager2.setClipToPadding(false);
-
     viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
 
     CompositePageTransformer transformer = new CompositePageTransformer();

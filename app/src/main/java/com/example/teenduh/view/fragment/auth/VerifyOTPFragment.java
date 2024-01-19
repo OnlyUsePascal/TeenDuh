@@ -141,7 +141,9 @@ public class VerifyOTPFragment extends Fragment {
             Log.d(TAG, "signInWithCredential:success");
             
             FirebaseUtil.setCurUser(task.getResult().getUser());
-            AndroidUtil._startActivity(getContext(), TestSuccess.class);
+            // AndroidUtil._startActivity(getContext(), TestSuccess.class);
+            // AndroidUtil._startActivityForResult(getActivity(), TestSuccess.class, TestSuccess.REQ_LOGIN);
+            AndroidUtil.setupLogin(getActivity());
           } else {
             Log.w(TAG, "signInWithCredential:failure", task.getException());
             
