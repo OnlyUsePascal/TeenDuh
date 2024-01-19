@@ -93,6 +93,7 @@ dependencies {
   implementation ("com.yuyakaido.android:card-stack-view:2.3.4")
   implementation ("com.squareup.picasso:picasso:2.71828")
   implementation("com.lorentzos.swipecards:library:1.0.9")
+  implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
   // payment
   // implementation("com.braintreepayments.api:braintree:3.21.1")
