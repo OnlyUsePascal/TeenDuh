@@ -21,7 +21,6 @@ import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.view.activity.MainLayout;
 import com.example.teenduh.view.activity.SignUpPage;
-import com.example.teenduh.view.activity.TestSuccess;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,7 +42,7 @@ public class ImageFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_image, container, false);
     signUpPage = (SignUpPage) getActivity();
 
-    FirebaseUtil.initStorage();
+    // FirebaseUtil.initStorage();
 
     initField(view);
 
@@ -159,7 +158,7 @@ public class ImageFragment extends Fragment {
     if (AndroidUtil.getCurUser().getIsInitial()) {
       AndroidUtil.getCurUser().setFirstFetchDone();
     }
-    AndroidUtil.getCurUser().setImageList(imageUriList);
+    AndroidUtil.getCurUser().setImageUris(imageUriList);
     
     numberOfFetchesToDo = 0;
     numberOfFetchesDone = 0;

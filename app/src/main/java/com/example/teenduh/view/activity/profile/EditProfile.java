@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
@@ -36,7 +33,7 @@ public class EditProfile extends AppCompatActivity {
   ImageView[] imageList = new ImageView[6];
   TextView[] addPhotoList = new TextView[6];
   TextView[] deletePhotoList = new TextView[6];
-  Uri[] imageUriList = new Uri[6];
+  Uri[] imageUris = new Uri[6];
   Button saveButton, discardButton;
   int numberOfFetchesToDo = 0, numberOfFetchesDone = 0;
 
@@ -44,7 +41,7 @@ public class EditProfile extends AppCompatActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.fragment_edit_profile);
-
+  
     initField();
 
     for (int i = 0; i < addPhotoList.length; i++) {
@@ -58,13 +55,12 @@ public class EditProfile extends AppCompatActivity {
       });
     }
 
-    FirebaseUtil.initStorage();
-
     try {
       downloadFilesFromStorage();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  
   }
 
   private void initField() {
@@ -85,14 +81,16 @@ public class EditProfile extends AppCompatActivity {
       final int index = i + 1;
       imageList[i] = findViewById(getResources()
         .getIdentifier("imageView" + index, "id", EditProfile.this.getPackageName()));
+      
       addPhotoList[i] = findViewById(getResources()
         .getIdentifier("textViewButton" + index, "id", EditProfile.this.getPackageName()));
+      
       deletePhotoList[i] = findViewById(getResources()
         .getIdentifier("deleteButton" + index, "id", EditProfile.this.getPackageName()));
       deletePhotoList[i].setOnClickListener(v -> {
         imageList[index - 1].setImageDrawable(null);
         imageList[index - 1].setScaleType(ImageView.ScaleType.CENTER);
-        imageUriList[index - 1] = null;
+        imageUris[index - 1] = null;
         transformDeleteButtonToAddButton(index - 1);
       });
     }
@@ -115,7 +113,7 @@ public class EditProfile extends AppCompatActivity {
     deletePhotoList[index].setVisibility(View.INVISIBLE);
     deletePhotoList[index].setEnabled(false);
 
-    imageUriList[index] = null;
+    imageUris[index] = null;
 
     numberOfFetchesToDo++;
 
@@ -123,7 +121,7 @@ public class EditProfile extends AppCompatActivity {
   }
 
   public void onUploadingComplete() {
-    AndroidUtil.getCurUser().setImageList(imageUriList.clone());
+    AndroidUtil.getCurUser().setImageUris(imageUris.clone());
 
     numberOfFetchesToDo = 0;
     numberOfFetchesDone = 0;
@@ -148,13 +146,13 @@ public class EditProfile extends AppCompatActivity {
 
   public void uploadFilesToStorage() {
     showUploadProgressBar();
-    for (int i = 0; i < imageUriList.length; i++) {
-      if (imageUriList[i] != AndroidUtil.getCurUser().getImageListItem(i)) {
-        if (imageUriList[i] != null) {
+    for (int i = 0; i < imageUris.length; i++) {
+      if (imageUris[i] != AndroidUtil.getCurUser().getImageListItem(i)) {
+        if (imageUris[i] != null) {
           // TODO: modify the storage url
           UploadTask uploadTask = FirebaseUtil.getStorageRef()
             .child("users/test/" + AndroidUtil.getCurUser().getId() + "/" + i)
-            .putFile(imageUriList[i]);
+            .putFile(imageUris[i]);
 
           uploadTask.addOnFailureListener(exception -> {
             Log.e("TAG", "upload file onFailure: " + exception.getMessage());
@@ -182,28 +180,28 @@ public class EditProfile extends AppCompatActivity {
 
   public void downloadFilesFromStorage() throws IOException {
     showUploadProgressBar();
-    for (int i = 0; i < imageUriList.length; i++) {
+    for (int i = 0; i < imageUris.length; i++) {
       final int index = i;
       File localFile = File.createTempFile("images", "jpg");
 
+      // TODO: modify the storage url
       StorageReference fileToDownloadRef = FirebaseUtil.getStorageRef()
-        // TODO: modify the storage url
         .child("users/test/" + AndroidUtil.getCurUser().getId() + "/" + i);
 
       fileToDownloadRef.getFile(localFile).addOnSuccessListener(uri -> {
         Uri tempUri = Uri.fromFile(localFile);
-        imageUriList[index] = tempUri;
+        imageUris[index] = tempUri;
         imageList[index].setImageURI(tempUri);
         imageList[index].setScaleType(ImageView.ScaleType.CENTER_CROP);
         transformAddButtonToDeleteButton(index, true);
 
         if (index == 5) {
-          AndroidUtil.getCurUser().setImageList(imageUriList.clone());
+          AndroidUtil.getCurUser().setImageUris(imageUris.clone());
           onUploadingComplete();
         }
       }).addOnFailureListener(exception -> {
         if (index == 5) {
-          AndroidUtil.getCurUser().setImageList(imageUriList.clone());
+          AndroidUtil.getCurUser().setImageUris(imageUris.clone());
           onUploadingComplete();
         }
       });
@@ -217,7 +215,7 @@ public class EditProfile extends AppCompatActivity {
       Uri uri = data.getData();
       imageList[requestCode - 1].setImageURI(uri);
       imageList[requestCode - 1].setScaleType(ImageView.ScaleType.CENTER_CROP);
-      imageUriList[requestCode - 1] = uri;
+      imageUris[requestCode - 1] = uri;
       transformAddButtonToDeleteButton(requestCode - 1, false);
     } else if (resultCode == ImagePicker.RESULT_ERROR) {
       Toast.makeText(EditProfile.this, ImagePicker.Companion.getError(data), Toast.LENGTH_SHORT).show();

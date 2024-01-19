@@ -35,6 +35,8 @@ public class FirebaseUtil {
     messaging = FirebaseMessaging.getInstance();
     firestore = FirebaseFirestore.getInstance();
     auth = FirebaseAuth.getInstance();
+    storage = FirebaseStorage.getInstance("gs://teenduh-t1.appspot.com");
+    
     auth.signOut();
     _getFcm();
   }
@@ -88,7 +90,6 @@ public class FirebaseUtil {
   
   public static FirebaseUser getCurUser() {
     return getAuth().getCurrentUser();
-    
   }
   
   public static void updateChatRoom(HashMap<String, Object> data, Consumer<String> consumer) {

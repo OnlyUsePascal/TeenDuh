@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -26,6 +28,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.model.Image;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.User;
@@ -33,12 +36,13 @@ import com.example.teenduh.view.adapter.SubscriptionAdapter;
 
 import com.example.teenduh.view.activity.MainLayout;
 import com.example.teenduh.view.activity.profile.EditProfile;
-import com.example.teenduh.view.adapter.ImageAdapter;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.firebase.storage.StorageReference;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Profile extends Fragment {
   private MainLayout mainLayout;
@@ -77,7 +81,7 @@ public class Profile extends Fragment {
     circle2 = view.findViewById(R.id.circle2);
     editProfile = view.findViewById(R.id.editProfile);
     mainLayout = (MainLayout) getActivity();
-  
+    
     initBtn();
     initViewPager(viewPager2);
     initPersonalInfo(view);
@@ -115,7 +119,10 @@ public class Profile extends Fragment {
     });
   }
   
-  public void initViewPager(ViewPager2 viewPager2){
+  public void initViewPager(ViewPager2 viewPager2) {
+    System.out.println("?????");
+    System.out.println(FirebaseUtil.getCurUser());
+    
     viewPager2.bringToFront();
     viewPager2.setAdapter(new SubscriptionAdapter(viewPager2));
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -135,7 +142,7 @@ public class Profile extends Fragment {
     viewPager2.setClipChildren(false);
     viewPager2.setClipToPadding(false);
     viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
-  
+    
     CompositePageTransformer transformer = new CompositePageTransformer();
     transformer.addTransformer(new MarginPageTransformer(40));
     transformer.addTransformer((page, position) -> {
@@ -145,10 +152,52 @@ public class Profile extends Fragment {
     viewPager2.setPageTransformer(transformer);
   }
   
-  public void initPersonalInfo(View view){
+  AppCompatImageView imageView;
+  String id;
+  
+  public void initPersonalInfo(View view) {
     User user = AndroidUtil.getCurUser();
-    ((TextView) view.findViewById(R.id.textView7)).setText(user.getName() + " , " + user.getAge());
+    
     // todo get image + new thread
+    TextView nameField = view.findViewById(R.id.textView7);
+    nameField.setText(user.getName() + " , " + user.getAge());
+    
+    imageView = view.findViewById(R.id.avatar);
+    id = AndroidUtil.getCurUser().getId();
+    new Thread(() -> {
+      try {
+        fetchAvatar(0);
+      } catch (IOException err) {
+        err.printStackTrace();
+      }
+    }).run();
+    
+  }
+  
+  private void fetchAvatar(int index) throws IOException {
+    if (index > 5) return;
+    System.out.println("searching: " + index);
+    File localFile = File.createTempFile("images", "jpg");
+    Uri tempUri = Uri.fromFile(localFile);
+
+    // TODO: modify the storage url
+    StorageReference fileToDownloadRef =
+        FirebaseUtil.getStorageRef().child("users/test/" + id + "/" + index);
+    fileToDownloadRef.getFile(localFile).addOnCompleteListener(task -> {
+      if (!task.isSuccessful()) {
+        // task.getException().printStackTrace();
+        try {
+          fetchAvatar(index + 1);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+      
+      getActivity().runOnUiThread(() -> {
+        imageView.setImageURI(tempUri);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+      });
+    });
   }
   
   private void showSuperLikeDialog() {
@@ -385,7 +434,7 @@ public class Profile extends Fragment {
   public void setProgressBar(double percent) {
     // 0 - 73
     int progress = (int) (73 * percent);
-    System.out.println(progress);
+    // System.out.println(progress);
     progressIndicator.setProgress(progress, true);
   }
 }

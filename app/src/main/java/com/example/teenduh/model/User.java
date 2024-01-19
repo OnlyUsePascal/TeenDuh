@@ -21,7 +21,7 @@ public class User {
   // private String age;
   private String city;
   private boolean isInitial = true;
-  private Uri[] imageList = new Uri[6];
+  private Uri[] imageUris = new Uri[6];
 
   public User(int image, String name, String city, LocalDate birthday){
     this.name = name;
@@ -127,14 +127,14 @@ public class User {
 
   public Uri getImageListItem(int index) {
     try {
-      return imageList[index];
+      return imageUris[index];
     } catch (Exception e) {
       return null;
     }
   }
   
-  public void setImageList(Uri[] imageList) {
-    this.imageList = imageList;
+  public void setImageUris(Uri[] imageUris) {
+    this.imageUris = imageUris;
   }
 
   @Override
