@@ -39,6 +39,7 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -289,13 +290,16 @@ public class TeenDuh extends Fragment {
   
   private List<User> addList() {
     List<User> users = new ArrayList<>();
-    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau"));
-    users.add(new User(R.drawable.messi, "Messi", "24", "HCM"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    users.add(new User(R.drawable.ronaldo, "Ronaldo", "Vung Tau", LocalDate.of(2003, 1, 3)));
+    users.add(new User(R.drawable.messi, "Messi", "HCM", LocalDate.of(2000, 1, 3)));
+    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "NYC", LocalDate.of(2009, 1, 3)));
+    
+    // users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
     
     return users;
   }

@@ -44,8 +44,8 @@ public class MainLayout extends AppCompatActivity {
     initNavBar();
   
     // TODO RMB TO COMMENT THIS
-    FirebaseUtil.init();
-    AndroidUtil.init(this);
+    // FirebaseUtil.init();
+    // AndroidUtil.init(this);
     // AndroidUtil.loginEmail(R.id.button13, () -> {
     //   System.out.println("--temp login");
     // });
@@ -61,8 +61,6 @@ public class MainLayout extends AppCompatActivity {
       }
     },1000);
   }
-  
-  
   
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
