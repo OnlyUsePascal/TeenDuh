@@ -13,7 +13,7 @@
             android:id="@+id/cancelBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/cross1"
+            android:src="@drawable/cross11"
             android:scaleType="centerCrop"/>
 
         <TextView
@@ -27,7 +27,7 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/viewPager2"
         android:layout_below="@+id/relativeLayout"
@@ -246,31 +246,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -300,25 +275,6 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/baseline_check_24_red"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"/>
-                <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Unlimited Likes"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
                     android:src="@drawable/baseline_lock_24"
                     android:layout_gravity="center"
                     android:layout_marginStart="20dp"/>
@@ -326,28 +282,21 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="See who likes you"
+                    android:text="5 free Super Like per month"
                     android:textSize="15dp"
                     android:textStyle="bold" />
             </LinearLayout>
-            <LinearLayout
+            <TextView
+                android:drawableLeft="@drawable/baseline_star_24"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/baseline_lock_24"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"/>
-                <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Unlimited Rewinds"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:text="Pro tips: Get more SuperLikes to stand out \nfrom the crowd"
+                android:textSize="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -388,48 +337,37 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Unlimited Likes"
+                    android:text="5 free Super Like per month"
                     android:textSize="15dp"
                     android:textStyle="bold" />
             </LinearLayout>
-            <LinearLayout
+            <TextView
+                android:drawableLeft="@drawable/baseline_star_24"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/baseline_lock_24"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"/>
-                <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="See who likes you"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/baseline_lock_24"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"/>
-                <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Unlimited Rewinds"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:text="Pro tips: Get more SuperLikes to stand out \nfrom the crowd"
+                android:textSize="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+    <TextView
+        android:id="@+id/buttonSubscription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gold_card_2"
+        android:layout_centerHorizontal="true"
+        android:text="STARTING AT $9.99/MONTH"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_layout_plus"
+        android:textColor="@color/white"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="30dp"
+        android:textStyle="bold" />
+
 </RelativeLayout>

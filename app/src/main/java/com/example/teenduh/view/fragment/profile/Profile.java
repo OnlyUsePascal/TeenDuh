@@ -93,7 +93,7 @@ public class Profile extends Fragment {
     viewList.add(view2);
 
     viewPager2.bringToFront();
-    viewPager2.setAdapter(new SubscriptionAdapter(viewPager2));
+    viewPager2.setAdapter(new SubscriptionAdapter(viewPager2, getActivity()));
 
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
@@ -130,13 +130,12 @@ public class Profile extends Fragment {
     viewPager2.setClipChildren(false);
     viewPager2.setClipToPadding(false);
     viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
-
     CompositePageTransformer transformer = new CompositePageTransformer();
     transformer.addTransformer(new MarginPageTransformer(40));
-    transformer.addTransformer((page, position) -> {
-      float r = 1 - Math.abs(position);
-      page.setScaleY(0.85f + r * 0.15f);
-    });
+//    transformer.addTransformer((page, position) -> {
+//      float r = 1 - Math.abs(position);
+//      page.setScaleY(0.85f + r * 0.15f);
+//    });
     viewPager2.setPageTransformer(transformer);
 
     return view;
