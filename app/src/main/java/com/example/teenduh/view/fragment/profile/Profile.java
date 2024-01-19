@@ -85,12 +85,6 @@ public class Profile extends Fragment {
     initBtn();
     initViewPager(viewPager2);
     initPersonalInfo(view);
-    // List<View> viewList = new ArrayList<>();
-    // View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_card, container, false);
-    // View view2 = LayoutInflater.from(getContext()).inflate(R.layout.item_tinder_subsription, container, false);
-    // viewList.add(view1);
-    // viewList.add(view2);
-    
     return view;
   }
   
@@ -124,7 +118,7 @@ public class Profile extends Fragment {
     System.out.println(FirebaseUtil.getCurUser());
     
     viewPager2.bringToFront();
-    viewPager2.setAdapter(new SubscriptionAdapter(viewPager2));
+    viewPager2.setAdapter(new SubscriptionAdapter(viewPager2, getActivity()));
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
       public void onPageSelected(int position) {
@@ -142,13 +136,8 @@ public class Profile extends Fragment {
     viewPager2.setClipChildren(false);
     viewPager2.setClipToPadding(false);
     viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
-    
     CompositePageTransformer transformer = new CompositePageTransformer();
     transformer.addTransformer(new MarginPageTransformer(40));
-    transformer.addTransformer((page, position) -> {
-      float r = 1 - Math.abs(position);
-      page.setScaleY(0.85f + r * 0.15f);
-    });
     viewPager2.setPageTransformer(transformer);
   }
   
@@ -214,7 +203,6 @@ public class Profile extends Fragment {
     cardView1.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-//                Toast.makeText(context, "Card 1", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
         checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 5);
       }
@@ -223,7 +211,6 @@ public class Profile extends Fragment {
     cardView2.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-//                Toast.makeText(context, "Card 2", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
         checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 100);
       }
@@ -232,7 +219,6 @@ public class Profile extends Fragment {
     cardView3.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-//                Toast.makeText(context, "Card 3", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
         checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 500);
       }

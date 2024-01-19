@@ -8,13 +8,18 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.view.adapter.ImageAdapter;
 import com.example.teenduh.view.adapter.WelcomeAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +30,7 @@ public class Subscription extends AppCompatActivity {
   private CardView circle1,circle2;
   private ImageView cancelBtn;
   private CardView plusCardView1, goldCardView1, plusCardView2, goldCardView2;
+  private TextView purchase;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -38,19 +44,19 @@ public class Subscription extends AppCompatActivity {
     plusCardView2 = findViewById(R.id.plus_card_2);
     goldCardView1 = findViewById(R.id.gold_card_1);
     goldCardView2 = findViewById(R.id.gold_card_2);
-
+    purchase = findViewById(R.id.buttonSubscription);
 
     cancelBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         finish();
-        overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
       }
     });
     viewPager2.bringToFront();
     imageList = new ArrayList<Image>();
-    imageList.add(new Image(R.drawable.tinder_plus, "nuill"));
-    imageList.add(new Image(R.drawable.tinder_gold, "nuill"));
+    imageList.add(new Image(R.drawable.tinder_plus_cover, "nuill"));
+    imageList.add(new Image(R.drawable.tidner_premium, "nuill"));
     viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
@@ -61,17 +67,36 @@ public class Subscription extends AppCompatActivity {
           circle2.setForeground(getResources().getDrawable(R.drawable.btn_unselected));
           plusCardView1.setVisibility(View.VISIBLE);
           plusCardView2.setVisibility(View.VISIBLE);
-          goldCardView1.setVisibility(View.GONE);
-          goldCardView2.setVisibility(View.GONE);
+          goldCardView1.setVisibility(View.INVISIBLE);
+          goldCardView2.setVisibility(View.INVISIBLE);
+          purchase.setBackgroundResource(R.drawable.bg_layout_plus);
+          purchase.setText("STARTING AT $9.99/MONTH");
+          purchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Toast.makeText(Subscription.this, "Coming soon!!!", Toast.LENGTH_SHORT).show();
+              finish();
+              overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+            }
+          });
 
         } else if (position == 1) {
           circle2.setForeground(getResources().getDrawable(R.drawable.btn_layout));
           circle1.setForeground(getResources().getDrawable(R.drawable.btn_unselected));
-          plusCardView1.setVisibility(View.GONE);
-          plusCardView2.setVisibility(View.GONE);
+          plusCardView1.setVisibility(View.INVISIBLE);
+          plusCardView2.setVisibility(View.INVISIBLE);
           goldCardView1.setVisibility(View.VISIBLE);
           goldCardView2.setVisibility(View.VISIBLE);
-
+          purchase.setBackgroundResource(R.drawable.bg_layout_premium);
+          purchase.setText("STARTING AT $14.99/MONTH");
+          purchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Toast.makeText(Subscription.this, "Coming soon", Toast.LENGTH_SHORT).show();
+              finish();
+              overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+            }
+          });
         }
       }
     });
@@ -81,6 +106,7 @@ public class Subscription extends AppCompatActivity {
 
     viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
 
+
     CompositePageTransformer transformer = new CompositePageTransformer();
     transformer.addTransformer(new MarginPageTransformer(40));
     transformer.addTransformer((page, position) -> {
@@ -89,4 +115,5 @@ public class Subscription extends AppCompatActivity {
     });
     viewPager2.setPageTransformer(transformer);
   }
+
 }
