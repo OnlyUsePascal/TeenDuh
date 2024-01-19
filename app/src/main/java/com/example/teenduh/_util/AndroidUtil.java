@@ -40,6 +40,15 @@ public class AndroidUtil {
   private static RecyclerView chatView;
   private static ChatAdapter chatAdapter;
   private static String flagMatch;
+  private static boolean isAdmin = true;
+
+  public static boolean checkIsAdmin() {
+    return isAdmin;
+  }
+
+  public static void setAdmin(boolean admin) {
+    isAdmin = admin;
+  }
 
   public static String getFlagMatch() {
     return flagMatch;

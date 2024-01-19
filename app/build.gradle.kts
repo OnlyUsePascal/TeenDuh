@@ -42,7 +42,7 @@ dependencies {
   implementation("androidx.annotation:annotation:1.6.0")
   implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation("pl.bclogic:pulsator4droid:1.0.3")
+  implementation("pl.bclogic:pulsator4droid:1.0.3"  )
   implementation("de.hdodenhof:circleimageview:3.1.0")
 
   // auth
@@ -92,6 +92,7 @@ dependencies {
   implementation ("com.yuyakaido.android:card-stack-view:2.3.4")
   implementation ("com.squareup.picasso:picasso:2.71828")
   implementation("com.lorentzos.swipecards:library:1.0.9")
+  implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
   // payment
   // implementation("com.braintreepayments.api:braintree:3.21.1")
