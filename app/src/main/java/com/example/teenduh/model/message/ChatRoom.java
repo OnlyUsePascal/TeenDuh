@@ -81,7 +81,7 @@ public class ChatRoom {
       }
     }
     
-    return AndroidUtil.getUser(otherId);
+    return AndroidUtil.getUserWithId(otherId);
   }
   
   public int getSenderIndex(String id){

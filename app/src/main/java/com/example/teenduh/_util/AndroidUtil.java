@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,17 +16,19 @@ import com.example.teenduh.R;
 import com.example.teenduh.model.User;
 import com.example.teenduh.model.message.Chat;
 import com.example.teenduh.model.message.ChatRoom;
+import com.example.teenduh.view.activity.MainLayout;
+import com.example.teenduh.view.activity.SignUpPage;
 import com.example.teenduh.view.adapter.message.ChatAdapter;
-import com.google.firebase.Firebase;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class AndroidUtil {
   private static Activity activity;
@@ -126,17 +130,7 @@ public class AndroidUtil {
     AndroidUtil.curUser = curUser;
   }
   
-  public static User getUser(String id){
-    for (User user : users){
-      if (user.getId().equals(id)){
-        return user;
-      }
-    }
-    
-    return null;
-  }
-  
-  public static void setCurUser(String uid){
+  public static void setCurUserWithId(String uid){
     System.out.println("cur user " + uid);
     for (User user : users) {
       if (user.getId().equals(uid)) {
@@ -146,22 +140,35 @@ public class AndroidUtil {
     }
   }
   
+  public static User getUserWithId(String id){
+    for (User user : users){
+      if (user.getId().equals(id)){
+        return user;
+      }
+    }
+    
+    return null;
+  }
+  
+  public static void setCurNewUser(String id, Runnable runnable){
+    User newUser = new User(id, "__blank", FirebaseUtil.getFcm(), LocalDate.of(2000,1,1));
+    setCurUser(newUser);
+    FirebaseUtil.runRunnable(runnable);
+  }
+  
+  
   public static void _startActivity(Context context, Class<?> target) {
     Intent intent = new Intent(context, target);
     context.startActivity(intent);
   }
   
-  public static void _startActivityForResult(Activity activity, Class<?> target
-      , Bundle bundle, int code) {
+  public static void _startActivityForResult(Activity activity, Class<?> target, int code) {
     Intent intent = new Intent(activity, target);
-    if (bundle != null) {
-      intent.putExtras(bundle);
-    }
+    intent.putExtra("reqCode", code);
     activity.startActivityForResult(intent, code);
   }
   
-  public static void _startActivityForResult(Activity activity, Intent intent
-      , int code) {
+  public static void _startActivityForResult(Activity activity, Intent intent, int code) {
     activity.startActivityForResult(intent, code);
   }
   
@@ -187,14 +194,16 @@ public class AndroidUtil {
         String name = documentSnapshot.getString("name");
         String fcm = documentSnapshot.getString("fcm");
         String uid = documentSnapshot.getId();
+        Timestamp bday = documentSnapshot.getTimestamp("bday");
+        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         if (fcm == null) fcm = "blank";
-        User user = new User(uid, name, fcm);
+        User user = new User(uid, name, fcm, bdayLocal);
         users.add(user);
       }
       
       System.out.println(users);
-      if (runnable != null) runnable.run();
+      FirebaseUtil.runRunnable(runnable);
     });
   }
   
@@ -231,7 +240,7 @@ public class AndroidUtil {
       }
       
       curChatRoom.setChats(chats);
-      if (runnable != null) runnable.run();
+      FirebaseUtil.runRunnable(runnable);
     });
   }
   
@@ -240,12 +249,43 @@ public class AndroidUtil {
     String pwd = "123123";
     
     FirebaseUtil.loginEmail(mail, pwd, () -> {
-      setCurUser(FirebaseUtil.getCurUser().getUid());
+      setCurUserWithId(FirebaseUtil.getCurUser().getUid());
       HashMap<String, Object> data = new HashMap<>();
       data.put("fcm", FirebaseUtil.getFcm());
       FirebaseUtil.updateUser(curUser.getId(), data, runnable);
     });
   }
   
+  public static void setupLogin(Activity activity1){
+    User user = getUserWithId(FirebaseUtil.getCurUser().getUid());
+    boolean exist = user != null;
+    System.out.println("exists = " + exist + " -- " + FirebaseUtil.getCurUser().getUid());
   
+    Runnable runnable = () -> {
+      activity1.runOnUiThread(() -> {
+        // ((TextView) findViewById(R.id.textView)).setText("Exist = " + exist);
+        _startActivity(activity1, (exist) ? MainLayout.class : SignUpPage.class);
+      });
+    };
+    if (!exist) {
+      // users.add(user);
+      setCurNewUser(FirebaseUtil.getCurUser().getUid(), runnable); // not on firebase yet
+    } else {
+      setCurUser(user);
+      // update fcm
+      HashMap<String, Object> data = new HashMap<>();
+      data.put("fcm", FirebaseUtil.getFcm());
+      FirebaseUtil.updateUser(user.getId(), data, runnable);
+    }
+  }
+  
+  public static void setupRegister(Runnable runnable){
+    //take place after login
+    users.add(curUser);
+    FirebaseUtil.updateNewUser(runnable);
+  }
+  
+  public static void makeToast(Context context, String mess){
+    Toast.makeText(context, mess, Toast.LENGTH_SHORT).show();
+  }
 }

@@ -215,7 +215,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
     void setData(User data) {
       name.setText(data.getName());
-      age.setText(data.getAge());
+      age.setText(data.getAge() + "");
       city.setText(data.getCity());
     }
   }

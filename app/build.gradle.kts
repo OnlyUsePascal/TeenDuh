@@ -75,13 +75,12 @@ dependencies {
   implementation("com.google.firebase:firebase-auth:22.3.0")
   implementation("com.google.firebase:firebase-firestore:24.10.0")
   implementation("com.google.firebase:firebase-analytics:21.5.0")
-
   implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
   implementation("com.google.firebase:firebase-firestore-ktx:24.10.0")
   implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
   implementation("com.google.firebase:firebase-messaging-ktx:23.4.0")
   implementation("com.google.firebase:firebase-messaging:23.4.0")
-  implementation("com.google.firebase:firebase-storage")
+  implementation("com.google.firebase:firebase-storage:20.3.0")
 
   // international phone number hadling
   implementation("com.fredporciuncula:phonemoji:1.5.2")
