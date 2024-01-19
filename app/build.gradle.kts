@@ -42,7 +42,7 @@ dependencies {
   implementation("androidx.annotation:annotation:1.6.0")
   implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation("pl.bclogic:pulsator4droid:1.0.3")
+  implementation("pl.bclogic:pulsator4droid:1.0.3"  )
   implementation("de.hdodenhof:circleimageview:3.1.0")
 
   // auth

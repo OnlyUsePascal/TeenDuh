@@ -77,6 +77,7 @@ public class TeenDuh extends Fragment {
     btnFilter = view.findViewById(R.id.filter_button);
     pulsatorLayout = view.findViewById(R.id.pulsator);
     circleImageView = view.findViewById(R.id.profile_image);
+
     pulsatorLayout.bringToFront();
     circleImageView.bringToFront();
     pulsatorLayout.start();
@@ -200,7 +201,26 @@ public class TeenDuh extends Fragment {
         // Paginating
         if (manager.getTopPosition() == adapter.getItemCount() - 1) {
           manager.setTopPosition(0);
+
+
           paginate();
+          pulsatorLayout.bringToFront();
+          circleImageView.bringToFront();
+          pulsatorLayout.setVisibility(View.VISIBLE);
+          circleImageView.setVisibility(View.VISIBLE);
+
+          pulsatorLayout.start();
+          Handler handler2 = new Handler();
+          handler2.postDelayed(() -> {
+            pulsatorLayout.stop();
+            pulsatorLayout.setVisibility(View.GONE);
+            circleImageView.setVisibility(View.GONE);
+            cardStackView.setVisibility(View.VISIBLE);
+          }, 1000);
+
+
+
+
         }
         
       }
@@ -248,6 +268,7 @@ public class TeenDuh extends Fragment {
   }
   
   private void paginate() {
+    cardStackView.setVisibility(View.INVISIBLE);
     List<User> old = adapter.getUserList();
     List<User> newList = new ArrayList<>(addList());
     CardStackCallback callback = new CardStackCallback(old, newList);

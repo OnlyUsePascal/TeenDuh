@@ -13,7 +13,10 @@ import android.widget.FrameLayout;
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh.view.fragment.Database;
 import com.example.teenduh.view.fragment.MatchFragment;
+import com.example.teenduh.view.fragment.Report;
+import com.example.teenduh.view.fragment.Statistic;
 import com.example.teenduh.view.fragment.message.ChitChat;
 import com.example.teenduh.view.fragment.profile.Profile;
 import com.example.teenduh.view.fragment.TeenDuh;
@@ -26,6 +29,9 @@ public class MainLayout extends AppCompatActivity {
   private FrameLayout frameLayout;
   private BottomNavigationView navBar;
   private MatchFragment fragMatch;
+  private Database fragDatabase;
+  private Statistic fragStatistic;
+  private Report fragReport;
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +41,24 @@ public class MainLayout extends AppCompatActivity {
     
     frameLayout = findViewById(R.id.container);
     navBar = findViewById(R.id.navbar);
+
+    //chance menu based on Role
+    if (AndroidUtil.checkIsAdmin()) {
+      navBar.getMenu().clear(); // Clear the old menu
+      navBar.inflateMenu(R.menu.navbar_menu_admin); // Inflate the new menu
+    } else {
+      navBar.getMenu().clear(); // Clear the old menu
+      navBar.inflateMenu(R.menu.navbar_menu); // Inflate the new menu
+    }
     
     fragTeenDuh = new TeenDuh();
     fragChitChat = new ChitChat();
     fragProfile = new Profile();
     fragMatch = new MatchFragment();
+    fragDatabase = new Database();
+    fragStatistic = new Statistic();
+    fragReport = new Report();
+
     initNavBar();
   
     FirebaseUtil.init();
@@ -66,7 +85,7 @@ public class MainLayout extends AppCompatActivity {
   public void changeFragment(Fragment fragment) {
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-    fragmentTransaction.replace(R.id.frame, fragment);
+    fragmentTransaction.replace(R.id.container, fragment);
     fragmentTransaction.commit();
   }
   
@@ -79,11 +98,21 @@ public class MainLayout extends AppCompatActivity {
         changeFragment(fragChitChat);
       } else if (itemId == R.id.menu_profile) {
         changeFragment(fragProfile);
-      } else if(itemId == R.id.menu_matches){
+      } else if (itemId == R.id.menu_matches) {
         changeFragment(fragMatch);
+      } else if (itemId == R.id.menu_database) {
+        changeFragment(fragDatabase);
+      } else if (itemId == R.id.menu_statistic) {
+        changeFragment(fragStatistic);
+      } else if (itemId == R.id.menu_report) {
+        changeFragment(fragReport);
       }
       return true;
     });
-    changeFragment(fragTeenDuh);
+    if (AndroidUtil.checkIsAdmin()) {
+      changeFragment(fragDatabase);
+    } else {
+      changeFragment(fragTeenDuh);
+    }
   }
 }
