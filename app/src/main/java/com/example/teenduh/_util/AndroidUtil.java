@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -264,4 +265,7 @@ public class AndroidUtil {
     }
   }
   
+  public static void makeToast(Context context, String mess){
+    Toast.makeText(context, mess, Toast.LENGTH_SHORT).show();
+  }
 }

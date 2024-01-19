@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="permission_done"><u>You are all set!</u></string>
   <string name="app_name">TeenDuh</string>
   <string name="title_activity_auth">AuthActivity</string>
   <string name="prompt_email">Email</string>
