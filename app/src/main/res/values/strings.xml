@@ -31,7 +31,7 @@
   <string name="facebook_client_token">56789</string>
   <string name="cloud_mess_key">key=AAAAvDDdOwg:APA91bEfkGLdpigmZcT1KSn5F8nGhZqIB_eqkRmvw09E04Z6P84A7Wx5bxa7rbcdSgvy6VE0FwyDQMX4Mq1Lnex1zPDB33GoozflfjjXtIsOvv5QmaIwliyJSP-DMa6M10cABW2-LxCm</string>
   <string name="paypal_tokenization_key">sandbox_hcw4jst8_kvrtfp9hdbpfdrfs</string>
-
+  <string name="permission_done"><u>You are all set!</u></string>
   <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
