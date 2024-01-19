@@ -28,6 +28,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh.model.User;
 import com.example.teenduh.view.adapter.SubscriptionAdapter;
 
 import com.example.teenduh.view.activity.MainLayout;
@@ -35,19 +36,20 @@ import com.example.teenduh.view.activity.profile.EditProfile;
 import com.example.teenduh.view.adapter.ImageAdapter;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Profile extends Fragment {
-  MainLayout mainLayout;
-  Activity activity;
-  Button buttonSuperLike, buttonSuperFind;
-  AppCompatImageButton editProfile;
-  boolean isProceedPayment;
-  boolean isDeposit;
-  ViewPager2 viewPager2;
-  private CardView circle1,circle2;
-  List<Image> imageList;
+  private MainLayout mainLayout;
+  private Activity activity;
+  private Button buttonSuperLike, buttonSuperFind;
+  private AppCompatImageButton editProfile;
+  private boolean isProceedPayment;
+  private boolean isDeposit;
+  private ViewPager2 viewPager2;
+  private CardView circle1, circle2;
+  private List<Image> imageList;
   private CircularProgressIndicator progressIndicator;
   private Handler sliderHandler;
   private Runnable runnable = new Runnable() {
@@ -75,7 +77,29 @@ public class Profile extends Fragment {
     circle2 = view.findViewById(R.id.circle2);
     editProfile = view.findViewById(R.id.editProfile);
     mainLayout = (MainLayout) getActivity();
+  
+    initBtn();
+    initViewPager(viewPager2);
+    initPersonalInfo(view);
+    // List<View> viewList = new ArrayList<>();
+    // View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_card, container, false);
+    // View view2 = LayoutInflater.from(getContext()).inflate(R.layout.item_tinder_subsription, container, false);
+    // viewList.add(view1);
+    // viewList.add(view2);
     
+    return view;
+  }
+  
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    
+    (new Handler()).postDelayed(() -> {
+      setProgressBar((double) 55 / 100);
+    }, 1000);
+  }
+  
+  private void initBtn() {
     buttonSuperLike.setOnClickListener(v -> {
       Toast.makeText(activity, "Super Like", Toast.LENGTH_SHORT).show();
       showSuperLikeDialog();
@@ -85,16 +109,15 @@ public class Profile extends Fragment {
       Toast.makeText(activity, "Super Find", Toast.LENGTH_SHORT).show();
       showSuperLikeDialog();
     });
-
-    List<View> viewList = new ArrayList<>();
-    View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_card, container, false);
-    View view2 = LayoutInflater.from(getContext()).inflate(R.layout.item_tinder_subsription, container, false);
-    viewList.add(view1);
-    viewList.add(view2);
-
+    
+    editProfile.setOnClickListener(v -> {
+      AndroidUtil._startActivity(getContext(), EditProfile.class);
+    });
+  }
+  
+  public void initViewPager(ViewPager2 viewPager2){
     viewPager2.bringToFront();
     viewPager2.setAdapter(new SubscriptionAdapter(viewPager2));
-
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
       public void onPageSelected(int position) {
@@ -108,29 +131,11 @@ public class Profile extends Fragment {
         }
       }
     });
-
-    editProfile.setOnClickListener(v -> {
-      AndroidUtil._startActivity(getContext(), EditProfile.class);
-    });
-    
-    //
-    // viewPager2 = view.findViewById(R.id.viewPager2);
-    // imageList = new ArrayList<>();
-    //2@
-    // Image image1 = new Image(R.drawable.ronaldo, "Cristiano Ronaldo");
-    // Image image2 = new Image(R.drawable.park_seo, "Park Seo Joon");
-    // Image image3 = new Image(R.drawable.modric, "Luka Modric");
-    //
-    // imageList.add(image1);
-    // imageList.add(image2);
-    // imageList.add(image3);
-    //
-    // viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
     viewPager2.setOffscreenPageLimit(3);
     viewPager2.setClipChildren(false);
     viewPager2.setClipToPadding(false);
     viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
-
+  
     CompositePageTransformer transformer = new CompositePageTransformer();
     transformer.addTransformer(new MarginPageTransformer(40));
     transformer.addTransformer((page, position) -> {
@@ -138,22 +143,15 @@ public class Profile extends Fragment {
       page.setScaleY(0.85f + r * 0.15f);
     });
     viewPager2.setPageTransformer(transformer);
-
-    return view;
   }
   
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    
-    (new Handler()).postDelayed(() -> {
-      setProgressBar((double) 55 / 100);
-    }, 1000);
+  public void initPersonalInfo(View view){
+    User user = AndroidUtil.getCurUser();
+    ((TextView) view.findViewById(R.id.textView7)).setText(user.getName() + " , " + user.getAge());
+    // todo get image + new thread
   }
-  
   
   private void showSuperLikeDialog() {
-    
     final Dialog dialog = new Dialog(getContext());
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     dialog.setContentView(R.layout.super_like_layout);

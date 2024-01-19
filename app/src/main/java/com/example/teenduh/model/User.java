@@ -2,12 +2,13 @@ package com.example.teenduh.model;
 
 import android.net.Uri;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class User {
   private String id;
   private String name;
-  private String birthday;
+  private LocalDate birthday;
   private String gender;
   private String fcm;
   private String interestPreference;
@@ -17,43 +18,43 @@ public class User {
   private ArrayList<String> sexualOrientationList;
   private String InterestedIn;
   private int image;
-  private String age;
+  // private String age;
   private String city;
   private boolean isInitial = true;
   private Uri[] imageList = new Uri[6];
 
-  public User(int image, String name, String age, String city){
+  public User(int image, String name, String city, LocalDate birthday){
     this.name = name;
-    this.age = age;
     this.city = city;
     this.image = image;
+    this.birthday = birthday;
   }
 
   public int getImage() {
     return image;
   }
 
-  public String getAge() {
-    return age;
+  public int getAge() {
+    return LocalDate.now().getYear() - birthday.getYear();
   }
 
   public String getCity() {
     return city;
   }
 
-  public User(String name, String birthday, String gender, String interestPreference, String distancePreference, String lookingFor) {
+  public User(String name, String gender, String interestPreference, String distancePreference, String lookingFor) {
     this.name = name;
-    this.birthday = birthday;
     this.gender = gender;
     this.interestPreference = interestPreference;
     this.distancePreference = distancePreference;
     this.lookingFor = lookingFor;
   }
 
-  public User(String id, String name, String fcm){
+  public User(String id, String name, String fcm, LocalDate bday){
     this.id = id;
     this.name = name;
     this.fcm = fcm;
+    this.birthday = bday;
   }
 
   public User(){}
@@ -75,10 +76,10 @@ public class User {
     this.name = name;
   }
 
-  public void setBirthday(String birthday) {
+  public void setBirthday(LocalDate birthday) {
     this.birthday = birthday;
   }
-
+  
   public void setGender(String gender) {
     this.gender = gender;
   }
@@ -131,7 +132,7 @@ public class User {
       return null;
     }
   }
-
+  
   public void setImageList(Uri[] imageList) {
     this.imageList = imageList;
   }

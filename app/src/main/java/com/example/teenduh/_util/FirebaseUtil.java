@@ -3,6 +3,7 @@ package com.example.teenduh._util;
 import android.content.Context;
 import android.os.Handler;
 
+import com.example.teenduh.model.User;
 import com.example.teenduh.model.message.Chat;
 import com.example.teenduh.model.message.ChatRoom;
 import com.google.firebase.auth.FirebaseAuth;
@@ -121,6 +122,24 @@ public class FirebaseUtil {
           data.put("lastSender", chat.get("sender"));
           data.put("lastMessId", task.getResult().getId());
           updateChatRoom(data, consumer);
+        });
+  }
+  
+  public static void updateNewUser(Runnable runnable){
+    User newUser = AndroidUtil.getCurUser();
+    HashMap<String, Object> data = new HashMap<>();
+    
+    data.put("name", newUser.getName());
+    data.put("fcm", newUser.getFcm());
+    
+    firestore.collection("users").document(newUser.getId())
+        .set(data).addOnCompleteListener(task -> {
+          if (!task.isSuccessful()){
+            task.getException().printStackTrace();
+            return;
+          }
+          
+          runRunnable(runnable);
         });
   }
   

@@ -62,8 +62,6 @@ public class MainLayout extends AppCompatActivity {
     },1000);
   }
   
-  
-  
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     System.out.println("on act result");
