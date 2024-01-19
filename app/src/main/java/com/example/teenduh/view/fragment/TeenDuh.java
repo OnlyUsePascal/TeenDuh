@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import com.example.teenduh.R;
 import com.example.teenduh.model.User;
 import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh.view.activity.MatchingScreen;
 import com.example.teenduh.view.activity.SettingFilter;
 import com.example.teenduh.view.adapter.CardStackAdapter;
 import com.example.teenduh.view.adapter.CardStackCallback;
@@ -216,6 +217,14 @@ public class TeenDuh extends Fragment {
         Log.d(TAG, "Adapter size: " + adapter.getItemCount());
         if (direction == Direction.Right) {
 //          Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
+            for(int i = 0; i < adapter.getItemCount(); i++){
+              if(i == manager.getTopPosition()){
+                if(adapter.getUserList().get(i).getLikedPeople().equals("matched")){
+                  Intent intent = new Intent(getContext(), MatchingScreen.class);
+                  startActivity(intent);
+                }
+              }
+            }
         }
         if (direction == Direction.Top) {
 //          Toast.makeText(getContext(), "Direction Top", Toast.LENGTH_SHORT).show();
@@ -289,13 +298,13 @@ public class TeenDuh extends Fragment {
   
   private List<User> addList() {
     List<User> users = new ArrayList<>();
-    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau"));
-    users.add(new User(R.drawable.messi, "Messi", "24", "HCM"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau", "0"));
+    users.add(new User(R.drawable.messi, "Messi", "24", "HCM","0"));
+    users.add(new User(R.drawable.modric, "Modric", "24", "HCM","matched"));
+    users.add(new User(R.drawable.park_seo, "Park Seo Joon", "24", "HCM","0"));
+    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau","0"));
+    users.add(new User(R.drawable.messi, "Messi", "24", "HCM","0"));
+
     
     return users;
   }

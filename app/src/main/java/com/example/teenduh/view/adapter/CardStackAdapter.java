@@ -3,6 +3,7 @@ package com.example.teenduh.view.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.view.InputQueue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.model.User;
 import com.example.teenduh.view.activity.MainLayout;
+import com.example.teenduh.view.activity.MatchingScreen;
 import com.example.teenduh.view.activity.ShowMoreInfo;
 import com.example.teenduh.view.fragment.TeenDuh;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -37,6 +39,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
   private FragmentActivity mActivity;
   int diffElement = 0;
   int currentPosition = 0;
+
 
   public CardStackAdapter(List<User> userList, Context context, FragmentActivity mainLayout) {
     this.userList = userList;
@@ -57,6 +60,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     User user = userList.get(position);
     holder.setData(user);
+
     List<Image> imageList = new ArrayList<>();
     imageList.add(new Image(R.drawable.ronaldo, "Cristiano Ronaldo"));
     imageList.add(new Image(R.drawable.park_seo, "Park Seo Joon"));
@@ -101,9 +105,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     this.userList = user;
   }
 
-  public void remove(int position) {
-    userList.remove(position);
-  }
+
 
   public class ViewHolder extends RecyclerView.ViewHolder {
     private final CardView cardView1;

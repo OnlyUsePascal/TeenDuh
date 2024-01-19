@@ -21,14 +21,17 @@ public class User {
   private String city;
   private boolean isInitial = true;
   private Uri[] imageList = new Uri[6];
-
-  public User(int image, String name, String age, String city){
+  private String likedPeople ;
+  public User(int image, String name, String age, String city, String likedPeople){
     this.name = name;
     this.age = age;
     this.city = city;
     this.image = image;
+    this.likedPeople = likedPeople;
   }
-
+  public String getLikedPeople() {
+    return likedPeople;
+  }
   public int getImage() {
     return image;
   }
