@@ -34,6 +34,7 @@ public class FirebaseUtil {
     messaging = FirebaseMessaging.getInstance();
     firestore = FirebaseFirestore.getInstance();
     auth = FirebaseAuth.getInstance();
+    auth.signOut();
     _getFcm();
   }
   

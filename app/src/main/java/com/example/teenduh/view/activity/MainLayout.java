@@ -42,10 +42,10 @@ public class MainLayout extends AppCompatActivity {
     fragMatch = new MatchFragment();
     initNavBar();
   
+    // TODO: temp login, change in prod
     FirebaseUtil.init();
     AndroidUtil.init(this);
 
-    // TODO: temp login, change in prod
     AndroidUtil.loginEmail(R.id.button13, () -> {
       System.out.println("--temp login");
     });
