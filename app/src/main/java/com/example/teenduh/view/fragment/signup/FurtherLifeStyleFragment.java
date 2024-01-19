@@ -48,7 +48,7 @@ public class FurtherLifeStyleFragment extends Fragment {
 //            System.out.println("zodiac habit: " + zodiacHabit);
             signUpPage.currentProgress += 10;
             signUpPage.progressBar.setProgress(signUpPage.currentProgress);
-            signUpPage.replaceFragment(new PictureProfileFragment());
+            signUpPage.replaceFragment(new ImageFragment());
         });
 
         return view;

@@ -36,7 +36,6 @@ public class AuthLayout extends AppCompatActivity {
     
     AndroidUtil.init(this);
     FirebaseUtil.init();
-    
   }
   
   @Override

@@ -64,6 +64,8 @@ public class AskPermission extends AppCompatActivity {
     
     if (areAllPermissionsGranted(this)) {
       buttonContinue.setVisibility(View.VISIBLE);
+    } else {
+      buttonContinue.setVisibility(View.INVISIBLE);
     }
   }
   

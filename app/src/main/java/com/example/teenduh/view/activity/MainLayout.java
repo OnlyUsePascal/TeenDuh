@@ -43,9 +43,9 @@ public class MainLayout extends AppCompatActivity {
     fragMatch = new MatchFragment();
     initNavBar();
   
+    // TODO RMB TO COMMENT THIS
     FirebaseUtil.init();
     AndroidUtil.init(this);
-
     // AndroidUtil.loginEmail(R.id.button13, () -> {
     //   System.out.println("--temp login");
     // });
