@@ -8,12 +8,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.FrameLayout;
 
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh.view.fragment.Database;
 import com.example.teenduh.view.fragment.MatchFragment;
+import com.example.teenduh.view.fragment.Report;
+import com.example.teenduh.view.fragment.Statistic;
 import com.example.teenduh.view.fragment.message.ChitChat;
 import com.example.teenduh.view.fragment.profile.Profile;
 import com.example.teenduh.view.fragment.TeenDuh;
@@ -27,7 +31,10 @@ public class MainLayout extends AppCompatActivity {
   private BottomNavigationView navBar;
   private MatchFragment fragMatch;
   private int currentFragmentIndex = 0;
-  
+  private Database fragDatabase;
+  private Statistic fragStatistic;
+  private Report fragReport;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -36,7 +43,16 @@ public class MainLayout extends AppCompatActivity {
     
     frameLayout = findViewById(R.id.container);
     navBar = findViewById(R.id.navbar);
-    
+
+    //chance menu based on Role
+    if (AndroidUtil.checkIsAdmin()) {
+      navBar.getMenu().clear(); // Clear the old menu
+      navBar.inflateMenu(R.menu.navbar_menu_admin); // Inflate the new menu
+    } else {
+      navBar.getMenu().clear(); // Clear the old menu
+      navBar.inflateMenu(R.menu.navbar_menu); // Inflate the new menu
+    }
+
     fragTeenDuh = new TeenDuh();
     fragChitChat = new ChitChat();
     fragProfile = new Profile();
@@ -45,15 +61,29 @@ public class MainLayout extends AppCompatActivity {
     changeFragment(fragTeenDuh, 0);
     getWindow().setNavigationBarColor(getResources().getColor(R.color.secondary));
 
+    fragDatabase = new Database();
+    fragStatistic = new Statistic();
+    fragReport = new Report();
+
     initNavBar();
   
-    FirebaseUtil.init();
-    AndroidUtil.init(this);
+    // TODO RMB TO COMMENT THIS
+    // FirebaseUtil.init();
+    // AndroidUtil.init(this);
+    // AndroidUtil.loginEmail(R.id.button13, () -> {
+    //   System.out.println("--temp login");
+    // });
 
-    // TODO: temp login, change in prod
-    AndroidUtil.loginEmail(R.id.button13, () -> {
-      System.out.println("--temp login");
-    });
+    // todo check permission
+    new Handler().postDelayed(() -> {
+      if (!AskPermission.areAllPermissionsGranted(this)){
+        runOnUiThread(() -> {
+          Intent intent = new Intent(this, AskPermission.class);
+          startActivity(intent);
+          overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+        });
+      }
+    },1000);
   }
   
   @Override
@@ -79,7 +109,7 @@ public class MainLayout extends AppCompatActivity {
     super.onResume();
     getWindow().setNavigationBarColor(getResources().getColor(R.color.secondary));
   }
-  
+
   public void changeFragment(Fragment fragment, int position) {
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -92,7 +122,7 @@ public class MainLayout extends AppCompatActivity {
 
     currentFragmentIndex = position;
 
-    fragmentTransaction.replace(R.id.frame, fragment);
+    fragmentTransaction.replace(R.id.container, fragment);
     fragmentTransaction.commit();
   }
   
@@ -113,11 +143,26 @@ public class MainLayout extends AppCompatActivity {
       } else if (itemId == R.id.menu_profile) {
         fragment = fragProfile;
         newPosition = 3;
+      } else if (itemId == R.id.menu_database) {
+        fragment = fragDatabase;
+        newPosition = 4;
+      } else if (itemId == R.id.menu_statistic) {
+        fragment = fragStatistic;
+        newPosition = 5;
+      } else if (itemId == R.id.menu_report) {
+        fragment = fragReport;
+        newPosition = 6;
       }
 
       changeFragment(fragment, newPosition);
 
       return true;
     });
+
+    if (AndroidUtil.checkIsAdmin()) {
+      changeFragment(fragDatabase);
+    } else {
+      changeFragment(fragTeenDuh);
+    }
   }
 }

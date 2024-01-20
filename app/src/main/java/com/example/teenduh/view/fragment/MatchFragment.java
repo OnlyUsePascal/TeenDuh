@@ -64,6 +64,7 @@ public class MatchFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(false);
       }
     });
+    
     textview_who_like.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

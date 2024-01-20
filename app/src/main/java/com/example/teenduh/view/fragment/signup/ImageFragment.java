@@ -19,13 +19,13 @@ import android.widget.Toast;
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh.view.activity.MainLayout;
 import com.example.teenduh.view.activity.SignUpPage;
-import com.example.teenduh.view.activity.TestSuccess;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class PictureProfileFragment extends Fragment {
+public class ImageFragment extends Fragment {
   ImageView[] imageList = new ImageView[6];
   TextView[] addPhotoList = new TextView[6];
   TextView[] deletePhotoList = new TextView[6];
@@ -39,10 +39,10 @@ public class PictureProfileFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_picture_profile, container, false);
+    View view = inflater.inflate(R.layout.fragment_image, container, false);
     signUpPage = (SignUpPage) getActivity();
 
-    FirebaseUtil.initStorage();
+    // FirebaseUtil.initStorage();
 
     initField(view);
 
@@ -154,24 +154,24 @@ public class PictureProfileFragment extends Fragment {
     updateProgressBar();
   }
 
-  public void redirectAfterUploadingComplete() {
-    signUpPage.currentProgress += 10;
-    signUpPage.progressBar.setProgress(signUpPage.currentProgress);
-    AndroidUtil._startActivity(getContext(), TestSuccess.class);
-  }
-
   public void onUploadingComplete() {
     if (AndroidUtil.getCurUser().getIsInitial()) {
       AndroidUtil.getCurUser().setFirstFetchDone();
     }
-
-    AndroidUtil.getCurUser().setImageList(imageUriList);
-    redirectAfterUploadingComplete();
-
+    AndroidUtil.getCurUser().setImageUris(imageUriList);
+    
     numberOfFetchesToDo = 0;
     numberOfFetchesDone = 0;
-
-    showNextButton();
+    
+    AndroidUtil.setupRegister(() -> {
+      getActivity().runOnUiThread(() -> {
+        signUpPage.currentProgress += 10;
+        signUpPage.progressBar.setProgress(signUpPage.currentProgress);
+        getActivity().finish();
+        AndroidUtil._startActivity(getContext(), MainLayout.class);
+        showNextButton();
+      });
+    });
   }
 
   public void uploadFilesToStorage() {

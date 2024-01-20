@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -26,28 +28,32 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.model.Image;
 import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh.model.User;
 import com.example.teenduh.view.adapter.SubscriptionAdapter;
 
 import com.example.teenduh.view.activity.MainLayout;
 import com.example.teenduh.view.activity.profile.EditProfile;
-import com.example.teenduh.view.adapter.ImageAdapter;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Profile extends Fragment {
-  MainLayout mainLayout;
-  Activity activity;
-  CardView buttonSuperLike, buttonSuperFind;
-  AppCompatImageButton editProfile;
-  boolean isProceedPayment;
-  boolean isDeposit;
-  ViewPager2 viewPager2;
+  private MainLayout mainLayout;
+  private Activity activity;
+  private CardView buttonSuperLike, buttonSuperFind;
+  private AppCompatImageButton editProfile;
+  private boolean isProceedPayment;
+  private boolean isDeposit;
+  private ViewPager2 viewPager2;
   private CardView circle1,circle2;
-  List<Image> imageList;
+  private List<Image> imageList;
   private CircularProgressIndicator progressIndicator;
   private Handler sliderHandler;
   private Runnable runnable = new Runnable() {
@@ -76,6 +82,22 @@ public class Profile extends Fragment {
     editProfile = view.findViewById(R.id.editProfile);
     mainLayout = (MainLayout) getActivity();
     
+    initBtn();
+    initViewPager(viewPager2);
+    initPersonalInfo(view);
+    return view;
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    (new Handler()).postDelayed(() -> {
+      setProgressBar((double) 55 / 100);
+    }, 1000);
+  }
+
+  private void initBtn() {
     buttonSuperLike.setOnClickListener(v -> {
       Toast.makeText(activity, "Super Like", Toast.LENGTH_SHORT).show();
       showSuperLikeDialog();
@@ -86,15 +108,17 @@ public class Profile extends Fragment {
       showSuperLikeDialog();
     });
 
-    List<View> viewList = new ArrayList<>();
-    View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_card, container, false);
-    View view2 = LayoutInflater.from(getContext()).inflate(R.layout.item_tinder_subsription, container, false);
-    viewList.add(view1);
-    viewList.add(view2);
+    editProfile.setOnClickListener(v -> {
+      AndroidUtil._startActivity(getContext(), EditProfile.class);
+    });
+  }
+
+  public void initViewPager(ViewPager2 viewPager2) {
+    System.out.println("?????");
+    System.out.println(FirebaseUtil.getCurUser());
 
     viewPager2.bringToFront();
-    viewPager2.setAdapter(new SubscriptionAdapter(viewPager2));
-
+    viewPager2.setAdapter(new SubscriptionAdapter(viewPager2, getActivity()));
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
       public void onPageSelected(int position) {
@@ -108,52 +132,64 @@ public class Profile extends Fragment {
         }
       }
     });
-
-    editProfile.setOnClickListener(v -> {
-      AndroidUtil._startActivity(getContext(), EditProfile.class);
-    });
-    
-    viewPager2 = view.findViewById(R.id.viewPager2);
-    imageList = new ArrayList<>();
-    
-    Image image1 = new Image(R.drawable.ronaldo, "Cristiano Ronaldo");
-    Image image2 = new Image(R.drawable.park_seo, "Park Seo Joon");
-    Image image3 = new Image(R.drawable.modric, "Luka Modric");
-    
-    imageList.add(image1);
-    imageList.add(image2);
-    imageList.add(image3);
-    
-    viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
     viewPager2.setOffscreenPageLimit(3);
     viewPager2.setClipChildren(false);
     viewPager2.setClipToPadding(false);
-
     viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
-
     CompositePageTransformer transformer = new CompositePageTransformer();
     transformer.addTransformer(new MarginPageTransformer(40));
-    transformer.addTransformer((page, position) -> {
-      float r = 1 - Math.abs(position);
-      page.setScaleY(0.85f + r * 0.15f);
-    });
     viewPager2.setPageTransformer(transformer);
+  }
 
-    return view;
+  AppCompatImageView imageView;
+  String id;
+
+  public void initPersonalInfo(View view) {
+    User user = AndroidUtil.getCurUser();
+
+    // todo get image + new thread
+    TextView nameField = view.findViewById(R.id.textView7);
+    nameField.setText(user.getName() + " , " + user.getAge());
+
+    imageView = view.findViewById(R.id.avatar);
+    id = AndroidUtil.getCurUser().getId();
+    new Thread(() -> {
+      try {
+        fetchAvatar(0);
+      } catch (IOException err) {
+        err.printStackTrace();
+      }
+    }).run();
+
   }
   
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    
-    (new Handler()).postDelayed(() -> {
-      setProgressBar((double) 55 / 100);
-    }, 1000);
+  private void fetchAvatar(int index) throws IOException {
+    if (index > 5) return;
+    System.out.println("searching: " + index);
+    File localFile = File.createTempFile("images", "jpg");
+    Uri tempUri = Uri.fromFile(localFile);
+
+    // TODO: modify the storage url
+    StorageReference fileToDownloadRef =
+        FirebaseUtil.getStorageRef().child("users/test/" + id + "/" + index);
+    fileToDownloadRef.getFile(localFile).addOnCompleteListener(task -> {
+      if (!task.isSuccessful()) {
+        // task.getException().printStackTrace();
+        try {
+          fetchAvatar(index + 1);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      getActivity().runOnUiThread(() -> {
+        imageView.setImageURI(tempUri);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+      });
+    });
   }
-  
   
   private void showSuperLikeDialog() {
-    
     final Dialog dialog = new Dialog(getContext());
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     dialog.setContentView(R.layout.super_like_layout);
@@ -167,7 +203,6 @@ public class Profile extends Fragment {
     cardView1.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-//                Toast.makeText(context, "Card 1", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
         checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 5);
       }
@@ -176,7 +211,6 @@ public class Profile extends Fragment {
     cardView2.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-//                Toast.makeText(context, "Card 2", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
         checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 100);
       }
@@ -185,7 +219,6 @@ public class Profile extends Fragment {
     cardView3.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-//                Toast.makeText(context, "Card 3", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
         checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 500);
       }
@@ -387,7 +420,7 @@ public class Profile extends Fragment {
   public void setProgressBar(double percent) {
     // 0 - 73
     int progress = (int) (73 * percent);
-    System.out.println(progress);
+    // System.out.println(progress);
     progressIndicator.setProgress(progress, true);
   }
 }

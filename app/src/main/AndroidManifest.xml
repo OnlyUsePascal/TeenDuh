@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
-  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-  <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
       
@@ -20,14 +20,21 @@
     android:usesCleartextTraffic="true"
     tools:targetApi="31">
     <activity
+        android:name=".view.activity.AskPermission"
+        android:exported="false" />
+    <activity
+        android:name=".view.activity.admin.BarChartActivity"
+        android:exported="false"
+        android:screenOrientation="portrait"/>
+    <activity
       android:name=".view.activity.payment.DropInClientActivity"
       android:exported="true"
       android:launchMode="singleTask">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
         <data android:scheme="${applicationId}.braintree" />
       </intent-filter>
@@ -88,7 +95,11 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
+    <activity
+        android:name=".view.activity.admin.PieChartActivity"
+        android:exported="false"
+        android:screenOrientation="portrait" >
+    </activity>
     <activity
       android:name=".view.activity.SettingFilter"
       android:exported="true" />

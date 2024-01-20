@@ -39,6 +39,7 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class TeenDuh extends Fragment {
   private CardStackView cardStackView;
   TextView btnLike, btnSuperLike, btnCancel;
   PulsatorLayout pulsatorLayout;
-  GifImageView imageCancel;
+  GifImageView gifCancel;
   GifImageView gifLike, gifSuperLike;
   Button btnFilter;
   ImageView showMoreInfo;
@@ -69,7 +70,7 @@ public class TeenDuh extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_tinduh, container, false);
+    View view = inflater.inflate(R.layout.fragment_teenduh, container, false);
 
     btnLike = view.findViewById(R.id.like_action);
     btnCancel = view.findViewById(R.id.cancel_action);
@@ -77,23 +78,57 @@ public class TeenDuh extends Fragment {
     btnFilter = view.findViewById(R.id.filter_button);
     pulsatorLayout = view.findViewById(R.id.pulsator);
     circleImageView = view.findViewById(R.id.profile_image);
+
     pulsatorLayout.bringToFront();
     circleImageView.bringToFront();
+  
+    initBtn();
+    getLoading(view);
+    return view;
+  }
+  
+  
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+  }
+  
+  @Override
+  public void onResume() {
+    super.onResume();
+    if(AndroidUtil.getFlagMatch()!= null){
+      if(AndroidUtil.getFlagMatch().equals("cancel")){
+        String flag = AndroidUtil.getFlagMatch();
+        System.out.println("flag: " + flag);
+        swipeLeft(gifCancel);
+      }else if(AndroidUtil.getFlagMatch().equals("like")){
+        String flag = AndroidUtil.getFlagMatch();
+        System.out.println("flag: " + flag);
+        swipeRight(gifLike);
+      } else if(AndroidUtil.getFlagMatch().equals("superlike")) {
+        String flag = AndroidUtil.getFlagMatch();
+        System.out.println("flag: " + flag);
+        swipeTop(gifSuperLike);
+      }
+    }
+  }
+  
+  private void getLoading(View view) {
     pulsatorLayout.start();
-    Handler handler2 = new Handler();
-    handler2.postDelayed(() -> {
+    new Handler().postDelayed(() -> {
       pulsatorLayout.stop();
       pulsatorLayout.setVisibility(View.GONE);
       circleImageView.setVisibility(View.GONE);
       init(view);
     }, 5000);
-
-
+  }
+  
+  private void initBtn() {
     btnFilter.setOnClickListener(v -> {
       Intent intent = new Intent(getContext(), SettingFilter.class);
       startActivity(intent);
     });
-
+    
     btnLike.setOnClickListener(v -> {
       Handler handler = new Handler();
       gifLike.setVisibility(View.VISIBLE);
@@ -113,10 +148,11 @@ public class TeenDuh extends Fragment {
       
       
     });
+    
     btnCancel.setOnClickListener(v -> {
       Handler handler = new Handler();
-      imageCancel.setVisibility(View.VISIBLE);
-      imageCancel.bringToFront();
+      gifCancel.setVisibility(View.VISIBLE);
+      gifCancel.bringToFront();
       handler.postDelayed(() -> {
         manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
         manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
@@ -124,11 +160,12 @@ public class TeenDuh extends Fragment {
                                              .setDuration(Duration.Normal.duration)
                                              .setInterpolator(new AccelerateInterpolator())
                                              .build());
+        gifCancel.setVisibility(View.INVISIBLE);
         cardStackView.swipe();
-        imageCancel.setVisibility(View.INVISIBLE);
       }, 1000);
       
     });
+    
     btnSuperLike.setOnClickListener(v -> {
       Handler handler = new Handler();
       gifSuperLike.setVisibility(View.VISIBLE);
@@ -144,24 +181,18 @@ public class TeenDuh extends Fragment {
         cardStackView.swipe();
       }, 1000);
     });
-    
-    
-    return view;
   }
   
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    
-  }
+  
+  
   
   private void init(View root) {
     cardStackView = root.findViewById(R.id.card_stack_view);
-    imageCancel = root.findViewById(R.id.nope);
+    gifCancel = root.findViewById(R.id.nope);
     gifLike = root.findViewById(R.id.like);
     gifSuperLike = root.findViewById(R.id.superLike);
     gifLike.bringToFront();
-    imageCancel.bringToFront();
+    gifCancel.bringToFront();
     gifSuperLike.bringToFront();
     manager = new CardStackLayoutManager(getContext(), new CardStackListener() {
       @Override
@@ -200,7 +231,26 @@ public class TeenDuh extends Fragment {
         // Paginating
         if (manager.getTopPosition() == adapter.getItemCount() - 1) {
           manager.setTopPosition(0);
+
+
           paginate();
+          pulsatorLayout.bringToFront();
+          circleImageView.bringToFront();
+          pulsatorLayout.setVisibility(View.VISIBLE);
+          circleImageView.setVisibility(View.VISIBLE);
+
+          pulsatorLayout.start();
+          Handler handler2 = new Handler();
+          handler2.postDelayed(() -> {
+            pulsatorLayout.stop();
+            pulsatorLayout.setVisibility(View.GONE);
+            circleImageView.setVisibility(View.GONE);
+            cardStackView.setVisibility(View.VISIBLE);
+          }, 1000);
+
+
+
+
         }
         
       }
@@ -231,6 +281,7 @@ public class TeenDuh extends Fragment {
         TextView tv = view.findViewById(R.id.item_name);
       }
     });
+    
     manager.setStackFrom(StackFrom.None);
     manager.setVisibleCount(3);
     manager.setTranslationInterval(12.0f);
@@ -248,6 +299,7 @@ public class TeenDuh extends Fragment {
   }
   
   private void paginate() {
+    cardStackView.setVisibility(View.INVISIBLE);
     List<User> old = adapter.getUserList();
     List<User> newList = new ArrayList<>(addList());
     CardStackCallback callback = new CardStackCallback(old, newList);
@@ -259,36 +311,21 @@ public class TeenDuh extends Fragment {
   
   private List<User> addList() {
     List<User> users = new ArrayList<>();
-    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau"));
-    users.add(new User(R.drawable.messi, "Messi", "24", "HCM"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    users.add(new User(R.drawable.ronaldo, "Ronaldo", "Vung Tau", LocalDate.of(2003, 1, 3)));
+    users.add(new User(R.drawable.messi, "Messi", "HCM", LocalDate.of(2000, 1, 3)));
+    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "NYC", LocalDate.of(2009, 1, 3)));
+    
+    // users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
+    // users.add(new User(R.drawable.park_seo, "Park Seo Jun", "24", "NYC"));
     
     return users;
   }
 
-  @Override
-  public void onResume() {
-    super.onResume();
-    if(AndroidUtil.getFlagMatch()!= null){
-      if(AndroidUtil.getFlagMatch().equals("cancel")){
-        String flag = AndroidUtil.getFlagMatch();
-        System.out.println("flag: " + flag);
-          swipeLeft(imageCancel);
-      }else if(AndroidUtil.getFlagMatch().equals("like")){
-        String flag = AndroidUtil.getFlagMatch();
-        System.out.println("flag: " + flag);
-          swipeRight(gifLike);
-      } else if(AndroidUtil.getFlagMatch().equals("superlike")) {
-        String flag = AndroidUtil.getFlagMatch();
-        System.out.println("flag: " + flag);
-        swipeTop(gifSuperLike);
-      }
-    }
-  }
+  
   public void swipeLeft(GifImageView gifImage){
     Handler handler = new Handler();
     gifImage.setVisibility(View.VISIBLE);
@@ -305,6 +342,7 @@ public class TeenDuh extends Fragment {
       AndroidUtil.setFlagMatch(null);
     }, 1000);
   }
+  
   public void swipeRight(GifImageView gifImage){
     Handler handler = new Handler();
     gifImage.setVisibility(View.VISIBLE);

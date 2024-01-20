@@ -34,7 +34,10 @@ public class TestFeature extends AppCompatActivity {
   
   public void toWelcome(View view){
     AndroidUtil._startActivity(this, WelcomeActivity.class);
-    
+  }
+  
+  public void toPermit(View view){
+    AndroidUtil._startActivity(this, AskPermission.class);
   }
   
   public void toSignUp(View view){

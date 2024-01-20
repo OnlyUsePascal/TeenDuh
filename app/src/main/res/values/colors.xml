@@ -79,4 +79,9 @@
   <color name="black">#41444B</color>
   <color name="white">#F9F5F6</color>
   <color name="red">#FF8080</color>
+  <color name="distribution_1">#a8dadc</color>
+  <color name="distribution_2">#2a9d8f</color>
+  <color name="distribution_3">#e9c46a</color>
+  <color name="distribution_4">#f4a261</color>
+  <color name="distribution_5">#e76f51</color>
 </resources>
