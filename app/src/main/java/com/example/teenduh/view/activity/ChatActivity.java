@@ -1,13 +1,22 @@
 package com.example.teenduh.view.activity;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
@@ -16,6 +25,7 @@ import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.model.message.ChatRoom;
 import com.example.teenduh.view.adapter.CustomLayoutManager;
 import com.example.teenduh.view.adapter.message.ChatAdapter;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.Timestamp;
 
 import org.json.JSONException;
@@ -41,17 +51,24 @@ public class ChatActivity extends AppCompatActivity {
   private Button stat;
   private ChatRoom chatRoom;
   private ChatAdapter adapter;
+  private AppCompatImageButton sendBtn, reportBtn;
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_chat);
-    
+
     otherUser = findViewById(R.id.other_username);
     chatView = findViewById(R.id.chat_recycler_view);
     messField = findViewById(R.id.chat_message_input);
+    sendBtn = findViewById(R.id.message_send_btn);
+    reportBtn = findViewById(R.id.reportUserBtn);
     stat = findViewById(R.id.button5);
-    
+
+    reportBtn.setOnClickListener(v -> {
+      showReportDialog();
+    });
+
     chatRoom = AndroidUtil.getCurChatRoom();
     String otherName = chatRoom.getOtherUser().getName();
     otherUser.setText(otherName);
@@ -152,5 +169,52 @@ public class ChatActivity extends AppCompatActivity {
   
   public void setChatView(RecyclerView chatView) {
     this.chatView = chatView;
+  }
+
+  public void showReportDialog() {
+    final Dialog dialog = new Dialog(this);
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    dialog.setContentView(R.layout.report_user_layout);
+
+    Button discardBtn = dialog.findViewById(R.id.discardButton);
+    Button reportBtn = dialog.findViewById(R.id.submit);
+    ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
+    LinearLayout reportLayout = dialog.findViewById(R.id.buttonLayout);
+    TextView reportee = dialog.findViewById(R.id.reporteeUserName);
+
+    reportee.setText(chatRoom.getOtherUser().getName());
+
+    discardBtn.setOnClickListener(v -> dialog.dismiss());
+    reportBtn.setOnClickListener(v -> {
+      TextInputEditText reportText = dialog.findViewById(R.id.reasonField);
+      String report = reportText.getText().toString();
+
+      if (report.isEmpty()) {
+        reportText.setError("Please don't leave it blank");
+        return;
+      }
+
+      progressBar.setVisibility(View.VISIBLE);
+      reportLayout.setVisibility(View.GONE);
+
+      FirebaseUtil.getFirestore().collection("reports")
+        .document(AndroidUtil.getCurUser().getId())
+        .set(new HashMap<String, Object>() {{
+          put("report", report);
+          put("reportee", chatRoom.getOtherUser().getId());
+          put("time", Timestamp.now());
+        }})
+        .addOnCompleteListener(task -> {
+          progressBar.setVisibility(View.INVISIBLE);
+          reportLayout.setVisibility(View.VISIBLE);
+          dialog.dismiss();
+        });
+    });
+
+    dialog.show();
+    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+    dialog.getWindow().setGravity(Gravity.BOTTOM);
   }
 }

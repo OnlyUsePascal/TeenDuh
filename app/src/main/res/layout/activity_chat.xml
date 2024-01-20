@@ -6,11 +6,12 @@
   android:layout_height="match_parent"
   tools:context=".view.activity.ChatActivity">
 
-  <RelativeLayout
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FF90BC"
     android:padding="10dp"
+    android:gravity="center_vertical"
     android:id="@+id/toolbar">
 
     <TextView
@@ -22,26 +23,36 @@
       android:textColor="@color/white"
       android:layout_marginStart="10dp"
       android:layout_centerVertical="true"
-      android:id="@+id/other_username"
-      />
+      android:id="@+id/other_username" />
 
-    <Button
-      android:id="@+id/button5"
-      android:layout_width="wrap_content"
+    <Space
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:text="stat" />
+      android:layout_weight="1" />
 
     <Button
       android:id="@+id/button8"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="10dp"
-      android:layout_toStartOf="@+id/button5"
       android:onClick="reload"
       android:text="Reload" />
 
-  </RelativeLayout>
+    <Button
+      android:id="@+id/button5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="10dp"
+      android:text="stat" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+      android:id="@+id/reportUserBtn"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:background="@drawable/profile_edit_btn"
+      android:src="@drawable/shield_warning" />
+
+  </LinearLayout>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/chat_recycler_view"
@@ -63,26 +74,22 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
-      android:layout_marginStart="10dp"
-      android:layout_marginTop="10dp"
-      android:layout_marginEnd="10dp"
-      android:layout_marginBottom="10dp"
+      android:layout_margin="10dp"
       android:layout_toLeftOf="@id/message_send_btn"
       android:hint="Write message here"
       android:padding="10dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageButton
       android:id="@+id/message_send_btn"
-      android:layout_width="48dp"
+      style="?android:attr/borderlessButtonStyle"
+      android:layout_width="56dp"
       android:layout_height="48dp"
       android:layout_alignParentEnd="true"
       android:layout_centerInParent="true"
-      android:layout_marginStart="10dp"
-      android:background="@color/black"
+      android:background="@drawable/message_send_btn"
+      android:outlineAmbientShadowColor="@color/transparent"
       android:onClick="sendChat"
-      android:padding="8dp"
-
-      />
+      android:src="@drawable/send_message" />
 
   </RelativeLayout>
 
