@@ -5,12 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.Database">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="DATABASE"
-        android:textSize="30sp"/>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:gravity="center">
+
+        <Button
+          android:id="@+id/view_user"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_marginTop="16dp"
+          android:text="View User"
+          android:textSize="20sp" />
+
+    </LinearLayout>
 
 </FrameLayout>
