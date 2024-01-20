@@ -1,9 +1,8 @@
-package com.example.teenduh.view.adapter;
+package com.example.teenduh.view.adapter.discovery;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.view.InputQueue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -23,11 +20,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.model.User;
-import com.example.teenduh.view.activity.MainLayout;
-import com.example.teenduh.view.activity.MatchingScreen;
 import com.example.teenduh.view.activity.ShowMoreInfo;
-import com.example.teenduh.view.fragment.TeenDuh;
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
+import com.example.teenduh.view.adapter.ImageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
