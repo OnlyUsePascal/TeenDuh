@@ -58,7 +58,6 @@ public class MainLayout extends AppCompatActivity {
     fragProfile = new Profile();
     fragMatch = new MatchFragment();
 
-    changeFragment(fragTeenDuh, 0);
     getWindow().setNavigationBarColor(getResources().getColor(R.color.secondary));
 
     fragDatabase = new Database();

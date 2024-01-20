@@ -210,6 +210,10 @@ public class FirebaseUtil {
     storage = FirebaseStorage.getInstance("gs://teenduh-t1.appspot.com");
   }
 
+  public static FirebaseFirestore getFirestore() {
+    return firestore;
+  }
+
   public static StorageReference getStorageRef() {
     return storage.getReference();
   }
