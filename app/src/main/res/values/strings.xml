@@ -19,6 +19,13 @@
   <string name="verify_otp_form_description">We\'ve just sent you the code. Type it below to finish verification</string>
   <string name="verify_otp_invalid">Invalid code. Please try again</string>
 
+  <string name="welcome_heading1">Discover</string>
+  <string name="welcome_heading2">Connect</string>
+  <string name="welcome_heading3">Embrace</string>
+  <string name="welcome_description1">Discover a world of exciting connections and meaningful relationships with TeenDuh. Every swipe brings you closer to someone special.</string>
+  <string name="welcome_description2">Connect with like-minded individuals on TeenDuh. Finding your perfect match is just a click away in our diverse community.</string>
+  <string name="welcome_description3">Embrace love and romance on TeenDuh. Forge genuine connections and create lasting memories with us. Join the adventure today!</string>
+
   // TODO: Change these URLs
   <string name="terms_of_service_url">https://www.termsfeed.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
   <string name="privacy_policy_url">https://www.privacypolicies.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>

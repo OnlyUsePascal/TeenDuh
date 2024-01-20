@@ -35,7 +35,7 @@ public class WelcomeAdapter extends RecyclerView.Adapter<WelcomeAdapter.ImageVie
   @Override
   public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
     holder.imageView.setImageResource(imageList.get(position).getImage());
-    holder.textView.setText(imageList.get(position).getText());
+//    holder.textView.setText(imageList.get(position).getText());
         if(position == imageList.size() - 2){
             viewPager2.post(runnable);
         }

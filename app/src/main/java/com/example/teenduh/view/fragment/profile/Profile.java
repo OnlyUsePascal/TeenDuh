@@ -41,7 +41,7 @@ import java.util.List;
 public class Profile extends Fragment {
   MainLayout mainLayout;
   Activity activity;
-  Button buttonSuperLike, buttonSuperFind;
+  CardView buttonSuperLike, buttonSuperFind;
   AppCompatImageButton editProfile;
   boolean isProceedPayment;
   boolean isDeposit;

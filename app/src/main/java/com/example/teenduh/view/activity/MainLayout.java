@@ -26,6 +26,7 @@ public class MainLayout extends AppCompatActivity {
   private FrameLayout frameLayout;
   private BottomNavigationView navBar;
   private MatchFragment fragMatch;
+  private int currentFragmentIndex = 0;
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,10 @@ public class MainLayout extends AppCompatActivity {
     fragChitChat = new ChitChat();
     fragProfile = new Profile();
     fragMatch = new MatchFragment();
+
+    changeFragment(fragTeenDuh, 0);
+    getWindow().setNavigationBarColor(getResources().getColor(R.color.secondary));
+
     initNavBar();
   
     FirebaseUtil.init();
@@ -62,28 +67,57 @@ public class MainLayout extends AppCompatActivity {
       }
     }
   }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    getWindow().setNavigationBarColor(getResources().getColor(R.color.md_theme_light_background));
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    getWindow().setNavigationBarColor(getResources().getColor(R.color.secondary));
+  }
   
-  public void changeFragment(Fragment fragment) {
+  public void changeFragment(Fragment fragment, int position) {
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+    if (position > currentFragmentIndex) {
+      fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+    } else if (position < currentFragmentIndex) {
+      fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
+    }
+
+    currentFragmentIndex = position;
+
     fragmentTransaction.replace(R.id.frame, fragment);
     fragmentTransaction.commit();
   }
   
-  public void initNavBar(){
+  public void initNavBar() {
     navBar.setOnItemSelectedListener(item -> {
-      int itemId = item.getItemId();
+      int itemId = item.getItemId(), newPosition = 0;
+      Fragment fragment = null;
+
       if (itemId == R.id.menu_discover) {
-        changeFragment(fragTeenDuh);
+        fragment = fragTeenDuh;
+        newPosition = 0;
       } else if (itemId == R.id.menu_chat) {
-        changeFragment(fragChitChat);
+        fragment = fragChitChat;
+        newPosition = 1;
+      } else if (itemId == R.id.menu_matches) {
+        fragment = fragMatch;
+        newPosition = 2;
       } else if (itemId == R.id.menu_profile) {
-        changeFragment(fragProfile);
-      } else if(itemId == R.id.menu_matches){
-        changeFragment(fragMatch);
+        fragment = fragProfile;
+        newPosition = 3;
       }
+
+      changeFragment(fragment, newPosition);
+
       return true;
     });
-    changeFragment(fragTeenDuh);
   }
 }

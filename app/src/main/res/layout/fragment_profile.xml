@@ -22,13 +22,14 @@
       android:layout_alignParentStart="true"
       android:text="Profile" />
 
-    <Button
-      android:id="@+id/button7"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+    <androidx.appcompat.widget.AppCompatImageView
+      android:layout_width="40dp"
+      android:layout_height="40dp"
       android:layout_alignParentEnd="true"
-      android:layout_centerVertical="true"
-      android:text="Button" />
+      android:layout_centerInParent="true"
+      android:layout_marginEnd="1dp"
+      android:scaleType="centerCrop"
+      android:src="@drawable/settings" />
   </RelativeLayout>
 
   <RelativeLayout
@@ -123,24 +124,119 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/summary"
+    android:gravity="center_horizontal"
     android:layout_marginTop="10dp"
     android:orientation="horizontal">
 
-    <Button
+    <androidx.cardview.widget.CardView
       android:id="@+id/button10"
+      app:cardCornerRadius="10dp"
+      android:layout_marginRight="10dp"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="5dp"
-      android:layout_weight="1"
-      android:text="Super\nLike" />
+      android:layout_height="wrap_content">
 
-    <Button
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:background="#E8E9EE">
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="5dp"
+              android:text="0"
+              android:textAlignment="center"
+              android:textColor="@color/md_theme_light_primary"
+              android:textSize="17sp"
+              android:textStyle="bold" />
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="5dp"
+              android:text=" Super Likes"
+              android:textAlignment="center"
+              android:textColor="@color/black"
+              android:textSize="17sp"
+              android:textStyle="bold" />
+
+          </LinearLayout>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="GET MORE"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_primary"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        </LinearLayout>
+
+      </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+      app:cardCornerRadius="10dp"
       android:id="@+id/button11"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="5dp"
-      android:layout_weight="1"
-      android:text="Super\nFind" />
+      android:layout_height="wrap_content">
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:background="#E8E9EE">
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Subscribe"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_primary"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="now"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_primary"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        </LinearLayout>
+
+      </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
   </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -150,7 +246,7 @@
       android:layout_height="300dp"
       android:layout_centerHorizontal="true"
       android:layout_below="@+id/superbtn"
-      android:layout_marginTop="10dp" />
+      android:layout_marginTop="15dp" />
 
   <LinearLayout
       android:id="@+id/linearLayout"
