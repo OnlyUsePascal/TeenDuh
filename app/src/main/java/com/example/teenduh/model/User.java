@@ -21,6 +21,9 @@ public class User {
   // private String age;
   private String city;
   private boolean isInitial = true;
+  private Uri[] imageList = new Uri[6];
+  private String likedPeople ;
+//  public User(int image, String name, String age, String city, String likedPeople){}
   private Uri[] imageUris = new Uri[6];
 
   public User(int image, String name, String city, LocalDate birthday){
@@ -29,7 +32,9 @@ public class User {
     this.image = image;
     this.birthday = birthday;
   }
-
+  public String getLikedPeople() {
+    return likedPeople;
+  }
   public int getImage() {
     return image;
   }

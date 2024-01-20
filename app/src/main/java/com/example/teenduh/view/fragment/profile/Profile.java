@@ -116,7 +116,6 @@ public class Profile extends Fragment {
   }
 
   public void initViewPager(ViewPager2 viewPager2) {
-    System.out.println("?????");
     System.out.println(FirebaseUtil.getCurUser());
 
     viewPager2.bringToFront();
