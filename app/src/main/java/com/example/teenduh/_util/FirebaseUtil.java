@@ -168,6 +168,18 @@ public class FirebaseUtil {
           cb.accept(task.getResult().getDocuments());
         });
   }
+
+  public static void fetchUsersBan(Consumer<List<DocumentSnapshot>> cb) {
+        firestore.collection("users_ban")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        task.getException().printStackTrace();
+                        return;
+                    }
+                    cb.accept(task.getResult().getDocuments());
+                });
+    }
   
   public static void fetchChatRooms(Consumer<List<DocumentSnapshot>> cb) {
     firestore.collection("chatRooms")
