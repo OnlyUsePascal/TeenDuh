@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
 import com.example.teenduh.model.User;
+import com.example.teenduh.model.UserBan;
 import com.example.teenduh.model.message.Chat;
 import com.example.teenduh.model.message.ChatRoom;
 import com.example.teenduh.view.activity.MainLayout;
@@ -35,6 +36,7 @@ public class AndroidUtil {
   private static User curUser;
   private static ChatRoom curChatRoom;
   private static List<User> users;
+  private static List<UserBan> usersBan;
   private static List<ChatRoom> chatRooms;
   private static List<Chat> chats;
   private static RecyclerView chatView;
@@ -92,10 +94,12 @@ public class AndroidUtil {
   public static void init(Activity activity) {
     if (activity != null) AndroidUtil.activity = activity;
     users = new ArrayList<>();
+    usersBan = new ArrayList<>();
     chatRooms = new ArrayList<>();
     
     // curUser = new User();
     fetchUsers(null);
+    fetchUsersBan(null);
   }
   
   public static ChatRoom getCurChatRoom() {
@@ -108,6 +112,10 @@ public class AndroidUtil {
   
   public static List<User> getUsers() {
     return users;
+  }
+
+  public static List<UserBan> getUsersBan() {
+    return usersBan;
   }
   
   public static void setUsers(List<User> users) {
@@ -206,7 +214,24 @@ public class AndroidUtil {
       FirebaseUtil.runRunnable(runnable);
     });
   }
-  
+
+  public static void fetchUsersBan(Runnable runnable){
+    FirebaseUtil.fetchUsersBan(documentSnapshots -> {
+      for (DocumentSnapshot documentSnapshot : documentSnapshots){
+        String id = documentSnapshot.getString("userId");
+        String reason = documentSnapshot.getString("reason");
+        Timestamp deadline = documentSnapshot.getTimestamp("deadline");
+        LocalDate deadlineLocal = deadline.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        UserBan user = new UserBan(id, reason, deadlineLocal);
+        usersBan.add(user);
+      }
+
+      System.out.println(usersBan);
+      FirebaseUtil.runRunnable(runnable);
+    });
+  }
+
   public static void fetchChatRooms(Runnable runnable){
     chatRooms = new ArrayList<>();
     FirebaseUtil.fetchChatRooms(documentSnapshots -> {
