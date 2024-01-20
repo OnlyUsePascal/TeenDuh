@@ -1,15 +1,23 @@
 package com.example.teenduh.view.activity.profile;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +30,8 @@ import com.example.teenduh.view.activity.MainLayout;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +46,12 @@ public class EditProfile extends AppCompatActivity {
   Uri[] imageUris = new Uri[6];
   Button saveButton, discardButton;
   int numberOfFetchesToDo = 0, numberOfFetchesDone = 0;
+  boolean isProgrammaticChange = false;
+  String educationEditProfile = "";
+  String drinkHabit= "", workoutHabit = "", smokeHabit = "", petHabit = "";
+  TextView selectDrink , selectWorkout, selectSmoke, selectPet;
+  String communicationHabit= "", educationHabit = "", zodiacHabit = "";
+  TextView selectCommunication, selectEducation, selectZodiac;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +59,42 @@ public class EditProfile extends AppCompatActivity {
     setContentView(R.layout.fragment_edit_profile);
   
     initField();
+    selectDrink = findViewById(R.id.selectDrinking);
+    selectDrink.setOnClickListener(v -> {
+      selectLifeStyleOption();
+    });
+    selectWorkout = findViewById(R.id.selectWorkout);
+    selectWorkout.setOnClickListener(v -> {
+      selectLifeStyleOption();
+    });
+    selectSmoke = findViewById(R.id.selectSmoking);
+    selectSmoke.setOnClickListener(v -> {
+      selectLifeStyleOption();
+    });
+    selectPet = findViewById(R.id.selectPets);
+    selectPet.setOnClickListener(v -> {
+      selectLifeStyleOption();
+    });
+    selectCommunication = findViewById(R.id.selectCommunicationStyle);
+    selectCommunication.setOnClickListener(v -> {
+      selectMoreAboutMe();
+    });
+    selectEducation = findViewById(R.id.selectEducation);
+    selectEducation.setOnClickListener(v -> {
+      selectMoreAboutMe();
+    });
+    selectZodiac = findViewById(R.id.selectZodiac);
+    selectZodiac.setOnClickListener(v -> {
+      selectMoreAboutMe();
+    });
+
+
+
+
+
+
+
+
 
     for (int i = 0; i < addPhotoList.length; i++) {
       final int index = i + 1;
@@ -62,7 +114,10 @@ public class EditProfile extends AppCompatActivity {
     }
   
   }
-
+  public void setButtonEnable(TextView next){
+    next.setTextColor(getResources().getColor(R.color.red));
+    next.setEnabled(true);
+  }
   private void initField() {
     uploadProgressBar = findViewById(R.id.uploadProgressBar);
     saveButton = findViewById(R.id.saveButton);
@@ -71,6 +126,8 @@ public class EditProfile extends AppCompatActivity {
 
     saveButton.setOnClickListener(v -> {
       uploadFilesToStorage();
+      finish();
+      //store data to firebase;
     });
 
     discardButton.setOnClickListener(v -> {
@@ -221,4 +278,293 @@ public class EditProfile extends AppCompatActivity {
       Toast.makeText(EditProfile.this, ImagePicker.Companion.getError(data), Toast.LENGTH_SHORT).show();
     }
   }
+
+  public void selectMoreAboutMe(){
+    final Dialog dialog = new Dialog(this);
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    dialog.setContentView(R.layout.more_about_me_layout);
+
+    RadioGroup radioGroupCommunication1 = dialog.findViewById(R.id.radioCommunication1);
+    RadioGroup radioGroupCommunication2 = dialog.findViewById(R.id.radioCommunication2);
+    RadioGroup radioGroupZodiac1 = dialog.findViewById(R.id.radioGroupZodiac1);
+    RadioGroup radioGroupZodiac2 = dialog.findViewById(R.id.radioGroupZodiac2);
+    RadioGroup radioGroupZodiac3 = dialog.findViewById(R.id.radioGroupZodiac3);
+    RadioGroup radioGroupEducation1 = dialog.findViewById(R.id.radioGroupEducation1);
+    RadioGroup radioGroupEducation2 = dialog.findViewById(R.id.radioGroupEducation2);
+    ImageView closeButton = dialog.findViewById(R.id.closeButton);
+    TextView doneButton = dialog.findViewById(R.id.nextButton);
+
+    closeButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        dialog.dismiss();
+      }
+    });
+    doneButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        updateData();
+        dialog.dismiss();
+      }
+    });
+    initCommunicationCard(radioGroupCommunication1, radioGroupCommunication2, doneButton);
+    initEducationLevel(radioGroupEducation1, radioGroupEducation2, doneButton);
+    initZodiacCard(radioGroupZodiac1, radioGroupZodiac2, radioGroupZodiac3, doneButton);
+
+    dialog.show();
+    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+    dialog.getWindow().setGravity(Gravity.BOTTOM);
+  }
+
+  public void initEducationLevel(RadioGroup radioGroupEducation1, RadioGroup radioGroupEducation2, TextView next){
+    RadioGroup.OnCheckedChangeListener groupCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (!isProgrammaticChange && checkedId != -1) {
+          isProgrammaticChange = true;
+          RadioButton rb = group.findViewById(checkedId);
+          if (group == radioGroupEducation1) {
+            radioGroupEducation2.clearCheck(); // Clear selection in the other RadioGroup
+            educationHabit = rb.getText().toString();
+          } else if (group == radioGroupEducation2) {
+            radioGroupEducation1.clearCheck(); // Clear selection in the other RadioGroup
+            educationHabit = rb.getText().toString();
+          }
+          isProgrammaticChange = false;
+          setButtonEnable(next);
+        }
+      }
+    };
+
+    radioGroupEducation1.setOnCheckedChangeListener(groupCheckedChangeListener);
+    radioGroupEducation2.setOnCheckedChangeListener(groupCheckedChangeListener);
+  }
+  public void initZodiacCard(RadioGroup radioGroupZodiac1, RadioGroup radioGroupZodiac2, RadioGroup radioGroupZodiac3, TextView next){
+    RadioGroup.OnCheckedChangeListener groupCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (!isProgrammaticChange && checkedId != -1) {
+          isProgrammaticChange = true;
+          RadioButton rb = group.findViewById(checkedId);
+          if (group == radioGroupZodiac1) {
+            radioGroupZodiac2.clearCheck(); // Clear selection in the other RadioGroup
+            radioGroupZodiac3.clearCheck();
+            zodiacHabit = rb.getText().toString();
+          } else if (group == radioGroupZodiac2) {
+            radioGroupZodiac1.clearCheck(); // Clear selection in the other RadioGroup
+            radioGroupZodiac3.clearCheck();
+            zodiacHabit = rb.getText().toString();
+          } else if (group == radioGroupZodiac3) {
+            radioGroupZodiac1.clearCheck(); // Clear selection in the other RadioGroup
+            radioGroupZodiac2.clearCheck();
+            zodiacHabit = rb.getText().toString();
+          }
+          isProgrammaticChange = false;
+          setButtonEnable(next);
+        }
+      }
+    };
+
+    radioGroupZodiac1.setOnCheckedChangeListener(groupCheckedChangeListener);
+    radioGroupZodiac2.setOnCheckedChangeListener(groupCheckedChangeListener);
+    radioGroupZodiac3.setOnCheckedChangeListener(groupCheckedChangeListener);
+  }
+  public void initCommunicationCard(RadioGroup radioGroupCommunication1, RadioGroup radioGroupCommunication2, TextView next){
+    RadioGroup.OnCheckedChangeListener groupCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (!isProgrammaticChange && checkedId != -1) {
+          isProgrammaticChange = true;
+          RadioButton rb = group.findViewById(checkedId);
+          if (group == radioGroupCommunication1) {
+            radioGroupCommunication2.clearCheck(); // Clear selection in the other RadioGroup
+            communicationHabit = rb.getText().toString();
+          } else if (group == radioGroupCommunication2) {
+            radioGroupCommunication1.clearCheck(); // Clear selection in the other RadioGroup
+            communicationHabit = rb.getText().toString();
+          }
+          isProgrammaticChange = false;
+          setButtonEnable(next);
+        }
+      }
+    };
+
+    radioGroupCommunication1.setOnCheckedChangeListener(groupCheckedChangeListener);
+    radioGroupCommunication2.setOnCheckedChangeListener(groupCheckedChangeListener);
+  }
+  public void selectLifeStyleOption(){
+    final Dialog dialog = new Dialog(this);
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    dialog.setContentView(R.layout.lifestyle_layout_dialog);
+    // to do
+    RadioGroup radioGroupDrink1 = dialog.findViewById(R.id.radioGroupDrink1);
+    RadioGroup radioGroupDrink2 = dialog.findViewById(R.id.radioGroupDrink2);
+    RadioGroup radioWorkout = dialog.findViewById(R.id.radioGroupWorkout1);
+    RadioGroup radioGroupSmoke1 = dialog.findViewById(R.id.radioGroupSmoke1);
+    RadioGroup radioGroupSmoke2 = dialog.findViewById(R.id.radioGroupSmoke2);
+    RadioGroup radioGroupPet1 = dialog.findViewById(R.id.radioGroupPet1);
+    RadioGroup radioGroupPet2 = dialog.findViewById(R.id.radioGroupPet2);
+    ImageView closeButton = dialog.findViewById(R.id.closeButton);
+    TextView doneButton = dialog.findViewById(R.id.nextButton);
+
+
+    initDrinkCardView(radioGroupDrink1, radioGroupDrink2, doneButton);
+    initWorkOutCard(radioWorkout, doneButton);
+    initSmokeCardView(radioGroupSmoke1,radioGroupSmoke2, doneButton);
+    initPetCardView(radioGroupPet1,radioGroupPet2, doneButton);
+    doneButton.setEnabled(false);
+
+    closeButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        dialog.dismiss();
+      }
+    });
+    doneButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        updateData();
+        dialog.dismiss();
+
+      }
+    });
+
+    dialog.show();
+    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+    dialog.getWindow().setGravity(Gravity.BOTTOM);
+  }
+  public void initDrinkCardView(RadioGroup radioGroupDrink1, RadioGroup radioGroupDrink2, TextView next){
+    RadioGroup.OnCheckedChangeListener groupCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (!isProgrammaticChange && checkedId != -1) {
+          isProgrammaticChange = true;
+          RadioButton rb = group.findViewById(checkedId);
+          if (group == radioGroupDrink1) {
+            radioGroupDrink2.clearCheck(); // Clear selection in the other RadioGroup
+            drinkHabit = rb.getText().toString();
+            setButtonEnable(next);
+
+          } else if (group == radioGroupDrink2) {
+            radioGroupDrink1.clearCheck(); // Clear selection in the other RadioGroup
+            drinkHabit = rb.getText().toString();
+            setButtonEnable(next);
+          }
+          isProgrammaticChange = false;
+
+        }
+      }
+    };
+
+    radioGroupDrink1.setOnCheckedChangeListener(groupCheckedChangeListener);
+    radioGroupDrink2.setOnCheckedChangeListener(groupCheckedChangeListener);
+  }
+  public void initWorkOutCard(RadioGroup radioWorkout, TextView next){
+    radioWorkout.setOnCheckedChangeListener((group,checkedId)->{
+      RadioButton rb = group.findViewById(checkedId);
+      if(rb!=null){
+        workoutHabit = rb.getText().toString();
+        setButtonEnable(next);
+      }
+    });
+  }
+  public void initSmokeCardView(RadioGroup radioGroupSmoke1, RadioGroup radioGroupSmoke2, TextView next){
+    RadioGroup.OnCheckedChangeListener groupCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (!isProgrammaticChange && checkedId != -1) {
+          isProgrammaticChange = true;
+          RadioButton rb = group.findViewById(checkedId);
+          if (group == radioGroupSmoke1) {
+            radioGroupSmoke2.clearCheck(); // Clear selection in the other RadioGroup
+            smokeHabit = rb.getText().toString();
+            setButtonEnable(next);
+          } else if (group == radioGroupSmoke2) {
+            radioGroupSmoke1.clearCheck(); // Clear selection in the other RadioGroup
+            smokeHabit = rb.getText().toString();
+            setButtonEnable(next);
+          }
+          isProgrammaticChange = false;
+        }
+      }
+    };
+
+    radioGroupSmoke1.setOnCheckedChangeListener(groupCheckedChangeListener);
+    radioGroupSmoke2.setOnCheckedChangeListener(groupCheckedChangeListener);
+  }
+  public void initPetCardView(RadioGroup radioGroupPet1, RadioGroup radioGroupPet2, TextView next){
+    RadioGroup.OnCheckedChangeListener groupCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (!isProgrammaticChange && checkedId != -1) {
+          isProgrammaticChange = true;
+          RadioButton rb = group.findViewById(checkedId);
+          if (group == radioGroupPet1) {
+            radioGroupPet2.clearCheck(); // Clear selection in the other RadioGroup
+            petHabit = rb.getText().toString();
+            setButtonEnable(next);
+          } else if (group == radioGroupPet2) {
+            radioGroupPet1.clearCheck(); // Clear selection in the other RadioGroup
+            petHabit = rb.getText().toString();
+            setButtonEnable(next);
+          }
+          isProgrammaticChange = false;
+//          setButtonEnable();
+        }
+      }
+    };
+
+    radioGroupPet1.setOnCheckedChangeListener(groupCheckedChangeListener);
+    radioGroupPet2.setOnCheckedChangeListener(groupCheckedChangeListener);
+  }
+  public void updateData(){
+    if(drinkHabit.equals("")){
+      selectDrink.setText("Select");
+    } else{
+      selectDrink.setText(drinkHabit);
+      saveButton.setEnabled(true);
+    }
+    if(workoutHabit.equals("")){
+      selectWorkout.setText("Select");
+    } else{
+      selectWorkout.setText(workoutHabit);
+      saveButton.setEnabled(true);
+    }
+    if(smokeHabit.equals("")){
+      selectSmoke.setText("Select");
+    } else{
+      selectSmoke.setText(smokeHabit);
+      saveButton.setEnabled(true);
+    }
+    if(petHabit.equals("")){
+      selectPet.setText("Select");
+    } else{
+      selectPet.setText(petHabit);
+      saveButton.setEnabled(true);
+    }
+    if(communicationHabit.equals("")){
+      selectCommunication.setText("Select");
+    } else{
+      selectCommunication.setText(communicationHabit);
+      saveButton.setEnabled(true);
+    }
+    if(educationHabit.equals("")){
+      selectEducation.setText("Select");
+    } else{
+      selectEducation.setText(educationHabit);
+      saveButton.setEnabled(true);
+    }
+    if(zodiacHabit.equals("")){
+      selectZodiac.setText("Select");
+    } else {
+      selectZodiac.setText(zodiacHabit);
+      saveButton.setEnabled(true);
+    }
+  }
+
+
 }

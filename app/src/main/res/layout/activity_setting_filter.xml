@@ -255,7 +255,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
-                android:text="Tinduh uses these preferences to suggest matches for you. Some match suggestions may not fall within your preferences."
+                android:text="Teenduh uses these preferences to suggest matches for you. Some match suggestions may not fall within your preferences."
                 android:textSize="15dp" />
 
             <LinearLayout
