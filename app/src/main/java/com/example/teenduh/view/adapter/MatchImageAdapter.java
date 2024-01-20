@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
@@ -52,7 +51,7 @@ public class MatchImageAdapter extends RecyclerView.Adapter<MatchImageAdapter.Ma
     holder.cardView2.setVisibility(View.GONE);
     holder.nameTextView.setVisibility(View.VISIBLE);
     holder.likeTimesTextView.setVisibility(View.VISIBLE);
-    holder.nameTextView.setText(image.getText());
+    holder.nameTextView.setText(image.getHeading());
     holder.likeTimesTextView.setText("10 mins ago");
     holder.seeMoreCardView.setOnClickListener(new View.OnClickListener() {
       @Override

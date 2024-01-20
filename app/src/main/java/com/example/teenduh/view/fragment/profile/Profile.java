@@ -47,12 +47,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Profile extends Fragment {
   private MainLayout mainLayout;
   private Activity activity;
-  private Button buttonSuperLike, buttonSuperFind;
+  private CardView buttonSuperLike, buttonSuperFind;
   private AppCompatImageButton editProfile;
   private boolean isProceedPayment;
   private boolean isDeposit;
   private ViewPager2 viewPager2;
-  private CardView circle1, circle2;
+  private CardView circle1,circle2;
   private List<Image> imageList;
   private CircularProgressIndicator progressIndicator;
   private Handler sliderHandler;
@@ -87,16 +87,16 @@ public class Profile extends Fragment {
     initPersonalInfo(view);
     return view;
   }
-  
+
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    
+
     (new Handler()).postDelayed(() -> {
       setProgressBar((double) 55 / 100);
     }, 1000);
   }
-  
+
   private void initBtn() {
     buttonSuperLike.setOnClickListener(v -> {
       Toast.makeText(activity, "Super Like", Toast.LENGTH_SHORT).show();
@@ -107,16 +107,16 @@ public class Profile extends Fragment {
       Toast.makeText(activity, "Super Find", Toast.LENGTH_SHORT).show();
       showSuperLikeDialog();
     });
-    
+
     editProfile.setOnClickListener(v -> {
       AndroidUtil._startActivity(getContext(), EditProfile.class);
     });
   }
-  
+
   public void initViewPager(ViewPager2 viewPager2) {
     System.out.println("?????");
     System.out.println(FirebaseUtil.getCurUser());
-    
+
     viewPager2.bringToFront();
     viewPager2.setAdapter(new SubscriptionAdapter(viewPager2, getActivity()));
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -140,17 +140,17 @@ public class Profile extends Fragment {
     transformer.addTransformer(new MarginPageTransformer(40));
     viewPager2.setPageTransformer(transformer);
   }
-  
+
   AppCompatImageView imageView;
   String id;
-  
+
   public void initPersonalInfo(View view) {
     User user = AndroidUtil.getCurUser();
-    
+
     // todo get image + new thread
     TextView nameField = view.findViewById(R.id.textView7);
     nameField.setText(user.getName() + " , " + user.getAge());
-    
+
     imageView = view.findViewById(R.id.avatar);
     id = AndroidUtil.getCurUser().getId();
     new Thread(() -> {
@@ -160,7 +160,7 @@ public class Profile extends Fragment {
         err.printStackTrace();
       }
     }).run();
-    
+
   }
   
   private void fetchAvatar(int index) throws IOException {
@@ -181,7 +181,7 @@ public class Profile extends Fragment {
           throw new RuntimeException(e);
         }
       }
-      
+
       getActivity().runOnUiThread(() -> {
         imageView.setImageURI(tempUri);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

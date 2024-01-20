@@ -23,7 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
   private ViewPager2 viewPager2;
   private List<Image> imageList;
   private WelcomeAdapter imageAdapter;
-  private TextView welcomeText;
+  private TextView welcomeDescription, welcomeHeader;
   
   private Handler sliderHandler = new Handler();
   
@@ -35,7 +35,8 @@ public class WelcomeActivity extends AppCompatActivity {
     viewPager2 = findViewById(R.id.viewPager2);
     // viewPager2.bringToFront();
     imageList = new ArrayList<>();
-    welcomeText = findViewById(R.id.welcomeText);
+    welcomeDescription = findViewById(R.id.welcomeText);
+    welcomeHeader = findViewById(R.id.welcomeTitle);
     findViewById(R.id.welcomeBtn).setOnClickListener(this::toAuth);
     
     initViewPager();
@@ -49,9 +50,15 @@ public class WelcomeActivity extends AppCompatActivity {
       page.setScaleY(0.85f + r * 0.15f);
     });
     
-    imageList.add(new Image(R.drawable.ronaldo, "Cristiano Ronaldo"));
-    imageList.add(new Image(R.drawable.park_seo, "Park Seo Joon"));
-    imageList.add(new Image(R.drawable.modric, "Luka Modric"));
+    imageList.add(new Image(R.drawable.welcome1,
+      getString(R.string.welcome_heading1),
+      getString(R.string.welcome_description1)));
+    imageList.add(new Image(R.drawable.welcome2,
+      getString(R.string.welcome_heading2),
+      getString(R.string.welcome_description2)));
+    imageList.add(new Image(R.drawable.welcome3,
+      getString(R.string.welcome_heading3),
+      getString(R.string.welcome_description3)));
     
     viewPager2.setAdapter(new WelcomeAdapter(imageList, viewPager2));
     viewPager2.setOffscreenPageLimit(3);
@@ -64,10 +71,11 @@ public class WelcomeActivity extends AppCompatActivity {
       public void onPageSelected(int position) {
         super.onPageSelected(position);
         sliderHandler.removeCallbacks(runnable);
-        sliderHandler.postDelayed(runnable, 3000);
+        sliderHandler.postDelayed(runnable, 5000);
         
         // TODO: CHANGE TEXT ON PAGE CHANGE
-        welcomeText.setText(imageList.get(position).getText());
+        welcomeHeader.setText(imageList.get(position).getHeading());
+        welcomeDescription.setText(imageList.get(position).getDescription());
       }
     });
   }
