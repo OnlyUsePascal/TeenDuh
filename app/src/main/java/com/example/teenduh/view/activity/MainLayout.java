@@ -160,9 +160,9 @@ public class MainLayout extends AppCompatActivity {
     });
 
     if (AndroidUtil.checkIsAdmin()) {
-      changeFragment(fragDatabase);
+      changeFragment(fragDatabase, 4);
     } else {
-      changeFragment(fragTeenDuh);
+      changeFragment(fragTeenDuh, 0);
     }
   }
 }
