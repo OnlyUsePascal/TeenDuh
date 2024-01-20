@@ -42,6 +42,10 @@ public class User {
     return city;
   }
 
+  public String getGender() {
+    return gender;
+  }
+
   public User(String name, String gender, String interestPreference, String distancePreference, String lookingFor) {
     this.name = name;
     this.gender = gender;
