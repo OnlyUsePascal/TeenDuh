@@ -2,6 +2,7 @@ package com.example.teenduh.view.fragment.profile;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.model.Image;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.User;
+import com.example.teenduh.view.activity.BillActivity;
 import com.example.teenduh.view.adapter.SubscriptionAdapter;
 
 import com.example.teenduh.view.activity.MainLayout;
@@ -196,14 +198,15 @@ public class Profile extends Fragment {
     CardView cardView1 = dialog.findViewById(R.id.card_view1);
     CardView cardView2 = dialog.findViewById(R.id.card_view2);
     CardView cardView3 = dialog.findViewById(R.id.card_view3);
-    TextView textViewCoin = dialog.findViewById(R.id.textview_coin);
     ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
     
     cardView1.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         dialog.dismiss();
-        checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 5);
+        Intent intent = new Intent(getContext(), BillActivity.class);
+        intent.putExtra("price", 5);
+        startActivity(intent);
       }
     });
     
@@ -211,7 +214,9 @@ public class Profile extends Fragment {
       @Override
       public void onClick(View view) {
         dialog.dismiss();
-        checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 100);
+        Intent intent = new Intent(getContext(), BillActivity.class);
+        intent.putExtra("price", 10);
+        startActivity(intent);
       }
     });
     
@@ -219,7 +224,9 @@ public class Profile extends Fragment {
       @Override
       public void onClick(View view) {
         dialog.dismiss();
-        checkCoin(Integer.valueOf(textViewCoin.getText().toString()), 500);
+        Intent intent = new Intent(getContext(), BillActivity.class);
+        intent.putExtra("price", 50);
+        startActivity(intent);
       }
     });
     
