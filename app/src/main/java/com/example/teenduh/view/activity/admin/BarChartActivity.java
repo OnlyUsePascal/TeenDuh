@@ -63,6 +63,8 @@ public class BarChartActivity extends AppCompatActivity {
 
         year = Year.now().toString();
 
+
+
     }
 
     private void displayData() {
@@ -158,14 +160,17 @@ public class BarChartActivity extends AppCompatActivity {
         // Set on change listener
         monthPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
             tvMonth.setText(String.format("Month: %s", months[newVal]));
+            month = String.format("Month: %s", months[newVal]);
         });
 
         yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
             tvYear.setText(String.format("Year: %s", newVal));
+            year = String.valueOf(newVal);
         });
 
         btnView.setOnClickListener(v -> {
             Toast.makeText(this, "ASD", Toast.LENGTH_SHORT).show();
+            tvMatches.setText("Number of matches in " + month + "/" + year);
             dialog.dismiss();
         });
 
