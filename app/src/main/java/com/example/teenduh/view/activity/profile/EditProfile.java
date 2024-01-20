@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.view.activity.MainLayout;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -52,6 +55,10 @@ public class EditProfile extends AppCompatActivity {
   TextView selectDrink , selectWorkout, selectSmoke, selectPet;
   String communicationHabit= "", educationHabit = "", zodiacHabit = "";
   TextView selectCommunication, selectEducation, selectZodiac;
+  TextInputEditText bioEditText;
+
+  String bio = "";
+
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,25 @@ public class EditProfile extends AppCompatActivity {
     setContentView(R.layout.fragment_edit_profile);
   
     initField();
+    bioEditText = findViewById(R.id.bioEditText);
+
+    bioEditText.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+        bio = s.toString();
+        saveButton.setEnabled(true);
+      }
+    });
     selectDrink = findViewById(R.id.selectDrinking);
     selectDrink.setOnClickListener(v -> {
       selectLifeStyleOption();
@@ -87,14 +113,6 @@ public class EditProfile extends AppCompatActivity {
     selectZodiac.setOnClickListener(v -> {
       selectMoreAboutMe();
     });
-
-
-
-
-
-
-
-
 
     for (int i = 0; i < addPhotoList.length; i++) {
       final int index = i + 1;
