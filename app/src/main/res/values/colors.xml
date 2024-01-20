@@ -84,4 +84,8 @@
   <color name="distribution_3">#e9c46a</color>
   <color name="distribution_4">#f4a261</color>
   <color name="distribution_5">#e76f51</color>
+
+  <color name="card_selected">#FFC107</color> <!-- Example: amber for selected -->
+  <color name="card_unselected">#EEEEEE</color> <!-- Example: light grey for unselected -->
+
 </resources>
