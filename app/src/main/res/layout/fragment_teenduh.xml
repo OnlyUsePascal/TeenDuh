@@ -80,7 +80,22 @@
       android:visibility="invisible"
       android:id="@+id/like"
       />
-
+  <TextView
+      android:visibility="gone"
+      android:id="@+id/buttonProceed"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="30dp"
+      android:layout_centerHorizontal="true"
+      android:text="Get more likes with Teender Gold!"
+      android:textColor="@color/white"
+      android:background="@drawable/bg_layout_premium"
+      android:paddingVertical="10dp"
+      android:paddingHorizontal="20dp"
+      android:textStyle="bold"
+      android:translationZ="90dp"
+      />
   <com.yuyakaido.android.cardstackview.CardStackView
       android:id="@+id/card_stack_view"
       android:layout_width="match_parent"
@@ -92,6 +107,17 @@
       app:cardBackgroundColor="#FFE5E5"
       app:strokeColor="@color/black"
       app:strokeWidth="1dp" />
+
+<ImageView
+    android:id="@+id/imageRunOutOfLike"
+    android:layout_width="wrap_content"
+    android:layout_height="550dp"
+    android:layout_below="@+id/relativeLayout"
+    android:layout_alignParentBottom="true"
+    android:layout_marginTop="17dp"
+    android:scaleType="centerCrop"
+    android:background="@drawable/ran_out_of_like"
+    />
 
   <LinearLayout
       android:layout_width="match_parent"
