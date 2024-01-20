@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -198,16 +199,22 @@ public class ChatActivity extends AppCompatActivity {
       reportLayout.setVisibility(View.GONE);
 
       FirebaseUtil.getFirestore().collection("reports")
-        .document(AndroidUtil.getCurUser().getId())
-        .set(new HashMap<String, Object>() {{
-          put("report", report);
-          put("reportee", chatRoom.getOtherUser().getId());
+        .add(new HashMap<String, Object>() {{
+          put("reporterId", AndroidUtil.getCurUser().getId());
+          put("description", report);
+          put("reporteeId", chatRoom.getOtherUser().getId());
           put("time", Timestamp.now());
         }})
         .addOnCompleteListener(task -> {
           progressBar.setVisibility(View.INVISIBLE);
           reportLayout.setVisibility(View.VISIBLE);
           dialog.dismiss();
+
+          if (task.isSuccessful()) {
+            Toast.makeText(this, "Report sent successfully!", Toast.LENGTH_SHORT).show();
+          } else {
+            Toast.makeText(this, "Failed to send report. Please try again later.", Toast.LENGTH_SHORT).show();
+          }
         });
     });
 
