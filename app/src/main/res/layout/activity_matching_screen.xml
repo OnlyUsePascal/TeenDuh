@@ -25,9 +25,10 @@
         android:layout_alignParentBottom="true"
         app:cardCornerRadius="20dp"
         android:orientation="horizontal"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:background="@color/white"
         >
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/message"

@@ -17,6 +17,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.example.teenduh.model.User;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.activity.MatchingScreen;
 import com.example.teenduh.view.activity.SettingFilter;
+import com.example.teenduh.view.activity.Subscription;
 import com.example.teenduh.view.adapter.CardStackAdapter;
 import com.example.teenduh.view.adapter.CardStackCallback;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -48,20 +50,20 @@ import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 import pl.droidsonroids.gif.GifImageView;
 
 public class TeenDuh extends Fragment {
-  Activity activity;
-  Context context;
-  View view;
+  private Activity activity;
   private CardStackLayoutManager manager;
   private CardStackAdapter adapter;
   private CardStackView cardStackView;
-  TextView btnLike, btnSuperLike, btnCancel;
-  PulsatorLayout pulsatorLayout;
-  GifImageView gifCancel;
-  GifImageView gifLike, gifSuperLike;
-  Button btnFilter;
-  ImageView showMoreInfo;
-  CircleImageView circleImageView;
-  
+  private TextView btnLike, btnSuperLike, btnCancel;
+  private PulsatorLayout pulsatorLayout;
+  private GifImageView gifCancel;
+  private GifImageView gifLike, gifSuperLike;
+  private Button btnFilter;
+  private ImageView showMoreInfo;
+  private CircleImageView circleImageView;
+  private int countLike = 0;
+  private ImageView imageView;
+  private TextView buttonProceed;
   public TeenDuh() {
     activity = AndroidUtil.getActivity();
   }
@@ -78,9 +80,16 @@ public class TeenDuh extends Fragment {
     btnFilter = view.findViewById(R.id.filter_button);
     pulsatorLayout = view.findViewById(R.id.pulsator);
     circleImageView = view.findViewById(R.id.profile_image);
+    imageView = view.findViewById(R.id.imageRunOutOfLike);
+    imageView.setVisibility(View.INVISIBLE);
     pulsatorLayout.bringToFront();
     circleImageView.bringToFront();
-  
+    buttonProceed = view.findViewById(R.id.buttonProceed);
+    buttonProceed.setOnClickListener(v -> {
+      Intent intent = new Intent(getContext(), Subscription.class);
+      startActivity(intent);
+      getActivity().overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+    });
     initBtn();
     getLoading(view);
     return view;
@@ -111,7 +120,14 @@ public class TeenDuh extends Fragment {
       }
     }
   }
-  
+  public void setButtonToInvisible(){
+    btnLike.setVisibility(View.GONE);
+    btnCancel.setVisibility(View.GONE);
+    btnSuperLike.setVisibility(View.GONE);
+    cardStackView.setVisibility(View.GONE);
+    buttonProceed.setVisibility(View.VISIBLE);
+    buttonProceed.bringToFront();
+  }
   private void getLoading(View view) {
     pulsatorLayout.start();
     new Handler().postDelayed(() -> {
@@ -210,22 +226,20 @@ public class TeenDuh extends Fragment {
           btnCancel.setVisibility(View.INVISIBLE);
         }
       }
-      
+
       @Override
       public void onCardSwiped(Direction direction) {
         Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
         Log.d(TAG, "Adapter size: " + adapter.getItemCount());
         if (direction == Direction.Right) {
-//          Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
-            for(int i = 0; i < adapter.getItemCount(); i++){
-              if(i == manager.getTopPosition()){
-                if(adapter.getUserList().get(i).getLikedPeople().equals("matched")){
-                  Intent intent = new Intent(getContext(), MatchingScreen.class);
-                  startActivity(intent);
-                }
-              }
-            }
+          countLike++;
+
         }
+
+//          Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
+
+
+
         if (direction == Direction.Top) {
 //          Toast.makeText(getContext(), "Direction Top", Toast.LENGTH_SHORT).show();
         }
@@ -245,28 +259,34 @@ public class TeenDuh extends Fragment {
       
       @Override
       public void onCardRewound() {
-        btnCancel.setVisibility(View.VISIBLE);
-        btnSuperLike.setVisibility(View.VISIBLE);
-        btnLike.setVisibility(View.VISIBLE);
+
       }
       
       @Override
       public void onCardCanceled() {
-        btnCancel.setVisibility(View.VISIBLE);
-        btnSuperLike.setVisibility(View.VISIBLE);
-        btnLike.setVisibility(View.VISIBLE);
+
       }
       
       @Override
       public void onCardAppeared(View view, int position) {
-        btnCancel.setVisibility(View.VISIBLE);
-        btnSuperLike.setVisibility(View.VISIBLE);
-        btnLike.setVisibility(View.VISIBLE);
+        if(countLike> 2){
+          System.out.println("count like: " + countLike);
+          setButtonToInvisible();
+          imageView.setVisibility(View.VISIBLE);
+          imageView.bringToFront();
+          countLike = 0;
+        }
       }
       
       @Override
       public void onCardDisappeared(View view, int position) {
         TextView tv = view.findViewById(R.id.item_name);
+//        System.out.println("count like: " + countLike);
+//        if (countLike > 2) {
+//          setButtonToInvisible();
+//          imageView.setVisibility(View.VISIBLE);
+//          imageView.bringToFront();
+//        }
       }
     });
     
@@ -278,7 +298,7 @@ public class TeenDuh extends Fragment {
     manager.setMaxDegree(20.0f);
     manager.setDirections(Direction.FREEDOM);
     manager.setCanScrollHorizontal(true);
-    manager.setSwipeableMethod(SwipeableMethod.Manual);
+    manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
     manager.setOverlayInterpolator(new LinearInterpolator());
     adapter = new CardStackAdapter(addList(), getContext(), getActivity());
     cardStackView.setLayoutManager(manager);
@@ -326,7 +346,15 @@ public class TeenDuh extends Fragment {
       AndroidUtil.setFlagMatch(null);
     }, 1000);
   }
-  
+  public void rewindManually(){
+    manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+    manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+        .setDirection(Direction.Left)
+        .setDuration(Duration.Normal.duration)
+        .setInterpolator(new AccelerateInterpolator())
+        .build());
+    cardStackView.rewind();
+  }
   public void swipeRight(GifImageView gifImage){
     Handler handler = new Handler();
     gifImage.setVisibility(View.VISIBLE);
