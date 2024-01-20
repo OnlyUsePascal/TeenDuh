@@ -1,5 +1,6 @@
 package com.example.teenduh.view.activity;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -37,11 +38,11 @@ public class SignUpPage extends AppCompatActivity {
         });
         
         // // TODO: temp login, change in prod
-        AndroidUtil.loginEmail(R.id.button11, () -> {
-            System.out.println("--temp login");
-        });
+        // AndroidUtil.loginEmail(R.id.button11, () -> {
+        //     System.out.println("--temp login");
+        // });
     }
-
+    
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

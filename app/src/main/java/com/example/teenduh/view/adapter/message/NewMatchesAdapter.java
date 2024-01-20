@@ -53,7 +53,7 @@ public class NewMatchesAdapter extends RecyclerView.Adapter<NewMatchesAdapter.Vi
       super(itemView);
 
       name = itemView.findViewById(R.id.name);
-      image = itemView.findViewById(R.id.match_img);
+      image = itemView.findViewById(R.id.avatar);
     }
   }
 }

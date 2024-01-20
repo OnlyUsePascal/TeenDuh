@@ -42,6 +42,7 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -252,7 +253,26 @@ public class TeenDuh extends Fragment {
         // Paginating
         if (manager.getTopPosition() == adapter.getItemCount() - 1) {
           manager.setTopPosition(0);
+
+
           paginate();
+          pulsatorLayout.bringToFront();
+          circleImageView.bringToFront();
+          pulsatorLayout.setVisibility(View.VISIBLE);
+          circleImageView.setVisibility(View.VISIBLE);
+
+          pulsatorLayout.start();
+          Handler handler2 = new Handler();
+          handler2.postDelayed(() -> {
+            pulsatorLayout.stop();
+            pulsatorLayout.setVisibility(View.GONE);
+            circleImageView.setVisibility(View.GONE);
+            cardStackView.setVisibility(View.VISIBLE);
+          }, 1000);
+
+
+
+
         }
         
       }
@@ -307,6 +327,7 @@ public class TeenDuh extends Fragment {
   }
   
   private void paginate() {
+    cardStackView.setVisibility(View.INVISIBLE);
     List<User> old = adapter.getUserList();
     List<User> newList = new ArrayList<>(addList());
     CardStackCallback callback = new CardStackCallback(old, newList);
@@ -318,12 +339,16 @@ public class TeenDuh extends Fragment {
   
   private List<User> addList() {
     List<User> users = new ArrayList<>();
-    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau", "0"));
-    users.add(new User(R.drawable.messi, "Messi", "24", "HCM","0"));
-    users.add(new User(R.drawable.modric, "Modric", "24", "HCM","matched"));
-    users.add(new User(R.drawable.park_seo, "Park Seo Joon", "24", "HCM","0"));
-    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau","0"));
-    users.add(new User(R.drawable.messi, "Messi", "24", "HCM","0"));
+//    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau", "0"));
+//    users.add(new User(R.drawable.messi, "Messi", "24", "HCM","0"));
+//    users.add(new User(R.drawable.modric, "Modric", "24", "HCM","matched"));
+//    users.add(new User(R.drawable.park_seo, "Park Seo Joon", "24", "HCM","0"));
+//    users.add(new User(R.drawable.ronaldo, "Ronaldo", "24", "Vung Tau","0"));
+//    users.add(new User(R.drawable.messi, "Messi", "24", "HCM","0"));
+
+    users.add(new User(R.drawable.ronaldo, "Ronaldo", "Vung Tau", LocalDate.of(2003, 1, 3)));
+    users.add(new User(R.drawable.messi, "Messi", "HCM", LocalDate.of(2000, 1, 3)));
+    users.add(new User(R.drawable.park_seo, "Park Seo Jun", "NYC", LocalDate.of(2009, 1, 3)));
 
     
     return users;

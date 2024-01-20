@@ -85,10 +85,10 @@ public class AuthLayout extends AppCompatActivity {
               return;
             }
             
+            // FirebaseUtil.setCurUser(task1.getResult().getUser());
             FirebaseUtil.setCurUser(task1.getResult().getUser());
-            // AndroidUtil._startActivity(AuthLayout.this, TestSuccess.class);
-            // AndroidUtil._startActivityForResult(this, TestSuccess.class, TestSuccess.REQ_LOGIN);
             AndroidUtil.setupLogin(this);
+            System.out.println(FirebaseUtil.getCurUser());
           });
     } catch (Exception err) {
       err.printStackTrace();

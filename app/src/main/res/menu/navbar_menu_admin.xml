@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Database"
+        android:icon="@drawable/baseline_dataset_24"
+        android:id="@+id/menu_database" />
+
+    <item android:title="Statistic"
+        android:icon="@drawable/baseline_bar_chart_24"
+        android:id="@+id/menu_statistic" />
+    <item android:title="Report"
+        android:icon="@drawable/baseline_report_24"
+        android:id="@+id/menu_report" />
+</menu>

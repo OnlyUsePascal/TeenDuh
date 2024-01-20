@@ -21,8 +21,17 @@
             android:name=".view.activity.MatchingScreen"
             android:exported="true" />
         <activity
+            android:name=".view.activity.admin.AdminViewUserActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".view.activity.AskPermission"
             android:exported="false" />
+        <activity
+            android:name=".view.activity.admin.BarChartActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.payment.DropInClientActivity"
             android:exported="true"
@@ -71,7 +80,6 @@
         <activity
             android:name=".view.activity.TestSuccess"
             android:exported="false"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.SignUpPage"
@@ -95,6 +103,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.activity.admin.PieChartActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".view.activity.SettingFilter"
             android:exported="true" />

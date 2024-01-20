@@ -3,6 +3,8 @@
 <resources>
   <color name="seed">#E94057</color>
   <color name="transparent">#00000000</color>
+  <color name="secondary">#FFFBFF</color>
+<!--  <color name="secondary">#F3F3F3</color>-->
   <color name="md_theme_light_primary">#B91838</color>
   <color name="md_theme_light_onPrimary">#FFFFFF</color>
   <color name="md_theme_light_primaryContainer">#FFDADA</color>
@@ -19,7 +21,8 @@
   <color name="md_theme_light_errorContainer">#FFDAD6</color>
   <color name="md_theme_light_onError">#FFFFFF</color>
   <color name="md_theme_light_onErrorContainer">#410002</color>
-  <color name="md_theme_light_background">#FFFBFF</color>
+  <color name="md_theme_light_background">#F3F3F3</color>
+<!--  <color name="md_theme_light_background">#FFFBFF</color>-->
   <color name="md_theme_light_onBackground">#201A1A</color>
   <color name="md_theme_light_surface">#FFFBFF</color>
   <color name="md_theme_light_onSurface">#201A1A</color>
@@ -76,4 +79,9 @@
   <color name="black">#41444B</color>
   <color name="white">#F9F5F6</color>
   <color name="red">#FF8080</color>
+  <color name="distribution_1">#a8dadc</color>
+  <color name="distribution_2">#2a9d8f</color>
+  <color name="distribution_3">#e9c46a</color>
+  <color name="distribution_4">#f4a261</color>
+  <color name="distribution_5">#e76f51</color>
 </resources>

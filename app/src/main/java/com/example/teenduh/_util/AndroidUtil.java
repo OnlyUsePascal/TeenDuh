@@ -22,7 +22,9 @@ import com.example.teenduh.view.adapter.message.ChatAdapter;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,6 +40,15 @@ public class AndroidUtil {
   private static RecyclerView chatView;
   private static ChatAdapter chatAdapter;
   private static String flagMatch;
+  private static boolean isAdmin = false;
+
+  public static boolean checkIsAdmin() {
+    return isAdmin;
+  }
+
+  public static void setAdmin(boolean admin) {
+    isAdmin = admin;
+  }
 
   public static String getFlagMatch() {
     return flagMatch;
@@ -140,9 +151,9 @@ public class AndroidUtil {
   }
   
   public static void setCurNewUser(String id, Runnable runnable){
-    User newUser = new User(id, "__blank", FirebaseUtil.getFcm());
+    User newUser = new User(id, "__blank", FirebaseUtil.getFcm(), LocalDate.of(2000,1,1));
     setCurUser(newUser);
-    if (runnable != null) runnable.run();
+    FirebaseUtil.runRunnable(runnable);
   }
   
   
@@ -183,14 +194,16 @@ public class AndroidUtil {
         String name = documentSnapshot.getString("name");
         String fcm = documentSnapshot.getString("fcm");
         String uid = documentSnapshot.getId();
+        Timestamp bday = documentSnapshot.getTimestamp("bday");
+        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         if (fcm == null) fcm = "blank";
-        User user = new User(uid, name, fcm);
+        User user = new User(uid, name, fcm, bdayLocal);
         users.add(user);
       }
       
       System.out.println(users);
-      if (runnable != null) runnable.run();
+      FirebaseUtil.runRunnable(runnable);
     });
   }
   
@@ -227,7 +240,7 @@ public class AndroidUtil {
       }
       
       curChatRoom.setChats(chats);
-      if (runnable != null) runnable.run();
+      FirebaseUtil.runRunnable(runnable);
     });
   }
   
@@ -255,6 +268,7 @@ public class AndroidUtil {
       });
     };
     if (!exist) {
+      // users.add(user);
       setCurNewUser(FirebaseUtil.getCurUser().getUid(), runnable); // not on firebase yet
     } else {
       setCurUser(user);
@@ -263,6 +277,12 @@ public class AndroidUtil {
       data.put("fcm", FirebaseUtil.getFcm());
       FirebaseUtil.updateUser(user.getId(), data, runnable);
     }
+  }
+  
+  public static void setupRegister(Runnable runnable){
+    //take place after login
+    users.add(curUser);
+    FirebaseUtil.updateNewUser(runnable);
   }
   
   public static void makeToast(Context context, String mess){
