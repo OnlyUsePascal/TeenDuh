@@ -10,7 +10,7 @@
     </item>
 
     <!-- Icon at the center of the button -->
-    <item android:drawable="@drawable/baseline_star_24"
+    <item android:drawable="@drawable/baseline_star_blue_24"
         android:width="35dp"
         android:height="35dp"
         android:gravity="center"
