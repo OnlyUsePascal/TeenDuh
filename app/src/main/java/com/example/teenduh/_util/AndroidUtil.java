@@ -223,6 +223,17 @@ public class AndroidUtil {
         String communication = documentSnapshot.getString("habitCommunication");
         String education = documentSnapshot.getString("habitEducation");
         String zodiac = documentSnapshot.getString("habitZodiac");
+//        String eloStr = documentSnapshot.getString("elo");
+
+//        Double elo = eloStr != null ? Double.parseDouble(eloStr) : null;
+        Double elo = documentSnapshot.getDouble("elo");
+
+        if (elo == null) {
+          elo = 800.0;
+          HashMap<String, Object> data = new HashMap<>();
+          data.put("elo", elo);
+            FirebaseUtil.updateUser(uid, data, null);
+        }
 
         if (drink == null) drink = "";
         if (workout == null) workout = "";
@@ -254,9 +265,9 @@ public class AndroidUtil {
         }
         System.out.println("location = " + location);
 
-        User user = new User(uid, name, fcm, bdayLocal, location, drink, workout, smoke, pet, communication, education, zodiac);
-        user.setPicIdxes(picIdxes);
-        user.fetchPics();
+        User user = new User(uid, name, fcm, bdayLocal, elo, location, drink, workout, smoke, pet, communication, education, zodiac);
+        //user.setPicIdxes(picIdxes);
+        //user.fetchPics();
         users.add(user);
       }
       

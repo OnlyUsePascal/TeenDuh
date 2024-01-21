@@ -2,6 +2,8 @@ package com.example.teenduh.model;
 
 import android.net.Uri;
 
+import androidx.collection.ArraySet;
+
 import com.example.teenduh._util.FirebaseUtil;
 import com.google.firebase.storage.StorageReference;
 import java.io.File;
@@ -11,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class User {
   private String id;
@@ -35,6 +38,7 @@ public class User {
   private String drinkHabit= "", workoutHabit = "", smokeHabit = "", petHabit = "";
   private String communicationHabit= "", educationHabit = "", zodiacHabit = "";
   String bio = "";
+  private Double elo;
 
   public User(String name, String city, LocalDate birthday){
     this.name = name;
@@ -78,6 +82,22 @@ public class User {
     this.info = info;
   }
 
+  public User(String id, String name, String fcm, LocalDate bday, Double elo, LatLng location, String drinkHabit, String workoutHabit, String smokeHabit, String petHabit, String communicationHabit, String educationHabit, String zodiacHabit){
+    this.id = id;
+    this.name = name;
+    this.fcm = fcm;
+    this.birthday = bday;
+    this.elo = elo;
+    this.location = location;
+    this.drinkHabit = drinkHabit;
+    this.workoutHabit = workoutHabit;
+    this.smokeHabit = smokeHabit;
+    this.petHabit = petHabit;
+    this.communicationHabit = communicationHabit;
+    this.educationHabit = educationHabit;
+    this.zodiacHabit = zodiacHabit;
+  }
+
   public User(String id, String name, String fcm, LocalDate bday, LatLng location, String drinkHabit, String workoutHabit, String smokeHabit, String petHabit, String communicationHabit, String educationHabit, String zodiacHabit){
     this.id = id;
     this.name = name;
@@ -91,6 +111,26 @@ public class User {
     this.communicationHabit = communicationHabit;
     this.educationHabit = educationHabit;
     this.zodiacHabit = zodiacHabit;
+  }
+
+  public Double getElo() {
+    return elo;
+  }
+
+  public void setElo(Double elo) {
+    this.elo = elo;
+  }
+
+  public Set<String> getInterests() {
+    Set<String> interests = new ArraySet<>();
+    if (drinkHabit != null && !drinkHabit.isEmpty()) interests.add(drinkHabit);
+    if (workoutHabit != null && !workoutHabit.isEmpty()) interests.add(workoutHabit);
+    if (smokeHabit != null && !smokeHabit.isEmpty()) interests.add(smokeHabit);
+    if (petHabit != null && !petHabit.isEmpty()) interests.add(petHabit);
+    if (communicationHabit != null && !communicationHabit.isEmpty()) interests.add(communicationHabit);
+    if (educationHabit != null && !educationHabit.isEmpty()) interests.add(educationHabit);
+    if (zodiacHabit != null && !zodiacHabit.isEmpty()) interests.add(zodiacHabit);
+    return interests;
   }
 
   public String getDrinkHabit() {
