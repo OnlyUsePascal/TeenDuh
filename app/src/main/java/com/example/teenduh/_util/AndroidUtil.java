@@ -233,7 +233,6 @@ public class AndroidUtil {
         Timestamp bday = documentSnapshot.getTimestamp("bday");
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
-
         String gender = documentSnapshot.getString("gender");
         String drink = documentSnapshot.getString("drinkHabit");
         String workout = documentSnapshot.getString("workoutHabit");
@@ -274,15 +273,12 @@ public class AndroidUtil {
         }
         System.out.println("location = " + location);
 
-
         List<String> info = (List<String>) documentSnapshot.get("info");
         if (info == null) {
           info = new ArrayList<>();
         }
 
         User user = new User(uid, name, fcm, bdayLocal, location, gender, drink, workout, smoke, pet, communication, education, zodiac);
-
-
         user.setPicIdxes(picIdxes);
         user.fetchPics();
         users.add(user);

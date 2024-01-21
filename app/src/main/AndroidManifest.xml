@@ -40,7 +40,7 @@
       android:exported="false"
       android:screenOrientation="portrait" />
     <activity
-      android:name=".view.activity.payment.DropInClientActivity"
+      android:name=".view.activity.payment.PaymentActivity"
       android:exported="true"
       android:launchMode="singleTask">
       <intent-filter>

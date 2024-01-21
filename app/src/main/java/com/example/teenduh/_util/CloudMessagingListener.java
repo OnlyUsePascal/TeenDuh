@@ -46,6 +46,7 @@ public class CloudMessagingListener extends FirebaseMessagingService {
     
     //chat room
     // String chatRoomId = data.get("chatRoomId").
+    
   }
   
   public static Timestamp getTimestamp(String timestampStr){

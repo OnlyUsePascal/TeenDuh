@@ -15,7 +15,8 @@ import java.util.List;
 public class User {
   private String id;
   private String name;
-  private LocalDate birthday;
+  private
+  LocalDate birthday;
   private String gender;
   private String fcm;
   private LatLng location;

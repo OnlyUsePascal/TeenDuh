@@ -37,36 +37,19 @@ public class ChitChat extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    View view =  inflater.inflate(R.layout.fragment_chit_chat, container, false);
+    View view = inflater.inflate(R.layout.fragment_chit_chat, container, false);
   
     user = view.findViewById(R.id.textView2);
     chatRoomViews = view.findViewById(R.id.messages);
     matchViews = view.findViewById(R.id.matches);
     stat = view.findViewById(R.id.button7);
+    
     view.findViewById(R.id.button13).setOnClickListener(this::testLogin);
     view.findViewById(R.id.button14).setOnClickListener(this::testLogin);
     view.findViewById(R.id.button15).setOnClickListener(this::getChatRooms);
     swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-
+    getChatRooms(view);
     activity = AndroidUtil.getActivity();
-    // getChatRooms();
-    
-    // user.setText(AndroidUtil.getCurUser().getName());
-    
-    // match
-    // matchViews = view.findViewById(R.id.matches);
-    // matchViews.setLayoutManager(new
-    //   LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
-    // matchViews.setAdapter(new NewMatchesAdapter(matches, view));
-    
-    // chat room
-    // ChatRoomAdapter adapter = new ChatRoomAdapter();
-    // chatRoomViews.setLayoutManager(new
-    //   LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-    // unreadAmountList = MessagesPreviewStore.getUnreadAmountList();
-    // messages.setAdapter(new MessagesPreviewAdapter(messagesList, unreadAmountList, view));
-
-
     return view;
   }
   
@@ -82,6 +65,7 @@ public class ChitChat extends Fragment {
     }
     
     stat.setText("Stand by");
+    System.out.println(AndroidUtil.getCurUser());
     AndroidUtil.fetchChatRooms(() -> {
       stat.setText("Have fun");
       

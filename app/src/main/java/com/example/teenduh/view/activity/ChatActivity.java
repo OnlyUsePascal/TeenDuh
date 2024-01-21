@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh.model.message.Chat;
 import com.example.teenduh.model.message.ChatRoom;
 import com.example.teenduh.view.adapter.CustomLayoutManager;
 import com.example.teenduh.view.adapter.message.ChatAdapter;
@@ -104,16 +105,32 @@ public class ChatActivity extends AppCompatActivity {
     
     sender = chatRoom.getSenderIndex(AndroidUtil.getCurUser().getId());
     time = Timestamp.now();
-    messTxt = time.toDate().toLocaleString() + "||" + AndroidUtil.getCurUser().getName();
+    messTxt = messField.getText().toString();
+
+    if (messTxt.isEmpty()) {
+      return;
+    }
+
+    messField.setText("");
+
     HashMap<String, Object> chatData = new HashMap<>();
     chatData.put("mess", messTxt);
     chatData.put("sender", sender);
     chatData.put("time", time);
     // firestore: chat, chatroom -> noti
     FirebaseUtil.addChat(chatData, this::sendNoti);
+
+    // change messTxt
+    Chat chat = new Chat("---", messTxt, Timestamp.now(),
+      chatRoom.getSenderIndex(AndroidUtil.getCurUser().getId()));
+    // create chat object [messtxt, userIndex (use chatRoom.getSenderindx), time],
+     chatRoom.getChats().add(chat);
+     adapter.notifyItemInserted(chatRoom.getChats().size() - 1);
+     chatView.smoothScrollToPosition(chatRoom.getChats().size() - 1);
   }
   
   private void sendNoti(String chatId) {
+    // receiver
     stat.setText("send noti");
     try {
       String url = "https://fcm.googleapis.com/fcm/send";

@@ -36,6 +36,7 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="10dp"
       android:onClick="reload"
+      android:visibility="gone"
       android:text="Reload" />
 
     <Button
@@ -43,6 +44,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="10dp"
+      android:visibility="gone"
       android:text="stat" />
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -74,7 +76,10 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
-      android:layout_margin="10dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginEnd="10dp"
+      android:layout_marginBottom="10dp"
       android:layout_toLeftOf="@id/message_send_btn"
       android:hint="Write message here"
       android:padding="10dp" />
