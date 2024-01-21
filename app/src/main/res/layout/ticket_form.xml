@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:background="@color/white"
+    android:id="@+id/ticketForm"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/ticketFormNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Form Number: 1"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/creator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Created by: John Doe"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:textSize="15dp"
+            android:layout_below="@id/ticketFormNumber" />
+        <TextView
+            android:id="@+id/dateForm"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="12/12/2021"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:textSize="15dp"
+            />
+        <TextView
+            android:id="@+id/descriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/creator"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="Description:"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15dp" />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionLabel"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nisl nisl aliquet nisl, nec aliquam nisl nisl nec. Donec euismod, nisl eget aliquam ultricies, nisl nisl aliquet nisl, nec aliquam nisl nisl nec."
+            android:textColor="@color/black"
+            android:layout_marginBottom="20dp"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
