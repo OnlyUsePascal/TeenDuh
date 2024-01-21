@@ -64,7 +64,7 @@ public class PhoneFormFragment extends Fragment {
   
   public void proceedOtp(View view) {
     phoneNumber = phoneNumberEditText.getText().toString();
-    // phoneNumber = "+15 551234567";
+//    phoneNumber = "+15 551234567";
     String[] formattedPhoneNumber = Validators.homeNumberValid(phoneNumber);
     
     if (formattedPhoneNumber == null) {

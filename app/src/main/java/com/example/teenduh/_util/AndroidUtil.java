@@ -233,7 +233,6 @@ public class AndroidUtil {
         Timestamp bday = documentSnapshot.getTimestamp("bday");
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
-        
         String gender = documentSnapshot.getString("gender");
         String drink = documentSnapshot.getString("drinkHabit");
         String workout = documentSnapshot.getString("workoutHabit");

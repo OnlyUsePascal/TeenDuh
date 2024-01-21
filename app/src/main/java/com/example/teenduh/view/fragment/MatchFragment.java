@@ -39,7 +39,6 @@ public class MatchFragment extends Fragment {
     view = inflater.inflate(R.layout.fragment_match, container, false);
     recyclerView = view.findViewById(R.id.recycler_view_match);
     textview_who_like = view.findViewById(R.id.textview_who_like);
-
     userList = AndroidUtil.getUsers();
     System.out.println(userList.size());
     recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
