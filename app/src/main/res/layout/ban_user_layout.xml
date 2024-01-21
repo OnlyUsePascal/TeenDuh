@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
+  android:layout_height="wrap_content"
   android:background="@drawable/dialogbg">
 
   <ImageView
@@ -13,7 +13,7 @@
     android:layout_gravity="center|top"
     android:scaleType="centerCrop"/>
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -30,8 +30,7 @@
         android:id="@+id/createText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Report"
+        android:text="Ban "
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
       <TextView
-        android:id="@+id/reporteeUserName"
+        android:id="@+id/baneeUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -63,13 +62,26 @@
 
     </LinearLayout>
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  </LinearLayout>
 
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:text="Please give a reason why you are reporting this person"
+    android:text="Choose the time period for the ban"
+    android:textSize="15sp" />
+
+  <Spinner
+    android:id="@+id/banSpinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:text="Please give a reason why you are banning this person"
     android:textSize="15sp" />
 
   <com.google.android.material.textfield.TextInputLayout
@@ -115,11 +127,11 @@
         android:textStyle="bold" />
 
       <Button
-        android:id="@+id/submit"
+        android:id="@+id/ban"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Submit"
+        android:text="Ban"
         android:background="@drawable/btn_layout"
         android:textColor="@color/white"
         android:textStyle="bold" />

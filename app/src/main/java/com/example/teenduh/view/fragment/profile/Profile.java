@@ -33,6 +33,7 @@ import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.model.Image;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.User;
+import com.example.teenduh.view.activity.AboutUs;
 import com.example.teenduh.view.activity.BillActivity;
 import com.example.teenduh.view.adapter.SubscriptionAdapter;
 
@@ -57,6 +58,7 @@ public class Profile extends Fragment {
   private List<Image> imageList;
   private CircularProgressIndicator progressIndicator;
   private Handler sliderHandler;
+  private AppCompatImageView setting;
   private Runnable runnable = new Runnable() {
     @Override
     public void run() {
@@ -82,6 +84,7 @@ public class Profile extends Fragment {
     circle2 = view.findViewById(R.id.circle2);
     editProfile = view.findViewById(R.id.editProfile);
     mainLayout = (MainLayout) getActivity();
+    setting = view.findViewById(R.id.settings);
     
     initBtn();
     initViewPager(viewPager2);
@@ -111,6 +114,10 @@ public class Profile extends Fragment {
 
     editProfile.setOnClickListener(v -> {
       AndroidUtil._startActivity(getContext(), EditProfile.class);
+    });
+
+    setting.setOnClickListener(v -> {
+      AndroidUtil._startActivity(getContext(), AboutUs.class);
     });
   }
 

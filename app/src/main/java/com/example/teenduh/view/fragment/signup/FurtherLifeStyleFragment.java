@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.activity.SignUpPage;
 
 
@@ -43,9 +44,20 @@ public class FurtherLifeStyleFragment extends Fragment {
         initZodiacCard();
         next.setEnabled(true);
         next.setOnClickListener(v -> {
-//            System.out.println("communication habit: " + communicationHabit);
-//            System.out.println("education habit: " + educationHabit);
-//            System.out.println("zodiac habit: " + zodiacHabit);
+            AndroidUtil.getCurUser().setCommunicationHabit(communicationHabit);
+            AndroidUtil.getCurUser().setEducationHabit(educationHabit);
+            AndroidUtil.getCurUser().setZodiacHabit(zodiacHabit);
+
+            if (!communicationHabit.equals("")) {
+                AndroidUtil.getCurUser().addInfoData(communicationHabit);
+            }
+            if (!educationHabit.equals("")) {
+                AndroidUtil.getCurUser().addInfoData(educationHabit);
+            }
+            if (!zodiacHabit.equals("")) {
+                AndroidUtil.getCurUser().addInfoData(zodiacHabit);
+            }
+
             signUpPage.currentProgress += 10;
             signUpPage.progressBar.setProgress(signUpPage.currentProgress);
             signUpPage.replaceFragment(new ImageFragment());

@@ -45,6 +45,24 @@ public class AndroidUtil {
   private static ChatAdapter chatAdapter;
   private static String flagMatch;
   private static boolean isAdmin = false;
+  private static String genderFilter = "All";
+  private static int filterFlag = 0;
+
+  public static int getFilterFlag() {
+    return filterFlag;
+  }
+
+  public static void setFilterFlag(int filterFlag) {
+    AndroidUtil.filterFlag = filterFlag;
+  }
+
+  public static String getGenderFilter() {
+    return genderFilter;
+  }
+
+  public static void setGenderFilter(String genderFilter) {
+    AndroidUtil.genderFilter = genderFilter;
+  }
 
   public static boolean checkIsAdmin() {
     return isAdmin;
@@ -216,11 +234,38 @@ public class AndroidUtil {
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
         
-        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        // List<Integer> picIdxes = new ArrayList<>();
-        // for (String picIdx1 : pic.split(" ")) {
-        //   picIdxes.add(Integer.parseInt(picIdx1));
-        // }
+        String gender = documentSnapshot.getString("gender");
+        String drink = documentSnapshot.getString("drinkHabit");
+        String workout = documentSnapshot.getString("workoutHabit");
+        String smoke = documentSnapshot.getString("smokeHabit");
+        String pet = documentSnapshot.getString("petHabit");
+        String communication = documentSnapshot.getString("communicationHabit");
+        String education = documentSnapshot.getString("educationHabit");
+        String zodiac = documentSnapshot.getString("zodiacHabit");
+
+
+        if (drink == null) drink = "";
+        if (workout == null) workout = "";
+        if (smoke == null) smoke = "";
+        if (pet == null) pet = "";
+        if (communication == null) communication = "";
+        if (education == null) education = "";
+        if (zodiac == null) zodiac = "";
+
+        // Use the localDate as needed
+        Date date = bday.toDate();
+        LocalDate bdayLocal = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        List<Integer> picIdxes = new ArrayList<>();
+        if (pic == null) pic = "";
+        for (String picIdx1 : pic.split(" ")) {
+          try {
+            picIdxes.add(Integer.parseInt(picIdx1));
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+
         if (fcm == null) fcm = "blank";
         Object locationObject = documentSnapshot.get("location");
         if (locationObject != null) {
@@ -228,9 +273,14 @@ public class AndroidUtil {
           location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
         }
         System.out.println("location = " + location);
-        
-        User user = new User(uid, name, fcm, bdayLocal, location);
-        // user.setPicIdxes(picIdxes);
+
+        List<String> info = (List<String>) documentSnapshot.get("info");
+        if (info == null) {
+          info = new ArrayList<>();
+        }
+
+        User user = new User(uid, name, fcm, bdayLocal, location, gender, drink, workout, smoke, pet, communication, education, zodiac);
+        user.setPicIdxes(picIdxes);
         user.fetchPics();
         users.add(user);
       }

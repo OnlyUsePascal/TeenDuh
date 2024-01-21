@@ -220,7 +220,8 @@ public class ChatActivity extends AppCompatActivity {
           put("reporterId", AndroidUtil.getCurUser().getId());
           put("description", report);
           put("reporteeId", chatRoom.getOtherUser().getId());
-          put("time", Timestamp.now());
+          put("viewed", false);
+          put("date", Timestamp.now());
         }})
         .addOnCompleteListener(task -> {
           progressBar.setVisibility(View.INVISIBLE);

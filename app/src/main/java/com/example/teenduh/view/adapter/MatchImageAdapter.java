@@ -19,18 +19,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.Image;
+import com.example.teenduh.model.User;
 import com.example.teenduh.view.activity.ShowMoreInfo;
 import com.example.teenduh.view.activity.Subscription;
 
 import java.util.List;
 
 public class MatchImageAdapter extends RecyclerView.Adapter<MatchImageAdapter.MatchImageHolder>{
-  private List<Image> imageList;
+  private List<User> userList;
   private Boolean isVip;
   private Context context;
   private FragmentActivity mActivity;
-  public MatchImageAdapter(List<Image> imageList, Boolean isVip, Context context, FragmentActivity mainLayout){
-    this.imageList = imageList;
+  private User _tempUser;
+  public MatchImageAdapter(List<User> userList, Boolean isVip, Context context, FragmentActivity mainLayout){
+    this.userList = userList;
     this.isVip = isVip;
     this.context = context;
     this.mActivity = mainLayout;
@@ -46,18 +48,28 @@ public class MatchImageAdapter extends RecyclerView.Adapter<MatchImageAdapter.Ma
 
   @Override
   public void onBindViewHolder(@NonNull MatchImageHolder holder, int position) {
-    Image image = imageList.get(position);
-    holder.imageView.setImageResource(image.getImage());
+    User user = userList.get(position);
+
+    holder.imageView.setImageResource(R.drawable.modric);
+    for(Image image: user.getPics()){
+      if(image != null){
+        holder.imageView.setImageURI(image.getUri());
+        break;
+      }
+    }
     holder.cardView1.setVisibility(View.GONE);
     holder.cardView2.setVisibility(View.GONE);
     holder.nameTextView.setVisibility(View.VISIBLE);
     holder.likeTimesTextView.setVisibility(View.VISIBLE);
-    holder.nameTextView.setText(image.getHeading());
+//    holder.nameTextView.setText(image.getHeading());
+    holder.nameTextView.setText(user.getName());
     holder.likeTimesTextView.setText("10 mins ago");
     holder.seeMoreCardView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(context, ShowMoreInfo.class);
+        _tempUser = user;
+        AndroidUtil.set_tempUser(_tempUser);
         context.startActivity(intent);
         mActivity.overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
       }
@@ -85,7 +97,7 @@ public class MatchImageAdapter extends RecyclerView.Adapter<MatchImageAdapter.Ma
 
   @Override
   public int getItemCount() {
-    return imageList.size();
+    return userList.size();
   }
 
   public class MatchImageHolder extends RecyclerView.ViewHolder{

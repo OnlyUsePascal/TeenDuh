@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public class ChitChat extends Fragment {
   private TextView user;
   private Button stat;
 
-  
+  private SwipeRefreshLayout swipeRefreshLayout;
   public ChitChat() {
     // matches = new ArrayList<>();
   }
@@ -42,27 +43,13 @@ public class ChitChat extends Fragment {
     chatRoomViews = view.findViewById(R.id.messages);
     matchViews = view.findViewById(R.id.matches);
     stat = view.findViewById(R.id.button7);
-
+    
+    view.findViewById(R.id.button13).setOnClickListener(this::testLogin);
+    view.findViewById(R.id.button14).setOnClickListener(this::testLogin);
+    view.findViewById(R.id.button15).setOnClickListener(this::getChatRooms);
+    swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
     getChatRooms(view);
-    
     activity = AndroidUtil.getActivity();
-    // getChatRooms();
-    
-    // user.setText(AndroidUtil.getCurUser().getName());
-    
-    // match
-    // matchViews = view.findViewById(R.id.matches);
-    // matchViews.setLayoutManager(new
-    //   LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
-    // matchViews.setAdapter(new NewMatchesAdapter(matches, view));
-    
-    // chat room
-    // ChatRoomAdapter adapter = new ChatRoomAdapter();
-    // chatRoomViews.setLayoutManager(new
-    //   LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-    // unreadAmountList = MessagesPreviewStore.getUnreadAmountList();
-    // messages.setAdapter(new MessagesPreviewAdapter(messagesList, unreadAmountList, view));
-    
     return view;
   }
   
@@ -85,6 +72,11 @@ public class ChitChat extends Fragment {
       adapter = new ChatRoomAdapter();
       chatRoomViews.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.VERTICAL, false));
       chatRoomViews.setAdapter(adapter);
+          swipeRefreshLayout.setOnRefreshListener(() -> {
+      //notifyDataSetChanged();
+       adapter.notifyDataSetChanged();
+      swipeRefreshLayout.setRefreshing(false);
+    });
     });
   }
   

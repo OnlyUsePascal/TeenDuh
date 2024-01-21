@@ -38,6 +38,9 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class EditProfile extends AppCompatActivity {
   MainLayout mainLayout;
@@ -59,6 +62,8 @@ public class EditProfile extends AppCompatActivity {
 
   String bio = "";
 
+  List<String> info = new ArrayList<>();
+
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,7 @@ public class EditProfile extends AppCompatActivity {
     setContentView(R.layout.fragment_edit_profile);
   
     initField();
+
     bioEditText = findViewById(R.id.bioEditText);
 
     bioEditText.addTextChangedListener(new TextWatcher() {
@@ -113,6 +119,8 @@ public class EditProfile extends AppCompatActivity {
     selectZodiac.setOnClickListener(v -> {
       selectMoreAboutMe();
     });
+
+    loadData();
 
     for (int i = 0; i < addPhotoList.length; i++) {
       final int index = i + 1;
@@ -251,6 +259,62 @@ public class EditProfile extends AppCompatActivity {
         }
       }
     }
+
+    String zodiacText = selectZodiac.getText().toString();
+    String educationText = selectEducation.getText().toString();
+    String communicationText = selectCommunication.getText().toString();
+    String drinkText = selectDrink.getText().toString();
+    String workoutText = selectWorkout.getText().toString();
+    String smokeText = selectSmoke.getText().toString();
+    String petText = selectPet.getText().toString();
+
+    AndroidUtil.getCurUser().setInfo(info);
+    HashMap<String, Object> data = new HashMap<>();
+
+    if (!zodiacText.equals("Select")) {
+      info.add(zodiacText);
+      data.put("habitZodiac", zodiacText);
+      AndroidUtil.getCurUser().setZodiacHabit(zodiacText);
+    }
+
+    if (!educationText.equals("Select")) {
+      info.add(educationText);
+      data.put("habitEducation", educationText);
+      AndroidUtil.getCurUser().setEducationHabit(educationText);
+    }
+
+    if (!communicationText.equals("Select")) {
+      info.add(communicationText);
+      data.put("habitCommunication", communicationText);
+      AndroidUtil.getCurUser().setCommunicationHabit(communicationText);
+    }
+
+    if (!drinkText.equals("Select")) {
+      info.add(drinkText);
+      data.put("habitDrink", drinkText);
+      AndroidUtil.getCurUser().setDrinkHabit(drinkText);
+    }
+
+    if (!workoutText.equals("Select")) {
+      info.add(workoutText);
+      data.put("habitWorkout", workoutText);
+      AndroidUtil.getCurUser().setWorkoutHabit(workoutText);
+    }
+
+    if (!smokeText.equals("Select")) {
+      info.add(smokeText);
+      data.put("habitSmoke", smokeText);
+      AndroidUtil.getCurUser().setSmokeHabit(smokeText);
+    }
+
+    if (!petText.equals("Select")) {
+      info.add(petText);
+      data.put("habitPet", petText);
+      AndroidUtil.getCurUser().setPetHabit(petText);
+    }
+
+    FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), data, null);
+
   }
 
   public void downloadFilesFromStorage() throws IOException {
@@ -583,6 +647,53 @@ public class EditProfile extends AppCompatActivity {
       saveButton.setEnabled(true);
     }
   }
+
+  private void loadData() {
+    if (AndroidUtil.getCurUser().getZodiacHabit().equals("")){
+      selectZodiac.setText("Select");
+    } else {
+        selectZodiac.setText(AndroidUtil.getCurUser().getZodiacHabit());
+    }
+
+    if (AndroidUtil.getCurUser().getEducationHabit().equals("")){
+      selectEducation.setText("Select");
+    } else {
+        selectEducation.setText(AndroidUtil.getCurUser().getEducationHabit());
+    }
+
+    if (AndroidUtil.getCurUser().getCommunicationHabit().equals("")){
+      selectCommunication.setText("Select");
+    } else {
+        selectCommunication.setText(AndroidUtil.getCurUser().getCommunicationHabit());
+    }
+
+    if (AndroidUtil.getCurUser().getDrinkHabit().equals("")){
+      selectDrink.setText("Select");
+    } else {
+        selectDrink.setText(AndroidUtil.getCurUser().getDrinkHabit());
+    }
+
+    if (AndroidUtil.getCurUser().getWorkoutHabit().equals("")){
+      selectWorkout.setText("Select");
+    } else {
+        selectWorkout.setText(AndroidUtil.getCurUser().getWorkoutHabit());
+    }
+
+    if (AndroidUtil.getCurUser().getSmokeHabit().equals("")){
+      selectSmoke.setText("Select");
+    } else {
+        selectSmoke.setText(AndroidUtil.getCurUser().getSmokeHabit());
+    }
+
+    if (AndroidUtil.getCurUser().getPetHabit().equals("")){
+      selectPet.setText("Select");
+    } else {
+        selectPet.setText(AndroidUtil.getCurUser().getPetHabit());
+    }
+
+  }
+
+
 
 
 }
