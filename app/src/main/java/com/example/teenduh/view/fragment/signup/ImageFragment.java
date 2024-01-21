@@ -25,6 +25,8 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+
 public class ImageFragment extends Fragment {
   ImageView[] imageList = new ImageView[6];
   TextView[] addPhotoList = new TextView[6];
@@ -168,6 +170,11 @@ public class ImageFragment extends Fragment {
         signUpPage.currentProgress += 10;
         signUpPage.progressBar.setProgress(signUpPage.currentProgress);
         getActivity().finish();
+
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("info", AndroidUtil.getCurUser().getInfo());
+        FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), data, null);
+
         AndroidUtil._startActivity(getContext(), MainLayout.class);
         showNextButton();
       });
