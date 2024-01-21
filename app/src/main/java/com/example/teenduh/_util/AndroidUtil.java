@@ -216,23 +216,23 @@ public class AndroidUtil {
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
         
-        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        List<Integer> picIdxes = new ArrayList<>();
-        for (String picIdx1 : pic.split(" ")) {
-          picIdxes.add(Integer.parseInt(picIdx1));
-        }
-        if (fcm == null) fcm = "blank";
-        Object locationObject = documentSnapshot.get("location");
-        if (locationObject != null) {
-          HashMap<String, Double> locationMap = (HashMap<String, Double>) locationObject;
-          location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
-        }
-        System.out.println("location = " + location);
-        
-        User user = new User(uid, name, fcm, bdayLocal, location);
-        user.setPicIdxes(picIdxes);
-        user.fetchPics();
-        users.add(user);
+//        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//        List<Integer> picIdxes = new ArrayList<>();
+//        for (String picIdx1 : pic.split(" ")) {
+//          picIdxes.add(Integer.parseInt(picIdx1));
+//        }
+//        if (fcm == null) fcm = "blank";
+//        Object locationObject = documentSnapshot.get("location");
+//        if (locationObject != null) {
+//          HashMap<String, Double> locationMap = (HashMap<String, Double>) locationObject;
+//          location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
+//        }
+//        System.out.println("location = " + location);
+//
+//        User user = new User(uid, name, fcm, bdayLocal, location);
+//        user.setPicIdxes(picIdxes);
+//        user.fetchPics();
+//        users.add(user);
       }
       
       System.out.println(users);
