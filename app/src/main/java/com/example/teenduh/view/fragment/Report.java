@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.teenduh.R;
 import com.example.teenduh._util.FirebaseUtil;
@@ -24,6 +25,7 @@ public class Report extends Fragment {
 
   private Button viewUser;
   private RecyclerView reportList;
+  private ProgressBar progressBar;
   private List<ReportViewModel> reports;
 
   @Override
@@ -38,6 +40,8 @@ public class Report extends Fragment {
     View view =  inflater.inflate(R.layout.fragment_report, container, false);
 
     reports = new ArrayList<>();
+    progressBar = view.findViewById(R.id.reportProgressBar);
+
     getReportList();
 
     reportList = view.findViewById(R.id.reportList);
@@ -48,6 +52,7 @@ public class Report extends Fragment {
   }
 
   public void getReportList() {
+    progressBar.setVisibility(View.VISIBLE);
     FirebaseUtil.getFirestore()
       .collection("reports")
       .whereEqualTo("viewed", false)
@@ -66,6 +71,7 @@ public class Report extends Fragment {
             reports.add(new ReportViewModel(id, reporterId, receiverId, description, viewed, date));
           }
           reportList.getAdapter().notifyDataSetChanged();
+          progressBar.setVisibility(View.GONE);
         }
       });
   }
