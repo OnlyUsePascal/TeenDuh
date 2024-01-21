@@ -49,7 +49,7 @@ public class MatchImageAdapter extends RecyclerView.Adapter<MatchImageAdapter.Ma
   @Override
   public void onBindViewHolder(@NonNull MatchImageHolder holder, int position) {
     User user = userList.get(position);
-    _tempUser = user;
+
     holder.imageView.setImageResource(R.drawable.modric);
     for(Image image: user.getPics()){
       if(image != null){
@@ -68,6 +68,7 @@ public class MatchImageAdapter extends RecyclerView.Adapter<MatchImageAdapter.Ma
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(context, ShowMoreInfo.class);
+        _tempUser = user;
         AndroidUtil.set_tempUser(_tempUser);
         context.startActivity(intent);
         mActivity.overridePendingTransition(R.anim.slide_up, R.anim.slide_down);

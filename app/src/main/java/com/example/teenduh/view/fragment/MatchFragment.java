@@ -42,7 +42,7 @@ public class MatchFragment extends Fragment {
     userList = AndroidUtil.getUsers();
     System.out.println(userList.size());
     recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-    matchImageAdapter = new MatchImageAdapter(userList, false, getContext(), getActivity());
+    matchImageAdapter = new MatchImageAdapter(userList, true, getContext(), getActivity());
     recyclerView.setAdapter(matchImageAdapter);
     swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
