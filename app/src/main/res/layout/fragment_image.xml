@@ -392,7 +392,7 @@
           android:layout_width="300dp"
           android:layout_height="50dp"
           android:layout_gravity="center"
-          android:background="@drawable/btn_unselected"
+          android:background="@drawable/dashline_unselected"
           android:enabled="false"
           android:gravity="center"
           android:text="Next"

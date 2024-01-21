@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.model.User;
 import com.example.teenduh.view.activity.ShowMoreInfo;
@@ -27,20 +28,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
-
+  
   private final Context context;
   private List<User> userList;
   private FragmentActivity mActivity;
-  int diffElement = 0;
-  int currentPosition = 0;
-
-
+  // int currentPosition;
+  
+  
   public CardStackAdapter(List<User> userList, Context context, FragmentActivity mainLayout) {
     this.userList = userList;
     this.context = context;
     this.mActivity = mainLayout;
   }
-
+  
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,171 +48,149 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     View view = inflater.inflate(R.layout.item_card, parent, false);
     return new ViewHolder(view);
   }
-
+  
   @SuppressLint("ClickableViewAccessibility")
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     User user = userList.get(position);
     holder.setData(user);
-
-    List<Image> imageList = new ArrayList<>();
-    imageList.add(new Image(R.drawable.ronaldo, "Cristiano Ronaldo"));
-    imageList.add(new Image(R.drawable.park_seo, "Park Seo Joon"));
-    imageList.add(new Image(R.drawable.modric, "Luka Modric"));
-    imageList.add(new Image(R.drawable.ronaldo, "Cristiano Ronaldo"));
-
-    if (holder.cardViewList.size() > imageList.size()) {
-      for (int i = holder.cardViewList.size() - 1; i >= imageList.size(); i--) {
-        holder.cardViewList.get(i).setVisibility(View.GONE);
-      }
-    }
-    diffElement = imageList.size();
-    for(int i = 0; i < imageList.size(); i++){
-      if(i == 0){
-        ImageView imageView = (ImageView) holder.cardViewList.get(i).getChildAt(0);
-        imageView.setImageResource(R.drawable.custom_dashline_layout);
-      }else{
-        ImageView imageView = (ImageView) holder.cardViewList.get(i).getChildAt(0);
-        imageView.setImageResource(R.drawable.btn_unselected);
-      }
-    }
-
-      holder.viewPager2.setAdapter(new ImageAdapter(imageList, holder.viewPager2));
-      holder.viewPager2.setOffscreenPageLimit(3);
-      holder.viewPager2.setClipChildren(false);
-      holder.viewPager2.setClipToPadding(false);
-      holder.viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
-
   }
-
+  
   @Override
   public int getItemCount() {
-    //Toast.makeText(context, "size: " + userList.size(), Toast.LENGTH_SHORT).show();
     return userList.size();
   }
-
+  
   public List<User> getUserList() {
     return userList;
   }
-
+  
   public void setItems(List<User> user) {
     this.userList = user;
   }
-
-
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   public class ViewHolder extends RecyclerView.ViewHolder {
-    private final CardView cardView1;
-    private final CardView cardView2;
-    private final CardView cardView3;
-    private final CardView cardView4;
-    private final CardView cardView5;
-    private final CardView cardView6;
     private final List<CardView> cardViewList = new ArrayList<>();
     TextView name, age, city;
     ViewPager2 viewPager2;
-    FrameLayout test;
+    FrameLayout frameLayout;
     ImageView showMoreInfo;
-
-
-
-    @SuppressLint("ClickableViewAccessibility")
+    int imageListSize;
+    int curPicIdx;
+    User _tempUser;
+    
     ViewHolder(@NonNull View itemView) {
       super(itemView);
       name = itemView.findViewById(R.id.item_name);
       age = itemView.findViewById(R.id.item_age);
       city = itemView.findViewById(R.id.item_city);
       viewPager2 = itemView.findViewById(R.id.item_image);
-
-      cardView1 = itemView.findViewById(R.id.firstStage);
-      cardView2 = itemView.findViewById(R.id.secondStage);
-      cardView3 = itemView.findViewById(R.id.thirdStage);
-      cardView4 = itemView.findViewById(R.id.fourthStage);
-      cardView5 = itemView.findViewById(R.id.fifthStage);
-      cardView6 = itemView.findViewById(R.id.sixthStage);
-
-      showMoreInfo = itemView.findViewById(R.id.showInfo);
-      showMoreInfo.bringToFront();
-      showMoreInfo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-          Intent intent = new Intent(context, ShowMoreInfo.class);
-          String currentPositionStr = String.valueOf(currentPosition);
-          intent.putExtra("position", currentPositionStr);
-          context.startActivity(intent);
-          mActivity.overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-
-        }
-      });
+      
+      CardView cardView1 = itemView.findViewById(R.id.firstStage);
+      CardView cardView2 = itemView.findViewById(R.id.secondStage);
+      CardView cardView3 = itemView.findViewById(R.id.thirdStage);
+      CardView cardView4 = itemView.findViewById(R.id.fourthStage);
+      CardView cardView5 = itemView.findViewById(R.id.fifthStage);
+      CardView cardView6 = itemView.findViewById(R.id.sixthStage);
       cardViewList.add(cardView1);
       cardViewList.add(cardView2);
       cardViewList.add(cardView3);
       cardViewList.add(cardView4);
       cardViewList.add(cardView5);
       cardViewList.add(cardView6);
-
-      test = itemView.findViewById(R.id.top_overlay);
-
-
-      test.setOnTouchListener(new View.OnTouchListener() {
-        float initialX;
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-          switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-              initialX = event.getX();
-              return true;
-
-            case MotionEvent.ACTION_UP:
-              float finalX = event.getX();
-              int cardWidth = v.getWidth();
-              float cardCenterX = cardWidth / 2.0f; // Center of the card
-              if (finalX > cardCenterX) {
-                viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
-                int currentItem = viewPager2.getCurrentItem();
-                currentPosition = currentItem;
-                for (int i = 0; i < diffElement; i++) {
-                  if (i == currentItem) {
-                    ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
-                    imageView.setImageResource(R.drawable.custom_dashline_layout);
-
-                  }else{
-                    ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
-                    imageView.setImageResource(R.drawable.btn_unselected);
-
-                  }
-                }
-              } else {
-                viewPager2.setCurrentItem(viewPager2.getCurrentItem() - 1);
-                int currentItem = viewPager2.getCurrentItem();
-                currentPosition = currentItem;
-                for (int i = 0; i < diffElement; i++) {
-                  if (i == currentItem) {
-                    ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
-                    imageView.setImageResource(R.drawable.custom_dashline_layout);
-
-                  }
-                  else {
-                    ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
-                    imageView.setImageResource(R.drawable.btn_unselected);
-                  }
-                }
-              }
-              break;
-          }
-          return false;
-        }
-      });
-
-
+  
+      initMoreInfo(itemView);
+      initImgChange(itemView);
     }
-
-    void setData(User data) {
-      name.setText(data.getName());
-      age.setText(data.getAge() + "");
-      city.setText(data.getCity());
+    
+    @SuppressLint("ClickableViewAccessibility")
+    private void initImgChange(@NonNull View itemView){
+      frameLayout = itemView.findViewById(R.id.top_overlay);
+      frameLayout.setOnTouchListener((view, event) -> {
+        switch (event.getAction()) {
+          case MotionEvent.ACTION_DOWN:
+            float initialX = event.getX();
+            return true;
+          
+          case MotionEvent.ACTION_UP:
+            float finalX = event.getX();
+            int cardWidth = view.getWidth();
+            float cardCenterX = cardWidth / 2.0f; // Center of the card
+            
+            if (finalX > cardCenterX) {
+              // slide right
+              viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
+            } else {
+              // slide left
+              viewPager2.setCurrentItem(viewPager2.getCurrentItem() - 1);
+            }
+            
+            curPicIdx = viewPager2.getCurrentItem();
+            for (int i = 0; i < imageListSize; i++) {
+              ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
+              int imgId = (i == curPicIdx) ? R.drawable.dashline_selected : R.drawable.dashline_unselected;
+              imageView.setImageResource(imgId);
+            }
+            break;
+        }
+        return false;
+      });
+    }
+    
+    private void initMoreInfo(@NonNull View itemView) {
+      showMoreInfo = itemView.findViewById(R.id.showInfo);
+      showMoreInfo.bringToFront();
+      showMoreInfo.setOnClickListener((v) -> {
+        Intent intent = new Intent(context, ShowMoreInfo.class);
+        String currentPositionStr = String.valueOf(curPicIdx);
+        intent.putExtra("position", currentPositionStr);
+        AndroidUtil.set_tempUser(_tempUser);
+        
+        context.startActivity(intent);
+        mActivity.overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+      });
+    }
+  
+    void setData(User user) {
+      _tempUser = user;
+      name.setText(user.getName());
+      age.setText(user.getAge() + "");
+      city.setText(user.getCity());
+      
+      List<Image> imageList = user.getPics();
+      curPicIdx = 0;
+      imageListSize = imageList.size();
+      if (cardViewList.size() > imageList.size()) {
+        for (int i = cardViewList.size() - 1; i >= imageList.size(); i--) {
+          cardViewList.get(i).setVisibility(View.GONE);
+        }
+      }
+  
+      System.out.println(user.getName() + " -- " + imageListSize);
+      for (int i = 0; i < imageListSize; i++) {
+        ImageView imageView = (ImageView) cardViewList.get(i).getChildAt(0);
+        int imgId = (i == curPicIdx) ? R.drawable.dashline_selected : R.drawable.dashline_unselected;
+        imageView.setImageResource(imgId);
+      }
+  
+      viewPager2.setAdapter(new ImageAdapter(imageList));
+      viewPager2.setOffscreenPageLimit(3);
+      viewPager2.setClipChildren(false);
+      viewPager2.setClipToPadding(false);
+      viewPager2.getChildAt(0).setOverScrollMode(ViewPager2.OVER_SCROLL_NEVER);
     }
   }
 }

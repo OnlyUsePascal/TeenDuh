@@ -98,7 +98,7 @@ public class ImageFragment extends Fragment {
       next.setEnabled(true);
     } else {
       tipTextView.setText("Pro tip: Upload at least 2 photos to get more matches!");
-      next.setBackground(getResources().getDrawable(R.drawable.btn_unselected));
+      next.setBackground(getResources().getDrawable(R.drawable.dashline_unselected));
       next.setTextColor(getResources().getColor(R.color.white));
       next.setEnabled(false);
     }

@@ -97,7 +97,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="72dp"
-        android:background="@drawable/btn_unselected"
+        android:background="@drawable/dashline_unselected"
         android:enabled="false"
         android:gravity="center"
         android:text="Next"

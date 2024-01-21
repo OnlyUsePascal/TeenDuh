@@ -34,8 +34,8 @@ public class AuthLayout extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_auth_layout);
     
-    AndroidUtil.init(this);
     FirebaseUtil.init();
+    AndroidUtil.init(this);
   }
   
   @Override

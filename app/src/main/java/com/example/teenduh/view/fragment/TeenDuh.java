@@ -86,12 +86,8 @@ public class TeenDuh extends Fragment {
     gifSuperLike = view.findViewById(R.id.superLike);
     buttonProceed = view.findViewById(R.id.buttonProceed);
   
-    // gifLike.bringToFront();
-    // gifCancel.bringToFront();
-    // gifSuperLike.bringToFront();
     imgOutLike.setVisibility(View.INVISIBLE);
     initBtn();
-    
     loadingStart();
     initCardStack();
     return view;
@@ -249,16 +245,19 @@ public class TeenDuh extends Fragment {
         cardStackView.setItemAnimator(new DefaultItemAnimator());
         loadingStop();
       });
-    }).run();
+    }).start();
   }
   
   private void paginate() {
     loadingStart();
   
     new Thread(() -> {
+      // todo new list = (last elements of old list + new list)
+      List<User> oldUsers = stackAdapter.getUserList();
       List<User> newUsers = addList();
+      
       DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
-          new CardStackCallback(stackAdapter.getUserList(), newUsers));
+          new CardStackCallback(oldUsers, newUsers));
       stackAdapter.setItems(newUsers);
 
       try {
@@ -274,15 +273,8 @@ public class TeenDuh extends Fragment {
     }).start();
   }
   
-  int index = 0;
   private List<User> addList() {
-    List<User> users = new ArrayList<>();
-    for (int i = 0; i < 5; i++){
-      users.add(new User(R.drawable.ronaldo, "Ronaldo" + index, "Vung Tau",
-          LocalDate.of(2003, 1, 3)));
-      index+=1;
-    }
-    return users;
+    return AndroidUtil.getUsers();
   }
   
   public void swipeLeft(GifImageView gifImage){
@@ -345,6 +337,18 @@ public class TeenDuh extends Fragment {
     }, 1000);
   }
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   class StackListener implements CardStackListener {
     @Override
     public void onCardDragging(Direction direction, float ratio) {
@@ -378,7 +382,7 @@ public class TeenDuh extends Fragment {
       }
     
       // Paginating
-      if (manager.getTopPosition() == stackAdapter.getItemCount() - 1) {
+      if (manager.getTopPosition() == stackAdapter.getItemCount()) {
         manager.setTopPosition(0);
         paginate();
       }

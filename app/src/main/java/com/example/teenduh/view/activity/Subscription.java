@@ -8,8 +8,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,9 +15,6 @@ import android.widget.Toast;
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.view.adapter.ImageAdapter;
-import com.example.teenduh.view.adapter.WelcomeAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,14 +52,14 @@ public class Subscription extends AppCompatActivity {
     imageList = new ArrayList<Image>();
     imageList.add(new Image(R.drawable.tinder_plus_cover, "nuill"));
     imageList.add(new Image(R.drawable.tidner_premium, "nuill"));
-    viewPager2.setAdapter(new ImageAdapter(imageList, viewPager2));
+    viewPager2.setAdapter(new ImageAdapter(imageList));
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
       public void onPageSelected(int position) {
         super.onPageSelected(position);
         if (position == 0) {
           circle1.setForeground(getResources().getDrawable(R.drawable.btn_layout));
-          circle2.setForeground(getResources().getDrawable(R.drawable.btn_unselected));
+          circle2.setForeground(getResources().getDrawable(R.drawable.dashline_unselected));
           plusCardView1.setVisibility(View.VISIBLE);
           plusCardView2.setVisibility(View.VISIBLE);
           goldCardView1.setVisibility(View.INVISIBLE);
@@ -82,7 +77,7 @@ public class Subscription extends AppCompatActivity {
 
         } else if (position == 1) {
           circle2.setForeground(getResources().getDrawable(R.drawable.btn_layout));
-          circle1.setForeground(getResources().getDrawable(R.drawable.btn_unselected));
+          circle1.setForeground(getResources().getDrawable(R.drawable.dashline_unselected));
           plusCardView1.setVisibility(View.INVISIBLE);
           plusCardView2.setVisibility(View.INVISIBLE);
           goldCardView1.setVisibility(View.VISIBLE);

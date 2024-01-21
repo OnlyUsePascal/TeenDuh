@@ -2,8 +2,14 @@ package com.example.teenduh.model;
 
 import android.net.Uri;
 
+import com.example.teenduh._util.FirebaseUtil;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
   private String id;
@@ -17,40 +23,18 @@ public class User {
   private Boolean isShowInfoGender;
   private ArrayList<String> sexualOrientationList;
   private String InterestedIn;
-  private int image;
-  // private String age;
   private String city;
   private boolean isInitial = true;
-  private Uri[] imageList = new Uri[6];
-  private String likedPeople ;
-//  public User(int image, String name, String age, String city, String likedPeople){}
+  private String likedPeople;
   private Uri[] imageUris = new Uri[6];
+  private List<Image> images;
 
-  public User(int image, String name, String city, LocalDate birthday){
+  public User(String name, String city, LocalDate birthday){
     this.name = name;
     this.city = city;
-    this.image = image;
     this.birthday = birthday;
   }
-  public String getLikedPeople() {
-    return likedPeople;
-  }
-  public int getImage() {
-    return image;
-  }
-
-  public int getAge() {
-    return LocalDate.now().getYear() - birthday.getYear();
-  }
-
-  public String getCity() {
-    return city;
-  }
-
-  public String getGender() {
-    return gender;
-  }
-
+  
   public User(String name, String gender, String interestPreference, String distancePreference, String lookingFor) {
     this.name = name;
     this.gender = gender;
@@ -67,6 +51,32 @@ public class User {
   }
 
   public User(){}
+  
+  public String getLikedPeople() {
+    return likedPeople;
+  }
+  
+  public List<Image> getPics(){
+    if (images != null) return images;
+    
+    images = new ArrayList<>();
+    for (int picIdx : picIdxes) {
+      images.add(new Image(imageUris[picIdx], name + "/pic " + picIdx));
+    }
+    return images;
+  }
+
+  public int getAge() {
+    return LocalDate.now().getYear() - birthday.getYear();
+  }
+
+  public String getCity() {
+    return "What???";
+  }
+
+  public String getGender() {
+    return gender;
+  }
 
   public String getFcm() {
     return fcm;
@@ -80,7 +90,6 @@ public class User {
     return name;
   }
 
-
   public void setName(String name) {
     this.name = name;
   }
@@ -92,7 +101,6 @@ public class User {
   public void setGender(String gender) {
     this.gender = gender;
   }
-
 
   public void setInterestedIn(String interestedIn) {
     this.InterestedIn = interestedIn;
@@ -146,6 +154,46 @@ public class User {
     this.imageUris = imageUris;
   }
 
+  private List<Integer> picIdxes = new ArrayList<>();
+  public void setPicIdxes(List<Integer> picIdxes){
+    this.picIdxes = picIdxes;
+  }
+  
+  public List<Integer> getPicIdxes() {
+    return picIdxes;
+  }
+  
+  public void fetchPics(){
+    for (Integer index : picIdxes) {
+      try {
+        System.out.println(name + "/searching: " + index);
+        File localFile = File.createTempFile("images", "jpg");
+  
+        // TODO: modify the storage url
+        String filePath = "users/test/" + id + "/" + index;
+        StorageReference fileToDownloadRef =  FirebaseUtil
+                                                  .getStorageRef()
+                                                  .child(filePath);
+        fileToDownloadRef.getFile(localFile).addOnCompleteListener(task -> {
+          if (!task.isSuccessful()) {
+            task.getException().printStackTrace();
+            return;
+          }
+          
+          Uri tempUri = Uri.fromFile(localFile);
+          System.out.println(name + "/image:" + index + ":" + tempUri);
+          imageUris[index] = tempUri;
+          // getActivity().runOnUiThread(() -> {
+          //   imageView.setImageURI(tempUri);
+          //   imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+          // });
+        });
+      } catch (IOException err){
+        err.printStackTrace();
+      }
+    }
+  }
+  
   @Override
   public String toString() {
     return "User{" +

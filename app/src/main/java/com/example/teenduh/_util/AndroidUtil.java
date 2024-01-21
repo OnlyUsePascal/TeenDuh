@@ -33,6 +33,7 @@ import java.util.List;
 public class AndroidUtil {
   private static Activity activity;
   private static User curUser;
+  private static User _tempUser;
   private static ChatRoom curChatRoom;
   private static List<User> users;
   private static List<ChatRoom> chatRooms;
@@ -150,6 +151,14 @@ public class AndroidUtil {
     return null;
   }
   
+  public static User get_tempUser() {
+    return _tempUser;
+  }
+  
+  public static void set_tempUser(User _tempUser) {
+    AndroidUtil._tempUser = _tempUser;
+  }
+  
   public static void setCurNewUser(String id, Runnable runnable){
     User newUser = new User(id, "__blank", FirebaseUtil.getFcm(), LocalDate.of(2000,1,1));
     setCurUser(newUser);
@@ -195,10 +204,18 @@ public class AndroidUtil {
         String fcm = documentSnapshot.getString("fcm");
         String uid = documentSnapshot.getId();
         Timestamp bday = documentSnapshot.getTimestamp("bday");
+        String pic = documentSnapshot.getString("pic");
+        
         LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        List<Integer> picIdxes = new ArrayList<>();
+        for (String picIdx1 : pic.split(" ")) {
+          picIdxes.add(Integer.parseInt(picIdx1));
+        }
         
         if (fcm == null) fcm = "blank";
         User user = new User(uid, name, fcm, bdayLocal);
+        user.setPicIdxes(picIdxes);
+        user.fetchPics();
         users.add(user);
       }
       

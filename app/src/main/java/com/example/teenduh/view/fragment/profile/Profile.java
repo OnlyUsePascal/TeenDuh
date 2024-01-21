@@ -44,7 +44,6 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Profile extends Fragment {
   private MainLayout mainLayout;
@@ -126,10 +125,10 @@ public class Profile extends Fragment {
         super.onPageSelected(position);
         if (position == 0) {
           circle1.setForeground(getResources().getDrawable(R.drawable.btn_layout));
-          circle2.setForeground(getResources().getDrawable(R.drawable.btn_unselected));
+          circle2.setForeground(getResources().getDrawable(R.drawable.dashline_unselected));
         } else if (position == 1) {
           circle2.setForeground(getResources().getDrawable(R.drawable.btn_layout));
-          circle1.setForeground(getResources().getDrawable(R.drawable.btn_unselected));
+          circle1.setForeground(getResources().getDrawable(R.drawable.dashline_unselected));
         }
       }
     });
@@ -160,7 +159,7 @@ public class Profile extends Fragment {
       } catch (IOException err) {
         err.printStackTrace();
       }
-    }).run();
+    }).start();
 
   }
   
@@ -168,7 +167,6 @@ public class Profile extends Fragment {
     if (index > 5) return;
     System.out.println("searching: " + index);
     File localFile = File.createTempFile("images", "jpg");
-    Uri tempUri = Uri.fromFile(localFile);
 
     // TODO: modify the storage url
     StorageReference fileToDownloadRef =
@@ -183,6 +181,7 @@ public class Profile extends Fragment {
         }
       }
 
+      Uri tempUri = Uri.fromFile(localFile);
       getActivity().runOnUiThread(() -> {
         imageView.setImageURI(tempUri);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
