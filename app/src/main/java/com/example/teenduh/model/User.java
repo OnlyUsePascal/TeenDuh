@@ -33,7 +33,7 @@ public class User {
   private List<String> info = new ArrayList<>();
 
   private String drinkHabit= "", workoutHabit = "", smokeHabit = "", petHabit = "";
-  String communicationHabit= "", educationHabit = "", zodiacHabit = "";
+  private String communicationHabit= "", educationHabit = "", zodiacHabit = "";
   String bio = "";
 
   public User(String name, String city, LocalDate birthday){
@@ -78,13 +78,12 @@ public class User {
     this.info = info;
   }
 
-  public User(String id, String name, String fcm, LocalDate bday, LatLng location, List<String> info, String drinkHabit, String workoutHabit, String smokeHabit, String petHabit, String communicationHabit, String educationHabit, String zodiacHabit){
+  public User(String id, String name, String fcm, LocalDate bday, LatLng location, String drinkHabit, String workoutHabit, String smokeHabit, String petHabit, String communicationHabit, String educationHabit, String zodiacHabit){
     this.id = id;
     this.name = name;
     this.fcm = fcm;
     this.birthday = bday;
     this.location = location;
-    this.info = info;
     this.drinkHabit = drinkHabit;
     this.workoutHabit = workoutHabit;
     this.smokeHabit = smokeHabit;

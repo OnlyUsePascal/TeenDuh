@@ -273,47 +273,46 @@ public class EditProfile extends AppCompatActivity {
 
     if (!zodiacText.equals("Select")) {
       info.add(zodiacText);
-      data.put("zodiacHabit", zodiacText);
+      data.put("habitZodiac", zodiacText);
       AndroidUtil.getCurUser().setZodiacHabit(zodiacText);
     }
 
     if (!educationText.equals("Select")) {
       info.add(educationText);
-      data.put("educationHabit", educationText);
+      data.put("habitEducation", educationText);
       AndroidUtil.getCurUser().setEducationHabit(educationText);
     }
 
     if (!communicationText.equals("Select")) {
       info.add(communicationText);
-      data.put("communicationHabit", communicationText);
+      data.put("habitCommunication", communicationText);
       AndroidUtil.getCurUser().setCommunicationHabit(communicationText);
     }
 
     if (!drinkText.equals("Select")) {
       info.add(drinkText);
-      data.put("drinkHabit", drinkText);
+      data.put("habitDrink", drinkText);
       AndroidUtil.getCurUser().setDrinkHabit(drinkText);
     }
 
     if (!workoutText.equals("Select")) {
       info.add(workoutText);
-      data.put("workoutHabit", workoutText);
+      data.put("habitWorkout", workoutText);
       AndroidUtil.getCurUser().setWorkoutHabit(workoutText);
     }
 
     if (!smokeText.equals("Select")) {
       info.add(smokeText);
-      data.put("smokeHabit", smokeText);
+      data.put("habitSmoke", smokeText);
       AndroidUtil.getCurUser().setSmokeHabit(smokeText);
     }
 
     if (!petText.equals("Select")) {
       info.add(petText);
-      data.put("petHabit", petText);
+      data.put("habitPet", petText);
       AndroidUtil.getCurUser().setPetHabit(petText);
     }
 
-    data.put("info", info);
     FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), data, null);
 
   }
