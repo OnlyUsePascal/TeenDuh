@@ -44,9 +44,9 @@ public class FurtherLifeStyleFragment extends Fragment {
         initZodiacCard();
         next.setEnabled(true);
         next.setOnClickListener(v -> {
-//            System.out.println("communication habit: " + communicationHabit);
-//            System.out.println("education habit: " + educationHabit);
-//            System.out.println("zodiac habit: " + zodiacHabit);
+            AndroidUtil.getCurUser().setCommunicationHabit(communicationHabit);
+            AndroidUtil.getCurUser().setEducationHabit(educationHabit);
+            AndroidUtil.getCurUser().setZodiacHabit(zodiacHabit);
 
             if (!communicationHabit.equals("")) {
                 AndroidUtil.getCurUser().addInfoData(communicationHabit);
