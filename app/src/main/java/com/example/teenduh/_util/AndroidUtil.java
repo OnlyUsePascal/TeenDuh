@@ -20,6 +20,7 @@ import com.example.teenduh.model.message.ChatRoom;
 import com.example.teenduh.view.activity.MainLayout;
 import com.example.teenduh.view.activity.SignUpPage;
 import com.example.teenduh.view.adapter.message.ChatAdapter;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -204,9 +205,15 @@ public class AndroidUtil {
         String uid = documentSnapshot.getId();
         Timestamp bday = documentSnapshot.getTimestamp("bday");
         LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
+        Object locationObject = documentSnapshot.get("location");
+        LatLng location = null;
+        if (locationObject != null) {
+          HashMap<String, Double> locationMap = (HashMap<String, Double>) locationObject;
+          location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
+        }
+        System.out.println("location = " + location);
         if (fcm == null) fcm = "blank";
-        User user = new User(uid, name, fcm, bdayLocal);
+        User user = new User(uid, name, fcm, bdayLocal, location);
         users.add(user);
       }
       
@@ -313,4 +320,24 @@ public class AndroidUtil {
   public static void makeToast(Context context, String mess){
     Toast.makeText(context, mess, Toast.LENGTH_SHORT).show();
   }
+
+  public static double calculateDistance(LatLng latLng1, LatLng latLng2) {
+    double lat1 = latLng1.latitude;
+    double lon1 = latLng1.longitude;
+    double lat2 = latLng2.latitude;
+    double lon2 = latLng2.longitude;
+
+    final int R = 6371; // Radius of the earth in kilometers
+
+    double latDistance = Math.toRadians(lat2 - lat1);
+    double lonDistance = Math.toRadians(lon2 - lon1);
+    double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+            + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+            * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    double distance = R * c; // Distance in kilometers
+
+    return distance;
+  }
+
 }

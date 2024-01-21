@@ -7,9 +7,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.model.User;
 import com.example.teenduh.model.UserBan;
 import com.example.teenduh.view.fragment.Database;
@@ -31,9 +35,12 @@ import com.example.teenduh.view.fragment.Statistic;
 import com.example.teenduh.view.fragment.message.ChitChat;
 import com.example.teenduh.view.fragment.profile.Profile;
 import com.example.teenduh.view.fragment.TeenDuh;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.ktx.Firebase;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainLayout extends AppCompatActivity {
@@ -48,6 +55,10 @@ public class MainLayout extends AppCompatActivity {
   private Statistic fragStatistic;
   private Report fragReport;
   private boolean isBan = false;
+
+  private LatLng location;
+
+  private final int REQUEST_CODE_PERMISSIONS = 100;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -84,20 +95,9 @@ public class MainLayout extends AppCompatActivity {
       if (checkIsBan()) {
         openBanDialog();
       }
-    }, 1000); // 1000 milliseconds delay (1 seconds)
+    }, 1000);
 
-    // todo check permission
-    new Handler().postDelayed(() -> {
-      if (!AskPermission.areAllPermissionsGranted(this)){
-        runOnUiThread(() -> {
-          Intent intent = new Intent(this, AskPermission.class);
-          startActivity(intent);
-          overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-        });
-      }
-    },1000);
-
-
+    checkAndRequestPermissions();
 
   }
   
@@ -105,10 +105,10 @@ public class MainLayout extends AppCompatActivity {
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     System.out.println("on act result");
     super.onActivityResult(requestCode, resultCode, data);
-    switch (resultCode) {
-      case 123: {
-        System.out.println("something");
-        break;
+    if (requestCode == REQUEST_CODE_PERMISSIONS) {
+      // Check again if permissions are granted after returning from AskPermission activity
+      if (AskPermission.areAllPermissionsGranted(this)) {
+        getLocation(); // Now we can safely get the location
       }
     }
   }
@@ -190,6 +190,46 @@ public class MainLayout extends AppCompatActivity {
       }
     }
     return false;
+  }
+
+  private void checkAndRequestPermissions() {
+    // todo check permission
+    new Handler().postDelayed(() -> {
+      if (!AskPermission.areAllPermissionsGranted(this)){
+        runOnUiThread(() -> {
+          Intent intent = new Intent(this, AskPermission.class);
+          startActivityForResult(intent, REQUEST_CODE_PERMISSIONS);
+          overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+        });
+      } else {
+        getLocation();
+      }
+    },1000);
+  }
+
+  private void getLocation() {
+    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+    String locationProvider = LocationManager.GPS_PROVIDER; // Or, use LocationManager.NETWORK_PROVIDER
+
+    try {
+      Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+
+      if (lastKnownLocation != null) {
+        double latitude = lastKnownLocation.getLatitude();
+        double longitude = lastKnownLocation.getLongitude();
+        location = new LatLng(latitude, longitude);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("location", location);
+        FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), hashMap, null);
+
+        // Use the latitude and longitude as needed
+      } else {
+        // Handle location not available
+      }
+    } catch (SecurityException e) {
+      // Handle the exception
+    }
   }
 
   private void openBanDialog() {
