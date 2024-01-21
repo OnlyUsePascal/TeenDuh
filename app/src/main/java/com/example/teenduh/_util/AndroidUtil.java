@@ -45,6 +45,24 @@ public class AndroidUtil {
   private static ChatAdapter chatAdapter;
   private static String flagMatch;
   private static boolean isAdmin = false;
+  private static String genderFilter = "All";
+  private static int filterFlag = 0;
+
+  public static int getFilterFlag() {
+    return filterFlag;
+  }
+
+  public static void setFilterFlag(int filterFlag) {
+    AndroidUtil.filterFlag = filterFlag;
+  }
+
+  public static String getGenderFilter() {
+    return genderFilter;
+  }
+
+  public static void setGenderFilter(String genderFilter) {
+    AndroidUtil.genderFilter = genderFilter;
+  }
 
   public static boolean checkIsAdmin() {
     return isAdmin;
@@ -216,13 +234,15 @@ public class AndroidUtil {
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
 
-        String drink = documentSnapshot.getString("habitDrink");
-        String workout = documentSnapshot.getString("habitWorkout");
-        String smoke = documentSnapshot.getString("habitSmoke");
-        String pet = documentSnapshot.getString("habitPet");
-        String communication = documentSnapshot.getString("habitCommunication");
-        String education = documentSnapshot.getString("habitEducation");
-        String zodiac = documentSnapshot.getString("habitZodiac");
+        String gender = documentSnapshot.getString("gender");
+        String drink = documentSnapshot.getString("drinkHabit");
+        String workout = documentSnapshot.getString("workoutHabit");
+        String smoke = documentSnapshot.getString("smokeHabit");
+        String pet = documentSnapshot.getString("petHabit");
+        String communication = documentSnapshot.getString("communicationHabit");
+        String education = documentSnapshot.getString("educationHabit");
+        String zodiac = documentSnapshot.getString("zodiacHabit");
+
 
         if (drink == null) drink = "";
         if (workout == null) workout = "";
@@ -254,7 +274,15 @@ public class AndroidUtil {
         }
         System.out.println("location = " + location);
 
-        User user = new User(uid, name, fcm, bdayLocal, location, drink, workout, smoke, pet, communication, education, zodiac);
+
+        List<String> info = (List<String>) documentSnapshot.get("info");
+        if (info == null) {
+          info = new ArrayList<>();
+        }
+
+        User user = new User(uid, name, fcm, bdayLocal, location, gender, drink, workout, smoke, pet, communication, education, zodiac);
+
+
         user.setPicIdxes(picIdxes);
         user.fetchPics();
         users.add(user);
