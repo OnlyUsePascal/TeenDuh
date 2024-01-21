@@ -44,7 +44,7 @@ public class AndroidUtil {
   private static RecyclerView chatView;
   private static ChatAdapter chatAdapter;
   private static String flagMatch;
-  private static boolean isAdmin = true;
+  private static boolean isAdmin = false;
 
   public static boolean checkIsAdmin() {
     return isAdmin;
