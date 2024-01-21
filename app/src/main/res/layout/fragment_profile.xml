@@ -4,14 +4,14 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/window1"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:padding="15dp">
+  android:layout_height="match_parent">
 
   <RelativeLayout
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
+      android:padding="15dp"
     app:layout_constraintTop_toTopOf="parent">
 
     <TextView
@@ -118,34 +118,38 @@
       android:textSize="20dp"
       android:textStyle="bold" />
   </RelativeLayout>
-
+  <RelativeLayout
+      android:layout_marginTop="10dp"
+      android:layout_width="match_parent"
+      android:layout_below="@+id/summary"
+      android:background="@drawable/dashline_unselected"
+      android:layout_height="match_parent">
+    
   <androidx.appcompat.widget.LinearLayoutCompat
     android:id="@+id/superbtn"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/summary"
     android:gravity="center_horizontal"
     android:layout_marginTop="10dp"
     android:orientation="horizontal">
-
     <androidx.cardview.widget.CardView
       android:id="@+id/button10"
       app:cardCornerRadius="10dp"
       android:layout_marginRight="10dp"
-      android:layout_width="wrap_content"
+      android:layout_width="130dp"
+      android:background="@color/white"
       android:layout_height="wrap_content">
-
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:background="#E8E9EE">
-
         <LinearLayout
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:padding="10dp"
           android:orientation="vertical">
-
+          <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/baseline_star_blue_24" />
           <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -188,27 +192,29 @@
 
         </LinearLayout>
 
-      </RelativeLayout>
-
+      
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
       app:cardCornerRadius="10dp"
       android:id="@+id/button11"
-      android:layout_width="wrap_content"
+      android:background="@color/white"
+      android:layout_width="130dp"
+      android:layout_marginLeft="10dp"
       android:layout_height="wrap_content">
-
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:background="#E8E9EE">
 
         <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:padding="10dp"
+          android:layout_gravity="center"
           android:orientation="vertical">
-
+          <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/baseline_volunteer_activism_24" />
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -233,7 +239,6 @@
 
         </LinearLayout>
 
-      </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -243,17 +248,17 @@
   <androidx.viewpager2.widget.ViewPager2
       android:id="@+id/viewPager2"
       android:layout_width="350dp"
-      android:layout_height="200dp"
+      android:layout_height="180dp"
       android:layout_centerHorizontal="true"
       android:layout_below="@+id/superbtn"
-      android:layout_marginTop="40dp" />
+      android:layout_marginTop="10dp" />
 
   <LinearLayout
       android:id="@+id/linearLayout"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@+id/viewPager2"
-      android:layout_marginTop="10dp"
+      android:layout_marginTop="5dp"
       android:layout_marginBottom="10dp"
       android:layout_centerHorizontal="true"
       android:orientation="horizontal">
@@ -274,7 +279,7 @@
         android:foreground="@color/black"
         />
   </LinearLayout>
-
+  </RelativeLayout>
 </RelativeLayout>
 
 

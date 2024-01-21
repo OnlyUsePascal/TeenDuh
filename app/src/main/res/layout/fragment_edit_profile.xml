@@ -6,7 +6,23 @@
   android:orientation="vertical"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_gravity="center|bottom">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="30dp">
 
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Edit Profile"
+      android:textSize="30dp"
+      android:textStyle="bold"
+      android:layout_centerInParent="true"/>
+
+  </RelativeLayout>
+ <ScrollView
+     android:layout_marginTop="50dp"
+     android:layout_width="match_parent"
+     android:layout_height="600dp">
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,7 +31,7 @@
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Edit your pictures"
+      android:text="Media"
       android:textSize="30dp"
       android:textStyle="bold"
       android:layout_marginTop="10dp" />
@@ -343,7 +359,301 @@
 
     </FrameLayout>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="8dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="About me"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/bioEditText"
+            android:inputType="textMultiLine"
+            android:maxLength="100"
+            android:maxLines="3"
+            android:textSize="16dp"
+            android:background="@color/transparent"
+            android:textStyle="bold" />
+      </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="8dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="More about me"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="10dp"
+              android:text="Zodiac"
+              android:textSize="15dp"
+              android:textStyle="bold" />
+
+          <!-- SelectZodiac TextView without layout_weight -->
+          <TextView
+              android:id="@+id/selectZodiac"
+              android:text="Select"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_marginTop="3dp"
+              android:layout_marginEnd="30dp"
+              android:layout_gravity="right|center"
+              android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+              android:gravity="center"
+              android:drawablePadding="5dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="10dp"
+              android:text="Education"
+              android:textSize="15dp"
+              android:textStyle="bold" />
+
+          <!-- SelectZodiac TextView without layout_weight -->
+          <TextView
+              android:id="@+id/selectEducation"
+              android:text="Select"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_marginTop="3dp"
+              android:layout_marginEnd="30dp"
+              android:layout_gravity="right|center"
+              android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+              android:gravity="center"
+              android:drawablePadding="5dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="10dp"
+              android:text="Communication Style"
+              android:textSize="15dp"
+              android:textStyle="bold" />
+
+          <!-- SelectZodiac TextView without layout_weight -->
+          <TextView
+              android:id="@+id/selectCommunicationStyle"
+              android:text="Select"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_marginTop="3dp"
+              android:layout_marginEnd="30dp"
+              android:layout_gravity="right|center"
+              android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+              android:gravity="center"
+              android:drawablePadding="5dp" />
+
+        </LinearLayout>
+      </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="8dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Life Style"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="10dp"
+              android:text="Pets"
+              android:textSize="15dp"
+              android:textStyle="bold" />
+
+          <!-- SelectZodiac TextView without layout_weight -->
+          <TextView
+              android:id="@+id/selectPets"
+              android:text="Select"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_marginTop="3dp"
+              android:layout_marginEnd="30dp"
+              android:layout_gravity="right|center"
+              android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+              android:gravity="center"
+              android:drawablePadding="5dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="10dp"
+              android:text="Drinking"
+              android:textSize="15dp"
+              android:textStyle="bold" />
+
+          <!-- SelectZodiac TextView without layout_weight -->
+          <TextView
+              android:id="@+id/selectDrinking"
+              android:text="Select"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_marginTop="3dp"
+              android:layout_marginEnd="30dp"
+              android:layout_gravity="right|center"
+              android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+              android:gravity="center"
+              android:drawablePadding="5dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="10dp"
+              android:text="Smoking"
+              android:textSize="15dp"
+              android:textStyle="bold" />
+
+          <!-- SelectZodiac TextView without layout_weight -->
+          <TextView
+              android:id="@+id/selectSmoking"
+              android:text="Select"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_marginTop="3dp"
+              android:layout_marginEnd="30dp"
+              android:layout_gravity="right|center"
+              android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+              android:gravity="center"
+              android:drawablePadding="5dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="10dp"
+              android:text="Workout"
+              android:textSize="15dp"
+              android:textStyle="bold" />
+
+          <!-- SelectZodiac TextView without layout_weight -->
+          <TextView
+              android:id="@+id/selectWorkout"
+              android:text="Select"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_marginTop="3dp"
+              android:layout_marginEnd="30dp"
+              android:layout_gravity="right|center"
+              android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+              android:gravity="center"
+              android:drawablePadding="5dp" />
+
+        </LinearLayout>
+      </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
   </LinearLayout>
+ </ScrollView>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -376,7 +686,5 @@
       android:textSize="20sp"
       android:textStyle="bold"
       android:enabled="false" />
-
   </LinearLayout>
-
 </RelativeLayout>

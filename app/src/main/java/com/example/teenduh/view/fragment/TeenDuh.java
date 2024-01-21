@@ -56,7 +56,7 @@ public class TeenDuh extends Fragment {
   private PulsatorLayout loadingCircleAnim;
   private GifImageView gifCancel;
   private GifImageView gifLike, gifSuperLike;
-  private Button btnFilter;
+  private ImageView btnFilter;
   private ImageView showMoreInfo;
   private CircleImageView loadingImage;
   private int countLike = 0;
@@ -168,6 +168,7 @@ public class TeenDuh extends Fragment {
     btnFilter.setOnClickListener(v -> {
       Intent intent = new Intent(getContext(), SettingFilter.class);
       startActivity(intent);
+      getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     });
     
     btnLike.setOnClickListener(v -> {
