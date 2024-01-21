@@ -52,5 +52,12 @@
       android:layout_height="wrap_content"
       android:onClick="toPayment"
       android:text="Payment" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="toNotification"
+        android:text="Notification" />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
