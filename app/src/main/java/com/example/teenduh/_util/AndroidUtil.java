@@ -45,6 +45,15 @@ public class AndroidUtil {
   private static ChatAdapter chatAdapter;
   private static String flagMatch;
   private static boolean isAdmin = false;
+  private static String genderFilter = "All";
+
+  public static String getGenderFilter() {
+    return genderFilter;
+  }
+
+  public static void setGenderFilter(String genderFilter) {
+    AndroidUtil.genderFilter = genderFilter;
+  }
 
   public static boolean checkIsAdmin() {
     return isAdmin;
@@ -215,7 +224,7 @@ public class AndroidUtil {
         Timestamp bday = documentSnapshot.getTimestamp("bday");
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
-
+        String gender = documentSnapshot.getString("gender");
         String drink = documentSnapshot.getString("drinkHabit");
         String workout = documentSnapshot.getString("workoutHabit");
         String smoke = documentSnapshot.getString("smokeHabit");
@@ -259,7 +268,7 @@ public class AndroidUtil {
           info = new ArrayList<>();
         }
 
-        User user = new User(uid, name, fcm, bdayLocal, location, info, drink, workout, smoke, pet, communication, education, zodiac);
+        User user = new User(uid, name, fcm, bdayLocal, location, gender, drink, workout, smoke, pet, communication, education, zodiac);
         user.setPicIdxes(picIdxes);
         user.fetchPics();
         users.add(user);

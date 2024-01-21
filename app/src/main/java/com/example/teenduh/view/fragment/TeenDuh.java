@@ -90,6 +90,7 @@ public class TeenDuh extends Fragment {
     initBtn();
     loadingStart();
     initCardStack();
+    filterByGender(AndroidUtil.getGenderFilter());
     return view;
   }
   
@@ -116,8 +117,95 @@ public class TeenDuh extends Fragment {
         swipeTop(gifSuperLike);
       }
     }
+    filterByGender(AndroidUtil.getGenderFilter());
   }
-  
+  public void filterByGender(String gender){
+    if(gender.equals("All")) {
+      System.out.println("all");
+      resetData(addList());
+
+    } else if(gender.equals("Male")){
+      System.out.println("male");
+      resetData(maleList());
+      for(User user: maleList()){
+        System.out.println("user: " + user.getName()+ ", gender: " + user.getGender());
+      }
+    } else if(gender.equals("Female")){
+      System.out.println("female");
+      resetData(femaleList());
+    }
+  }
+  public List<User> femaleList(){
+    List<User> users = new ArrayList<User>();
+    List<User> preUsers = addList();
+    for(User user : preUsers){
+      if(user.getGender().equals("Female")){
+        users.add(user);
+      }
+    }
+    return users;
+  }
+  public List<User> maleList(){
+    List<User> users = new ArrayList<User>();
+    List<User> preUsers = addList();
+    for(User user: preUsers){
+      if(user.getGender().equals("Male")){
+        users.add(user);
+      }
+    }
+    return users;
+  }
+  public void resetData(List<User> usersList){
+    loadingStart();
+
+    // todo new list = (last elements of old list + new list)
+//    List<User> oldUsers = stackAdapter.getUserList();
+//    List<User> newUsers = addList();
+//
+//    DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
+//        new CardStackCallback(oldUsers, newUsers));
+//    stackAdapter.setItems(newUsers);
+//
+//    try {
+//      Thread.sleep(2000);
+//    } catch (InterruptedException e) {
+//      throw new RuntimeException(e);
+//    }
+//
+//    getActivity().runOnUiThread(() -> {
+//      diffResult.dispatchUpdatesTo(stackAdapter);
+//      loadingStop();
+//    });
+
+    new Thread(() -> {
+      getActivity().runOnUiThread(() -> {
+        List<User> oldUsers = stackAdapter.getUserList();
+        List<User> newUsers = usersList;
+
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
+        new CardStackCallback(oldUsers, newUsers));
+        stackAdapter.setItems(newUsers);
+
+        try {
+          Thread.sleep(2000);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+
+        getActivity().runOnUiThread(() -> {
+          diffResult.dispatchUpdatesTo(stackAdapter);
+          loadingStop();
+        });
+
+//        stackAdapter = new CardStackAdapter(usersList, getContext(), getActivity());
+//        cardStackView.setLayoutManager(manager);
+//        cardStackView.setAdapter(stackAdapter);
+//        cardStackView.setItemAnimator(new DefaultItemAnimator());
+//        loadingStop();
+      });
+    }).start();
+
+  }
   public void setButtonToInvisible(){
     btnLike.setVisibility(View.GONE);
     btnCancel.setVisibility(View.GONE);

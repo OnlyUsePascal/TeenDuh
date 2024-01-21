@@ -19,6 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.AndroidUtil;
 import com.google.android.material.slider.RangeSlider;
 
 public class SettingFilter extends AppCompatActivity {
@@ -36,6 +37,7 @@ public class SettingFilter extends AppCompatActivity {
   boolean isProgrammaticChange = false;
   String educationSetting = "";
   String zodiacSetting = "";
+  String genderSetting = "";
   ImageView backButton;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,10 @@ public class SettingFilter extends AppCompatActivity {
     backButton.setOnClickListener(v -> {
       finish();
       overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+      if(!genderSetting.equals("")){
+        System.out.println("Gender Setting:" + genderSetting);
+        AndroidUtil.setGenderFilter(genderSetting);
+      }
     });
 
     //CardView Distance
@@ -55,6 +61,13 @@ public class SettingFilter extends AppCompatActivity {
     initAgeCardView();
     //Cardview Premium Discovery
     initPremiumDiscoveryCardView();
+    if(AndroidUtil.getGenderFilter().equals("All")){
+      sexualOrientationRg.check(R.id.otherRadioButton);
+    } else if(AndroidUtil.getGenderFilter().equals("Female")){
+      sexualOrientationRg.check(R.id.femaleRadioButton);
+    } else{
+      sexualOrientationRg.check(R.id.maleRadioButton);
+    }
 
   }
 
@@ -93,7 +106,11 @@ public class SettingFilter extends AppCompatActivity {
     sexualOrientationRg.setOnCheckedChangeListener((group, checkedId) -> {
       RadioButton rb = findViewById(checkedId);
       if (rb != null) {
-        System.out.println(rb.getText().toString());
+        genderSetting = rb.getText().toString();
+        if(!genderSetting.equals("")){
+          System.out.println("Gender Setting:" + genderSetting);
+          AndroidUtil.setGenderFilter(genderSetting);
+        }
       }
     });
   }
