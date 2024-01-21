@@ -18,11 +18,11 @@ import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder>{
     private List<Image> imageList;
-    private ViewPager2 viewPager2;
+    // private ViewPager2 viewPager2;
 
-    public ImageAdapter(List<Image> imageList, ViewPager2 viewPager2){
+    public ImageAdapter(List<Image> imageList){
         this.imageList = imageList;
-        this.viewPager2 = viewPager2;
+        // this.viewPager2 = viewPager2;
     }
     @NonNull
     @Override
@@ -33,7 +33,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        holder.imageView.setImageResource(imageList.get(position).getImage());
+        Image image = imageList.get(position);
+        holder.imageView.setImageURI(image.getUri());
+        holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        // holder.imageView.setImageResource(imageList.get(position).getImage());
     }
 
     @Override

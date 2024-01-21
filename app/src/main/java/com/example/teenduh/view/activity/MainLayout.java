@@ -252,5 +252,4 @@ public class MainLayout extends AppCompatActivity {
     dialog.getWindow().setGravity(Gravity.CENTER);
 
   }
-
 }

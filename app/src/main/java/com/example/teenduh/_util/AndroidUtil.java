@@ -35,6 +35,7 @@ import java.util.List;
 public class AndroidUtil {
   private static Activity activity;
   private static User curUser;
+  private static User _tempUser;
   private static ChatRoom curChatRoom;
   private static List<User> users;
   private static List<UserBan> usersBan;
@@ -159,6 +160,14 @@ public class AndroidUtil {
     return null;
   }
   
+  public static User get_tempUser() {
+    return _tempUser;
+  }
+  
+  public static void set_tempUser(User _tempUser) {
+    AndroidUtil._tempUser = _tempUser;
+  }
+  
   public static void setCurNewUser(String id, Runnable runnable){
     User newUser = new User(id, "__blank", FirebaseUtil.getFcm(), LocalDate.of(2000,1,1));
     setCurUser(newUser);
@@ -204,16 +213,25 @@ public class AndroidUtil {
         String fcm = documentSnapshot.getString("fcm");
         String uid = documentSnapshot.getId();
         Timestamp bday = documentSnapshot.getTimestamp("bday");
-        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Object locationObject = documentSnapshot.get("location");
+        String pic = documentSnapshot.getString("pic");
         LatLng location = null;
+        
+        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        List<Integer> picIdxes = new ArrayList<>();
+        for (String picIdx1 : pic.split(" ")) {
+          picIdxes.add(Integer.parseInt(picIdx1));
+        }
+        if (fcm == null) fcm = "blank";
+        Object locationObject = documentSnapshot.get("location");
         if (locationObject != null) {
           HashMap<String, Double> locationMap = (HashMap<String, Double>) locationObject;
           location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
         }
         System.out.println("location = " + location);
-        if (fcm == null) fcm = "blank";
+        
         User user = new User(uid, name, fcm, bdayLocal, location);
+        user.setPicIdxes(picIdxes);
+        user.fetchPics();
         users.add(user);
       }
       
