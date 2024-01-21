@@ -69,6 +69,7 @@ public class ShowMoreInfo extends AppCompatActivity {
     linearLayout.bringToFront();
     
     user = AndroidUtil.get_tempUser();
+    System.out.println("user: " + user);
     
     lookinFor.setText("Looking for short");
     distance.setText("Distance: 10 miles");
