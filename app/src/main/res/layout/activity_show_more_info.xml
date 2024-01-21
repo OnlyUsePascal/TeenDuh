@@ -152,7 +152,6 @@
         </androidx.cardview.widget.CardView>
       </LinearLayout>
 
-
       <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
         android:layout_width="match_parent"

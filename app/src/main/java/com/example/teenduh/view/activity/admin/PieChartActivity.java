@@ -2,9 +2,11 @@ package com.example.teenduh.view.activity.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.teenduh.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -21,6 +23,9 @@ public class PieChartActivity extends AppCompatActivity {
     private PieChart pieChartGender;
     private PieChart pieChartMembership;
     private ImageView btnBack;
+    LinearLayout linearLayoutAge;
+    LinearLayout linearLayoutGender;
+    LinearLayout linearLayoutMembership;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +36,26 @@ public class PieChartActivity extends AppCompatActivity {
         pieChartGender = findViewById(R.id.pie_chart_gender);
         pieChartMembership = findViewById(R.id.pie_chart_membership);
         btnBack = findViewById(R.id.back_button);
+        linearLayoutAge = findViewById(R.id.linear_layout_age);
+        linearLayoutGender = findViewById(R.id.linear_layout_gender);
+        linearLayoutMembership = findViewById(R.id.linear_layout_membership);
+
+        Intent intent = getIntent();
+        String type = intent.getStringExtra("type");
+        if (type.equals("age")) {
+            linearLayoutMembership.setVisibility(LinearLayout.GONE);
+            displayAgeDistribution();
+            displayGenderDistribution();
+        } else {
+            linearLayoutAge.setVisibility(LinearLayout.GONE);
+            linearLayoutGender.setVisibility(LinearLayout.GONE);
+            displayGenderDistribution();
+            displayMembershipDistribution();
+        }
 //
-        displayAgeDistribution();
-        displayGenderDistribution();
-        displayMembershipDistribution();
+//        displayAgeDistribution();
+//        displayGenderDistribution();
+//        displayMembershipDistribution();
 
         btnBack.setOnClickListener(v -> {
             finish();

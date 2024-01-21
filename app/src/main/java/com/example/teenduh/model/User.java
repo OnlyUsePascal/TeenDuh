@@ -7,6 +7,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLng;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class User {
     this.city = city;
     this.birthday = birthday;
   }
-  
+
   public User(String name, String gender, String interestPreference, String distancePreference, String lookingFor) {
     this.name = name;
     this.gender = gender;

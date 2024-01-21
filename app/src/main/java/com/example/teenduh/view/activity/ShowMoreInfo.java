@@ -217,4 +217,10 @@ public class ShowMoreInfo extends AppCompatActivity {
       return false;
     }
   }
+
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+  }
 }

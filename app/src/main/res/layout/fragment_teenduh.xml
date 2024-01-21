@@ -28,8 +28,7 @@
       android:layout_height="50dp"
       android:layout_alignParentEnd="true"
       android:layout_centerVertical="true"
-      android:src="@drawable/filter_icon"
-      android:text="Filter" />
+      android:src="@drawable/filter_icon" />
 
   </RelativeLayout>
 
