@@ -173,13 +173,13 @@ public class ImageFragment extends Fragment {
 
         HashMap<String, Object> data = new HashMap<>();
         data.put("info", AndroidUtil.getCurUser().getInfo());
-        data.put("drinkHabit", AndroidUtil.getCurUser().getDrinkHabit());
-        data.put("workoutHabit", AndroidUtil.getCurUser().getWorkoutHabit());
-        data.put("smokeHabit", AndroidUtil.getCurUser().getSmokeHabit());
-        data.put("petHabit", AndroidUtil.getCurUser().getPetHabit());
-        data.put("communicationHabit", AndroidUtil.getCurUser().getCommunicationHabit());
-        data.put("educationHabit", AndroidUtil.getCurUser().getEducationHabit());
-        data.put("zodiacHabit", AndroidUtil.getCurUser().getZodiacHabit());
+        data.put("habitDrink", AndroidUtil.getCurUser().getDrinkHabit());
+        data.put("habitWorkout", AndroidUtil.getCurUser().getWorkoutHabit());
+        data.put("habitSmoke", AndroidUtil.getCurUser().getSmokeHabit());
+        data.put("habitPet", AndroidUtil.getCurUser().getPetHabit());
+        data.put("habitCommunication", AndroidUtil.getCurUser().getCommunicationHabit());
+        data.put("habitEducation", AndroidUtil.getCurUser().getEducationHabit());
+        data.put("habitZodiac", AndroidUtil.getCurUser().getZodiacHabit());
 
         FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), data, null);
 
