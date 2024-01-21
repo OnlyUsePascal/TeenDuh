@@ -89,6 +89,8 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     FrameLayout frameLayout;
     ImageView showMoreInfo;
     int imageListSize;
+    
+    
     int curPicIdx;
     User _tempUser;
     

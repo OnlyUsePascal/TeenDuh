@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.view.activity.ShowMoreInfo;
 import com.example.teenduh.view.activity.Subscription;

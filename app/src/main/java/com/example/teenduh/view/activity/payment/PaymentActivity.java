@@ -30,7 +30,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class DropInClientActivity extends AppCompatActivity implements DropInListener {
+public class PaymentActivity extends AppCompatActivity implements DropInListener {
   // paypal
   private DropInClient dropInClient;
   private PayPalVaultRequest payPalRequest;
@@ -123,6 +123,12 @@ public class DropInClientActivity extends AppCompatActivity implements DropInLis
       Log.d(TAG, "Completed");
     }
   }
+  
+  
+  
+  
+  
+  
   
   
   @Override

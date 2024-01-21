@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,8 +38,6 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -237,7 +234,7 @@ public class TeenDuh extends Fragment {
     manager.setOverlayInterpolator(new LinearInterpolator());
     
     new Thread(() -> {
-      List<User> users = addList();
+      List<User> users = getUsers();
       
       getActivity().runOnUiThread(() -> {
         stackAdapter = new CardStackAdapter(users, getContext(), getActivity());
@@ -255,7 +252,7 @@ public class TeenDuh extends Fragment {
     new Thread(() -> {
       // todo new list = (last elements of old list + new list)
       List<User> oldUsers = stackAdapter.getUserList();
-      List<User> newUsers = addList();
+      List<User> newUsers = getUsers();
       
       DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
           new CardStackCallback(oldUsers, newUsers));
@@ -274,7 +271,7 @@ public class TeenDuh extends Fragment {
     }).start();
   }
   
-  private List<User> addList() {
+  private List<User> getUsers() {
     return AndroidUtil.getUsers();
   }
   

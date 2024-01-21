@@ -14,7 +14,7 @@ import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.view.activity.auth.AuthLayout;
-import com.example.teenduh.view.activity.payment.DropInClientActivity;
+import com.example.teenduh.view.activity.payment.PaymentActivity;
 
 public class TestFeature extends AppCompatActivity {
   
@@ -50,7 +50,7 @@ public class TestFeature extends AppCompatActivity {
   }
   
   public void toPayment(View view){
-    AndroidUtil._startActivity(this, DropInClientActivity.class);
+    AndroidUtil._startActivity(this, PaymentActivity.class);
   }
   public void toNotification(View view){
     makeNotification();

@@ -79,6 +79,7 @@ public class ChitChat extends Fragment {
     }
     
     stat.setText("Stand by");
+    System.out.println(AndroidUtil.getCurUser());
     AndroidUtil.fetchChatRooms(() -> {
       stat.setText("Have fun");
       

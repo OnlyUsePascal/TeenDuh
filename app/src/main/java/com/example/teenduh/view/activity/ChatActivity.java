@@ -111,9 +111,16 @@ public class ChatActivity extends AppCompatActivity {
     chatData.put("time", time);
     // firestore: chat, chatroom -> noti
     FirebaseUtil.addChat(chatData, this::sendNoti);
+    
+    // change messTxt
+    // create chat object [messtxt, userIndex (use chatRoom.getSenderindx), time],
+    // chatRoom.getChats().add(chat);
+    // chatAdapter.notifyItemInserted(chats.size()-1);
+    // chatView.smoothScrollToPosition(chats.size()-1);
   }
   
   private void sendNoti(String chatId) {
+    // receiver
     stat.setText("send noti");
     try {
       String url = "https://fcm.googleapis.com/fcm/send";

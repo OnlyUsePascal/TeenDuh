@@ -204,7 +204,8 @@ public class Profile extends Fragment {
       public void onClick(View view) {
         dialog.dismiss();
         Intent intent = new Intent(getContext(), BillActivity.class);
-        intent.putExtra("price", 5);
+        intent.putExtra("forSuperLike", true);
+        intent.putExtra("amount", 0);
         startActivity(intent);
       }
     });
@@ -214,7 +215,8 @@ public class Profile extends Fragment {
       public void onClick(View view) {
         dialog.dismiss();
         Intent intent = new Intent(getContext(), BillActivity.class);
-        intent.putExtra("price", 10);
+        intent.putExtra("forSuperLike", true);
+        intent.putExtra("amount", 1);
         startActivity(intent);
       }
     });
@@ -224,7 +226,8 @@ public class Profile extends Fragment {
       public void onClick(View view) {
         dialog.dismiss();
         Intent intent = new Intent(getContext(), BillActivity.class);
-        intent.putExtra("price", 50);
+        intent.putExtra("forSuperLike", true);
+        intent.putExtra("amount", 2);
         startActivity(intent);
       }
     });
@@ -245,182 +248,181 @@ public class Profile extends Fragment {
     
   }
   
-  public interface PaymentDialogCallback {
-    void onProceedClicked();
-    
-    void onCancelClicked();
-    
-    void onReturnClicked();
-  }
+  // public interface PaymentDialogCallback {
+  //   void onProceedClicked();
+  //
+  //   void onCancelClicked();
+  //
+  //   void onReturnClicked();
+  // }
   
-  boolean checkCoin(int currentCoin, int price) {
-    if (currentCoin >= price) {
-      isProceedPayment = false;
-      showProceedPaymentDialog(price, new PaymentDialogCallback() {
-        @Override
-        public void onProceedClicked() {
-          // Handle proceed action
-          // You can return a value or perform any needed action here
-          Toast.makeText(activity, "Sucessfully!", Toast.LENGTH_SHORT).show();
-          showSuperLikeDialog();
-          isProceedPayment = true;
-        }
-        
-        @Override
-        public void onCancelClicked() {
-          Toast.makeText(activity, "You cancel the payment!", Toast.LENGTH_SHORT).show();
-          showSuperLikeDialog();
-          // Handle cancel action
-          isProceedPayment = false;
-        }
-        
-        @Override
-        public void onReturnClicked() {
-          Toast.makeText(activity, "You return to payment!", Toast.LENGTH_SHORT).show();
-          showSuperLikeDialog();
-          // Handle cancel action
-          isProceedPayment = false;
-        }
-      });
-      return isProceedPayment;
-    } else {
-      isDeposit = false;
-      showDepositDialog(price, new PaymentDialogCallback() {
-        @Override
-        public void onProceedClicked() {
-          // Handle proceed action
-          // You can return a value or perform any needed action here
-          Toast.makeText(activity, "You proceed to deposit payment!", Toast.LENGTH_SHORT).show();
-          showSuperLikeDialog();
-          isDeposit = true;
-        }
-        
-        @Override
-        public void onCancelClicked() {
-          Toast.makeText(activity, "You cancel deposit!", Toast.LENGTH_SHORT).show();
-          showSuperLikeDialog();
-          // Handle cancel action
-          isDeposit = false;
-        }
-        
-        @Override
-        public void onReturnClicked() {
-          Toast.makeText(activity, "You return to payment!", Toast.LENGTH_SHORT).show();
-          showSuperLikeDialog();
-          // Handle cancel action
-          isDeposit = false;
-        }
-      });
-      return isDeposit;
-    }
-    
-  }
+  // boolean checkCoin(int currentCoin, int price) {
+  //   if (currentCoin >= price) {
+  //     isProceedPayment = false;
+  //     showProceedPaymentDialog(price, new PaymentDialogCallback() {
+  //       @Override
+  //       public void onProceedClicked() {
+  //         // Handle proceed action
+  //         // You can return a value or perform any needed action here
+  //         Toast.makeText(activity, "Sucessfully!", Toast.LENGTH_SHORT).show();
+  //         showSuperLikeDialog();
+  //         isProceedPayment = true;
+  //       }
+  //
+  //       @Override
+  //       public void onCancelClicked() {
+  //         Toast.makeText(activity, "You cancel the payment!", Toast.LENGTH_SHORT).show();
+  //         showSuperLikeDialog();
+  //         // Handle cancel action
+  //         isProceedPayment = false;
+  //       }
+  //
+  //       @Override
+  //       public void onReturnClicked() {
+  //         Toast.makeText(activity, "You return to payment!", Toast.LENGTH_SHORT).show();
+  //         showSuperLikeDialog();
+  //         // Handle cancel action
+  //         isProceedPayment = false;
+  //       }
+  //     });
+  //     return isProceedPayment;
+  //   } else {
+  //     isDeposit = false;
+  //     showDepositDialog(price, new PaymentDialogCallback() {
+  //       @Override
+  //       public void onProceedClicked() {
+  //         // Handle proceed action
+  //         // You can return a value or perform any needed action here
+  //         Toast.makeText(activity, "You proceed to deposit payment!", Toast.LENGTH_SHORT).show();
+  //         showSuperLikeDialog();
+  //         isDeposit = true;
+  //       }
+  //
+  //       @Override
+  //       public void onCancelClicked() {
+  //         Toast.makeText(activity, "You cancel deposit!", Toast.LENGTH_SHORT).show();
+  //         showSuperLikeDialog();
+  //         // Handle cancel action
+  //         isDeposit = false;
+  //       }
+  //
+  //       @Override
+  //       public void onReturnClicked() {
+  //         Toast.makeText(activity, "You return to payment!", Toast.LENGTH_SHORT).show();
+  //         showSuperLikeDialog();
+  //         // Handle cancel action
+  //         isDeposit = false;
+  //       }
+  //     });
+  //     return isDeposit;
+  //   }
+  //
+  // }
   
-  private void showProceedPaymentDialog(int coin, PaymentDialogCallback callback) {
-    
-    final Dialog dialog = new Dialog(getContext());
-    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    dialog.setContentView(R.layout.proceed_payment_layout);
-    
-    dialog.setOnCancelListener(dialogInterface -> {
-      Toast.makeText(activity, "You cancel the payment!", Toast.LENGTH_SHORT).show();
-      showSuperLikeDialog();
-    });
-    
-    Button buttonProceed = dialog.findViewById(R.id.button_proceed);
-    Button buttonCancel = dialog.findViewById(R.id.button_cancel);
-    TextView textViewCoin = dialog.findViewById(R.id.textview_coin);
-    ImageView buttonReturn = dialog.findViewById(R.id.button_return);
-    
-    textViewCoin.setText(String.valueOf(coin));
-    
-    buttonProceed.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Toast.makeText(activity, "Proceed", Toast.LENGTH_SHORT).show();
-        dialog.dismiss();
-//                showProceedPaymentDialog(coin,callback);
-        callback.onProceedClicked(); // Invoke the callback
-      }
-    });
-    
-    buttonCancel.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Toast.makeText(activity, "Cancel", Toast.LENGTH_SHORT).show();
-        dialog.dismiss();
-//                showProceedPaymentDialog(coin,callback);
-        callback.onCancelClicked(); // Invoke the callback
-      }
-    });
-    
-    buttonReturn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        dialog.dismiss();
-        callback.onReturnClicked(); // Invoke the callback
-      }
-    });
-    
-    dialog.show();
-    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-    dialog.getWindow().setGravity(Gravity.BOTTOM);
-    
-  }
-  
-  private void showDepositDialog(int coin, PaymentDialogCallback callback) {
-    
-    final Dialog dialog = new Dialog(getContext());
-    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    dialog.setContentView(R.layout.deposit_layout);
-    
-    dialog.setOnCancelListener(dialogInterface -> {
-      Toast.makeText(activity, "You cancel deposit!", Toast.LENGTH_SHORT).show();
-      showSuperLikeDialog();
-    });
-    
-    Button buttonYes = dialog.findViewById(R.id.button_yes);
-    Button buttonNo = dialog.findViewById(R.id.button_no);
-    TextView textViewCoin = dialog.findViewById(R.id.textview_coin);
-    ImageView buttonReturn = dialog.findViewById(R.id.button_return);
-    
-    textViewCoin.setText(String.valueOf(coin));
-    
-    buttonYes.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Toast.makeText(activity, "Yes", Toast.LENGTH_SHORT).show();
-        dialog.dismiss();
-        callback.onProceedClicked(); // Invoke the callback
-      }
-    });
-    
-    buttonNo.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Toast.makeText(activity, "No", Toast.LENGTH_SHORT).show();
-        dialog.dismiss();
-        callback.onCancelClicked(); // Invoke the callback
-      }
-    });
-    
-    buttonReturn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        dialog.dismiss();
-        callback.onReturnClicked(); // Invoke the callback
-      }
-    });
-    
-    dialog.show();
-    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-    dialog.getWindow().setGravity(Gravity.BOTTOM);
-    
-  }
+//   private void showProceedPaymentDialog(int coin, PaymentDialogCallback callback) {
+//     final Dialog dialog = new Dialog(getContext());
+//     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//     dialog.setContentView(R.layout.proceed_payment_layout);
+//
+//     dialog.setOnCancelListener(dialogInterface -> {
+//       Toast.makeText(activity, "You cancel the payment!", Toast.LENGTH_SHORT).show();
+//       showSuperLikeDialog();
+//     });
+//
+//     Button buttonProceed = dialog.findViewById(R.id.button_proceed);
+//     Button buttonCancel = dialog.findViewById(R.id.button_cancel);
+//     TextView textViewCoin = dialog.findViewById(R.id.textview_coin);
+//     ImageView buttonReturn = dialog.findViewById(R.id.button_return);
+//
+//     textViewCoin.setText(String.valueOf(coin));
+//
+//     buttonProceed.setOnClickListener(new View.OnClickListener() {
+//       @Override
+//       public void onClick(View view) {
+//         Toast.makeText(activity, "Proceed", Toast.LENGTH_SHORT).show();
+//         dialog.dismiss();
+// //                showProceedPaymentDialog(coin,callback);
+//         callback.onProceedClicked(); // Invoke the callback
+//       }
+//     });
+//
+//     buttonCancel.setOnClickListener(new View.OnClickListener() {
+//       @Override
+//       public void onClick(View view) {
+//         Toast.makeText(activity, "Cancel", Toast.LENGTH_SHORT).show();
+//         dialog.dismiss();
+// //                showProceedPaymentDialog(coin,callback);
+//         callback.onCancelClicked(); // Invoke the callback
+//       }
+//     });
+//
+//     buttonReturn.setOnClickListener(new View.OnClickListener() {
+//       @Override
+//       public void onClick(View view) {
+//         dialog.dismiss();
+//         callback.onReturnClicked(); // Invoke the callback
+//       }
+//     });
+//
+//     dialog.show();
+//     dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//     dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+//     dialog.getWindow().setGravity(Gravity.BOTTOM);
+//
+//   }
+//
+//   private void showDepositDialog(int coin, PaymentDialogCallback callback) {
+//
+//     final Dialog dialog = new Dialog(getContext());
+//     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//     dialog.setContentView(R.layout.deposit_layout);
+//
+//     dialog.setOnCancelListener(dialogInterface -> {
+//       Toast.makeText(activity, "You cancel deposit!", Toast.LENGTH_SHORT).show();
+//       showSuperLikeDialog();
+//     });
+//
+//     Button buttonYes = dialog.findViewById(R.id.button_yes);
+//     Button buttonNo = dialog.findViewById(R.id.button_no);
+//     TextView textViewCoin = dialog.findViewById(R.id.textview_coin);
+//     ImageView buttonReturn = dialog.findViewById(R.id.button_return);
+//
+//     textViewCoin.setText(String.valueOf(coin));
+//
+//     buttonYes.setOnClickListener(new View.OnClickListener() {
+//       @Override
+//       public void onClick(View view) {
+//         Toast.makeText(activity, "Yes", Toast.LENGTH_SHORT).show();
+//         dialog.dismiss();
+//         callback.onProceedClicked(); // Invoke the callback
+//       }
+//     });
+//
+//     buttonNo.setOnClickListener(new View.OnClickListener() {
+//       @Override
+//       public void onClick(View view) {
+//         Toast.makeText(activity, "No", Toast.LENGTH_SHORT).show();
+//         dialog.dismiss();
+//         callback.onCancelClicked(); // Invoke the callback
+//       }
+//     });
+//
+//     buttonReturn.setOnClickListener(new View.OnClickListener() {
+//       @Override
+//       public void onClick(View view) {
+//         dialog.dismiss();
+//         callback.onReturnClicked(); // Invoke the callback
+//       }
+//     });
+//
+//     dialog.show();
+//     dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//     dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+//     dialog.getWindow().setGravity(Gravity.BOTTOM);
+//
+//   }
   
   public void setProgressBar(double percent) {
     // 0 - 73

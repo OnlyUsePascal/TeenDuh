@@ -37,6 +37,7 @@ public class MatchFragment extends Fragment {
     view = inflater.inflate(R.layout.fragment_match, container, false);
     recyclerView = view.findViewById(R.id.recycler_view_match);
     textview_who_like = view.findViewById(R.id.textview_who_like);
+    
     images = new ArrayList<Image>();
     images.add(new Image(R.drawable.ronaldo, "vip"));
     images.add(new Image(R.drawable.park_seo, "Image 2"));

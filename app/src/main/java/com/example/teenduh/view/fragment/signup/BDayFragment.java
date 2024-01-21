@@ -39,9 +39,9 @@ public class BDayFragment extends Fragment {
     // String day = String.valueOf(dayPicker.getValue());
     // String month = String.valueOf(monthPicker.getValue());
     // String year = String.valueOf(yearPicker.getValue());
-    AtomicInteger day = new AtomicInteger();
-    AtomicInteger month = new AtomicInteger();
-    AtomicInteger year = new AtomicInteger();
+    AtomicInteger day = new AtomicInteger(1);
+    AtomicInteger month = new AtomicInteger(1);
+    AtomicInteger year = new AtomicInteger(2000);
     
     dayPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
       day.set(newVal);
