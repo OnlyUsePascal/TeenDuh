@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.view.adapter.ImageAdapter;
 
@@ -72,6 +74,11 @@ public class Subscription extends AppCompatActivity {
               Toast.makeText(Subscription.this, "Coming soon!!!", Toast.LENGTH_SHORT).show();
               finish();
               overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+              
+              Intent intent = new Intent(Subscription.this, BillActivity.class);
+              intent.putExtra("forSuperLike", false);
+              intent.putExtra("price", 9.99);
+              AndroidUtil._startActivityForResult(Subscription.this, intent, BillActivity.REQ_PREMIUM);
             }
           });
 
@@ -90,6 +97,11 @@ public class Subscription extends AppCompatActivity {
               Toast.makeText(Subscription.this, "Coming soon", Toast.LENGTH_SHORT).show();
               finish();
               overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+  
+              Intent intent = new Intent(Subscription.this, BillActivity.class);
+              intent.putExtra("forSuperLike", false);
+              intent.putExtra("price", 14.99);
+              AndroidUtil._startActivityForResult(Subscription.this, intent, BillActivity.REQ_PREMIUM);
             }
           });
         }
