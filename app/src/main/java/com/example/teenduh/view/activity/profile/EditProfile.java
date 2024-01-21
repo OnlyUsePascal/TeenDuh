@@ -38,6 +38,9 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class EditProfile extends AppCompatActivity {
   MainLayout mainLayout;
@@ -58,6 +61,8 @@ public class EditProfile extends AppCompatActivity {
   TextInputEditText bioEditText;
 
   String bio = "";
+
+  List<String> info = new ArrayList<>();
 
 
   @Override
@@ -251,6 +256,48 @@ public class EditProfile extends AppCompatActivity {
         }
       }
     }
+
+    String zodiacText = selectZodiac.getText().toString();
+    String educationText = selectEducation.getText().toString();
+    String communicationText = selectCommunication.getText().toString();
+    String drinkText = selectDrink.getText().toString();
+    String workoutText = selectWorkout.getText().toString();
+    String smokeText = selectSmoke.getText().toString();
+    String petText = selectPet.getText().toString();
+
+    if (!zodiacText.equals("Select")) {
+      info.add(zodiacText);
+    }
+
+    if (!educationText.equals("Select")) {
+      info.add(educationText);
+    }
+
+    if (!communicationText.equals("Select")) {
+      info.add(communicationText);
+    }
+
+    if (!drinkText.equals("Select")) {
+      info.add(drinkText);
+    }
+
+    if (!workoutText.equals("Select")) {
+      info.add(workoutText);
+    }
+
+    if (!smokeText.equals("Select")) {
+      info.add(smokeText);
+    }
+
+    if (!petText.equals("Select")) {
+      info.add(petText);
+    }
+
+    AndroidUtil.getCurUser().setInfo(info);
+    HashMap<String, Object> data = new HashMap<>();
+    data.put("info", info);
+    FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), data, null);
+
   }
 
   public void downloadFilesFromStorage() throws IOException {

@@ -215,14 +215,21 @@ public class AndroidUtil {
         Timestamp bday = documentSnapshot.getTimestamp("bday");
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
-        
-        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Use the localDate as needed
+        Date date = bday.toDate();
+        LocalDate bdayLocal = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
         List<Integer> picIdxes = new ArrayList<>();
-        if (pic != null) {
-          for (String picIdx1 : pic.split(" ")) {
+        if (pic == null) pic = "";
+        for (String picIdx1 : pic.split(" ")) {
+          try {
             picIdxes.add(Integer.parseInt(picIdx1));
+          } catch (Exception e) {
+            e.printStackTrace();
           }
         }
+
         if (fcm == null) fcm = "blank";
         Object locationObject = documentSnapshot.get("location");
         if (locationObject != null) {
@@ -230,8 +237,13 @@ public class AndroidUtil {
           location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
         }
         System.out.println("location = " + location);
-        
-        User user = new User(uid, name, fcm, bdayLocal, location);
+
+        List<String> info = (List<String>) documentSnapshot.get("info");
+        if (info == null) {
+          info = new ArrayList<>();
+        }
+
+        User user = new User(uid, name, fcm, bdayLocal, location, info);
         user.setPicIdxes(picIdxes);
         user.fetchPics();
         users.add(user);
