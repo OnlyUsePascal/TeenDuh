@@ -30,6 +30,7 @@ public class User {
   private String likedPeople;
   private Uri[] imageUris = new Uri[6];
   private List<Image> images;
+  private List<String> info = new ArrayList<>();
 
   public User(String name, String city, LocalDate birthday){
     this.name = name;
@@ -60,6 +61,15 @@ public class User {
     this.location = location;
   }
 
+  public User(String id, String name, String fcm, LocalDate bday, LatLng location, List<String> info){
+    this.id = id;
+    this.name = name;
+    this.fcm = fcm;
+    this.birthday = bday;
+    this.location = location;
+    this.info = info;
+  }
+
   public void setLocation(LatLng location) {
     this.location = location;
   }
@@ -78,6 +88,18 @@ public class User {
       images.add(new Image(imageUris[picIdx], name + "/pic " + picIdx));
     }
     return images;
+  }
+
+  public void addInfoData(String data){
+    this.info.add(data);
+  }
+
+  public List<String> getInfo() {
+    return info;
+  }
+
+  public void setInfo(List<String> info) {
+    this.info = info;
   }
 
   public int getAge() {

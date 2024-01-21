@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.activity.SignUpPage;
 
 
@@ -45,10 +46,24 @@ public class LifeStyleFragment extends Fragment {
         initPetCardView();
 
         next.setOnClickListener(v -> {
-//            System.out.println("drink habit: " + drinkHabit);
-//            System.out.println("workout habit: " + workoutHabit);
-//            System.out.println("smoke habit: " + smokeHabit);
-//            System.out.println("pet habit: " + petHabit);
+            System.out.println("drink habit: " + drinkHabit);
+            System.out.println("workout habit: " + workoutHabit);
+            System.out.println("smoke habit: " + smokeHabit);
+            System.out.println("pet habit: " + petHabit);
+
+            if (!drinkHabit.equals("")) {
+                AndroidUtil.getCurUser().addInfoData(drinkHabit);
+            }
+            if (!workoutHabit.equals("")) {
+                AndroidUtil.getCurUser().addInfoData(workoutHabit);
+            }
+            if (!smokeHabit.equals("")) {
+                AndroidUtil.getCurUser().addInfoData(smokeHabit);
+            }
+            if (!petHabit.equals("")) {
+                AndroidUtil.getCurUser().addInfoData(petHabit);
+            }
+
             signUpPage.currentProgress += 10;
             signUpPage.progressBar.setProgress(signUpPage.currentProgress);
             signUpPage.replaceFragment(new FurtherLifeStyleFragment());
