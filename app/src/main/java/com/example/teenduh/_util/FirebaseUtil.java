@@ -18,6 +18,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 public class FirebaseUtil {
@@ -36,7 +38,9 @@ public class FirebaseUtil {
     firestore = FirebaseFirestore.getInstance();
     auth = FirebaseAuth.getInstance();
     storage = FirebaseStorage.getInstance("gs://teenduh-t1.appspot.com");
-    
+
+    firestore.setLoggingEnabled(true);
+
     auth.signOut();
     _getFcm();
   }
@@ -143,7 +147,17 @@ public class FirebaseUtil {
           runRunnable(runnable);
         });
   }
-  
+  public static void createNewUser(String id, HashMap<String, Object> data, Runnable runnable) {
+    firestore.collection("users").document(id)
+        .set(data).addOnCompleteListener(task -> {
+          if (!task.isSuccessful()){
+            task.getException().printStackTrace();
+            return;
+          }
+
+          runRunnable(runnable);
+        });
+  }
   public static void updateUser(String id, HashMap<String, Object> data, Runnable runnable) {
     firestore.collection("users").document(id)
         .update(data)
@@ -152,7 +166,7 @@ public class FirebaseUtil {
             task.getException().printStackTrace();
             return;
           }
-          
+
           runRunnable(runnable);
         });
   }

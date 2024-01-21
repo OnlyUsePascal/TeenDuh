@@ -26,6 +26,12 @@
   <string name="welcome_description2">Connect with like-minded individuals on TeenDuh. Finding your perfect match is just a click away in our diverse community.</string>
   <string name="welcome_description3">Embrace love and romance on TeenDuh. Forge genuine connections and create lasting memories with us. Join the adventure today!</string>
 
+  <string-array name="ban_period">
+    <item>1 Month</item>
+    <item>1 Year</item>
+    <item>Forever</item>
+  </string-array>
+
   // TODO: Change these URLs
   <string name="terms_of_service_url">https://www.termsfeed.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
   <string name="privacy_policy_url">https://www.privacypolicies.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
