@@ -23,7 +23,8 @@ import java.util.List;
 
 public class ShowMoreInfo extends AppCompatActivity {
   ViewPager2 viewPager2;
-  private TextView lookinFor, distance, age, sexual, zodiac, education, diet, drink, smoke;
+  private TextView lookinFor, distance, age, sexual, zodiac, education, pets, drink, smoke;
+  private TextView nameHeader, ageHeader;
   private TextView cancelBtn, likeBtn, superLikeBtn;
   List<CardView> cardViewList = new ArrayList<>();
   int diffElement = 0;
@@ -49,16 +50,19 @@ public class ShowMoreInfo extends AppCompatActivity {
     lookinFor = findViewById(R.id.lookingFor);
     distance = findViewById(R.id.distance);
     age = findViewById(R.id.age);
-    sexual = findViewById(R.id.sexual);
+    sexual = findViewById(R.id.gender);
     zodiac = findViewById(R.id.zodiac);
     education = findViewById(R.id.education);
-    diet = findViewById(R.id.diet);
+    pets = findViewById(R.id.pets);
     drink = findViewById(R.id.drinks);
     smoke = findViewById(R.id.smokes);
     cancelBtn = findViewById(R.id.cancel_action);
     superLikeBtn = findViewById(R.id.super_like_action);
     likeBtn = findViewById(R.id.like_action);
     linearLayout = findViewById(R.id.linearLayout);
+    nameHeader = findViewById(R.id.nameHeader);
+    ageHeader = findViewById(R.id.ageHeader);
+
     
     cardViewList.add(cardView1);
     cardViewList.add(cardView2);
@@ -69,22 +73,72 @@ public class ShowMoreInfo extends AppCompatActivity {
     linearLayout.bringToFront();
     
     user = AndroidUtil.get_tempUser();
-    System.out.println("user: " + user);
+
     
     lookinFor.setText("Looking for short");
     distance.setText("Distance: 10 miles");
-    age.setText("Single, 24");
-    sexual.setText("Woman");
-    zodiac.setText("Aries");
-    education.setText("University");
-    diet.setText("Vegetarian");
-    drink.setText("Socially");
-    smoke.setText("Never");
+//    age.setText("Single, 24");
+//    sexual.setText("Woman");
+//    zodiac.setText("Aries");
+//    education.setText("University");
+//    pets.setText("Likes dogs");
+//    drink.setText("Socially");
+//    smoke.setText("Never");
+    initInfo();
     
     initBtn();
     initPicView();
   }
-  
+  public void initInfo(){
+    if(user.getName() != null){
+      nameHeader.setText(user.getName());
+    }
+    if(user.getGender()!= null){
+      sexual.setText(user.getGender());
+    }else {
+      sexual.setText("No preference");
+    }
+
+
+    if(user.getAge() != 0){
+      age.setText(user.getAge() +"");
+      ageHeader.setText(user.getAge()+"");
+    }else{
+      age.setText("24");
+    }
+    if(user.getGender() != null){
+      sexual.setText(user.getGender());
+    } else {
+      sexual.setText("No preference");
+    }
+    if(!user.getZodiacHabit().equals("")){
+      zodiac.setText(user.getZodiacHabit());
+    } else {
+      zodiac.setText("No preference");
+    }
+    if(!user.getEducationHabit().equals("")){
+      education.setText(user.getEducationHabit());
+    } else {
+      education.setText("No preference");
+    }
+    if(!user.getPetHabit().equals("")){
+      pets.setText(user.getPetHabit());
+    } else {
+      pets.setText("No preference");
+    }
+    if(!user.getDrinkHabit().equals("")){
+      drink.setText(user.getDrinkHabit());
+    } else {
+      drink.setText("No preference");
+    }
+    if(!user.getSmokeHabit().equals("")){
+      smoke.setText(user.getSmokeHabit());
+    } else {
+      smoke.setText("No preference");
+    }
+
+
+  }
   private void initPicView() {
     imageList = user.getPics();
     if (cardViewList.size() > imageList.size()) {
