@@ -2,6 +2,8 @@ package com.example.teenduh.model;
 
 import android.net.Uri;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,6 +13,7 @@ public class User {
   private LocalDate birthday;
   private String gender;
   private String fcm;
+  private LatLng location;
   private String interestPreference;
   private String distancePreference;
   private String lookingFor;
@@ -32,6 +35,7 @@ public class User {
     this.image = image;
     this.birthday = birthday;
   }
+
   public String getLikedPeople() {
     return likedPeople;
   }
@@ -64,6 +68,18 @@ public class User {
     this.name = name;
     this.fcm = fcm;
     this.birthday = bday;
+  }
+
+  public User(String id, String name, String fcm, LocalDate bday, LatLng location){
+    this.id = id;
+    this.name = name;
+    this.fcm = fcm;
+    this.birthday = bday;
+    this.location = location;
+  }
+
+  public void setLocation(LatLng location) {
+    this.location = location;
   }
 
   public User(){}
