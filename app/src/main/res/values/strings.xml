@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TeenDuh</string>
-    <string name="title_activity_auth">AuthActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Time to meet new friends!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="terms_of_service"><u>Terms of Service</u></string>
-    <string name="privacy_policy"><u>Privacy Policy</u></string>
-    <string name="phone_number_form_title">Enter phone number</string>
-    <string name="phone_number_form_description">We need your phone number to confirm your identity. Once you enter it, you\'ll receive a 6-digit code to verify your account</string>
-    <string name="phone_number_invalid">Invalid phone number. Please try again</string>
-    <string name="verify_otp_form_title">Enter 6-digit code</string>
-    <string name="verify_otp_form_description">We\'ve just sent you the code. Type it below to finish verification</string>
-    <string name="verify_otp_invalid">Invalid code. Please try again</string>
+  <string name="app_name">TeenDuh</string>
+  <string name="title_activity_auth">AuthActivity</string>
+  <string name="prompt_email">Email</string>
+  <string name="prompt_password">Password</string>
+  <string name="action_sign_in">Sign in or register</string>
+  <string name="action_sign_in_short">Sign in</string>
+  <string name="welcome">"Time to meet new friends!"</string>
+  <string name="invalid_username">Not a valid username</string>
+  <string name="invalid_password">Password must be >5 characters</string>
+  <string name="login_failed">"Login failed"</string>
+  <string name="terms_of_service"><u>Terms of Service</u></string>
+  <string name="privacy_policy"><u>Privacy Policy</u></string>
+  <string name="phone_number_form_title">Enter phone number</string>
+  <string name="phone_number_form_description">We need your phone number to confirm your identity. Once you enter it, you\'ll receive a 6-digit code to verify your account</string>
+  <string name="phone_number_invalid">Invalid phone number. Please try again</string>
+  <string name="verify_otp_form_title">Enter 6-digit code</string>
+  <string name="verify_otp_form_description">We\'ve just sent you the code. Type it below to finish verification</string>
+  <string name="verify_otp_invalid">Invalid code. Please try again</string>
 
-    <string name="welcome_heading1">Discover</string>
-    <string name="welcome_heading2">Connect</string>
-    <string name="welcome_heading3">Embrace</string>
-    <string name="welcome_description1">Discover a world of exciting connections and meaningful relationships with TeenDuh. Every swipe brings you closer to someone special.</string>
-    <string name="welcome_description2">Connect with like-minded individuals on TeenDuh. Finding your perfect match is just a click away in our diverse community.</string>
-    <string name="welcome_description3">Embrace love and romance on TeenDuh. Forge genuine connections and create lasting memories with us. Join the adventure today!</string>
+  <string name="welcome_heading1">Discover</string>
+  <string name="welcome_heading2">Connect</string>
+  <string name="welcome_heading3">Embrace</string>
+  <string name="welcome_description1">Discover a world of exciting connections and meaningful relationships with TeenDuh. Every swipe brings you closer to someone special.</string>
+  <string name="welcome_description2">Connect with like-minded individuals on TeenDuh. Finding your perfect match is just a click away in our diverse community.</string>
+  <string name="welcome_description3">Embrace love and romance on TeenDuh. Forge genuine connections and create lasting memories with us. Join the adventure today!</string>
 
-    // TODO: Change these URLs
-    <string name="terms_of_service_url">https://www.termsfeed.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
-    <string name="privacy_policy_url">https://www.privacypolicies.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
+  // TODO: Change these URLs
+  <string name="terms_of_service_url">https://www.termsfeed.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
+  <string name="privacy_policy_url">https://www.privacypolicies.com/live/2e2b8c3d-9c1a-4b3a-9b0a-5b8b8b3b2b2b</string>
 
-    // KEY
-    <string name="default_web_client_id">808273656584-t9vedurn56q1ih6omtlfd68g8g65plio.apps.googleusercontent.com</string>
-    <string name="web_client_secret">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</string>
-    <string name="facebook_app_id">1234</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">56789</string>
-    <string name="cloud_mess_key">key=AAAAvDDdOwg:APA91bEfkGLdpigmZcT1KSn5F8nGhZqIB_eqkRmvw09E04Z6P84A7Wx5bxa7rbcdSgvy6VE0FwyDQMX4Mq1Lnex1zPDB33GoozflfjjXtIsOvv5QmaIwliyJSP-DMa6M10cABW2-LxCm</string>
-    <string name="paypal_tokenization_key">sandbox_hcw4jst8_kvrtfp9hdbpfdrfs</string>
-    <string name="permission_done"><u>You are all set!</u></string>
-    <string name="lorem_ipsum">
+  // KEY
+  <string name="default_web_client_id">808273656584-t9vedurn56q1ih6omtlfd68g8g65plio.apps.googleusercontent.com</string>
+  <string name="web_client_secret">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</string>
+  <string name="facebook_app_id">1234</string>
+  <string name="fb_login_protocol_scheme">fb1234</string>
+  <string name="facebook_client_token">56789</string>
+  <string name="cloud_mess_key">key=AAAAvDDdOwg:APA91bEfkGLdpigmZcT1KSn5F8nGhZqIB_eqkRmvw09E04Z6P84A7Wx5bxa7rbcdSgvy6VE0FwyDQMX4Mq1Lnex1zPDB33GoozflfjjXtIsOvv5QmaIwliyJSP-DMa6M10cABW2-LxCm</string>
+  <string name="paypal_tokenization_key">sandbox_hcw4jst8_kvrtfp9hdbpfdrfs</string>
+  <string name="permission_done"><u>You are all set!</u></string>
+  <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
         dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
@@ -75,5 +75,22 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+
+  <string name="heading1">Welcome to Teenduh</string>
+  <string name="heading2">Our Journey</string>
+  <string name="heading3">What We Do</string>
+  <string name="heading4">Our Community</string>
+  <string name="heading5">Join Us</string>
+  <string name="content1">At Teenduh, we believe that everyone deserves to find their perfect match, and we\'re here to make it happen. It\'s a community of individuals seeking genuine connections and lasting relationships.</string>
+  <string name="content2">Born out of a desire to see a litter-free world, My Clean Up began as a small movement that quickly grew into a thriving community. We understand that change starts with a single step, and our app serves as a beacon for those who wish to take that step together.</string>
+  <string name="content3">"Organize Cleanup Events: We provide a seamless way for users to join existing cleanup activities in their area. Whether it\'s a beach, park, or urban space, our app brings people together to tackle environmental challenges."
+
+        "\n\nEmpower Local Leaders: Passionate about starting a cleanup drive in your neighborhood? My Clean Up equips you with the tools to create and manage your own cleanup events, mobilizing your community towards a common goal."
+
+        "\n\nTrack Progress: Our app isn\'t just about organizing events; it\'s about seeing the difference we make. Users can track the amount of trash collected and witness the direct impact of their efforts on local environments."
+    </string>
+  <string name="content4">At the heart of My Clean Up is a diverse community of individuals, families, schools, and organizations, all united by a shared commitment to environmental stewardship. Together, we\'re not just cleaning up spaces; we\'re raising awareness and inspiring a movement towards a cleaner planet.</string>
+  <string name="content5">Whether you\’re an individual looking to make a difference, a group seeking a meaningful team activity, or a local leader aiming to galvanize your community, My Clean Up is your platform. Join us in our journey towards a cleaner, more sustainable world – one cleanup at a time.</string>
+
 </resources>
