@@ -63,7 +63,7 @@ public class SexualOrientationAdapter extends RecyclerView.Adapter<SexualOrienta
                         holder.name.setTypeface(null,Typeface.NORMAL);
                         selectionsCount--;
                         if(selectionsCount == 0){
-                            holder.next.setBackground(mView.getResources().getDrawable(R.drawable.btn_unselected));
+                            holder.next.setBackground(mView.getResources().getDrawable(R.drawable.dashline_unselected));
                             holder.next.setTextColor(mView.getResources().getColor(R.color.black));
                             holder.next.setEnabled(false);
                         }
@@ -77,7 +77,7 @@ public class SexualOrientationAdapter extends RecyclerView.Adapter<SexualOrienta
                         holder.name.setTypeface(null,Typeface.NORMAL);
                         selectionsCount--;
                         if(selectionsCount == 0){
-                            holder.next.setBackground(mView.getResources().getDrawable(R.drawable.btn_unselected));
+                            holder.next.setBackground(mView.getResources().getDrawable(R.drawable.dashline_unselected));
                             holder.next.setTextColor(mView.getResources().getColor(R.color.black));
                             holder.next.setEnabled(false);
                         }

@@ -4,16 +4,15 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/window1"
   android:layout_width="match_parent"
-  android:padding="15dp"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:padding="15dp">
 
   <RelativeLayout
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
     android:layout_marginBottom="10dp"
-    >
+    app:layout_constraintTop_toTopOf="parent">
 
     <TextView
       android:id="@+id/textView2"
@@ -23,137 +22,143 @@
       android:layout_alignParentStart="true"
       android:text="Discovery" />
 
-    <Button
+    <ImageView
       android:id="@+id/filter_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
       android:layout_alignParentEnd="true"
       android:layout_centerVertical="true"
-      android:text="Filter" />
+      android:src="@drawable/filter_icon" />
 
   </RelativeLayout>
-  <pl.bclogic.pulsator4droid.library.PulsatorLayout
-      android:id="@+id/pulsator"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:pulse_count="2"
-      app:pulse_duration="6000"
-      app:pulse_repeat="0"
-      app:pulse_color="@color/seed"
-      app:pulse_startFromScratch="true"
-      app:pulse_interpolator="Decelerate">
-  </pl.bclogic.pulsator4droid.library.PulsatorLayout>
-  <de.hdodenhof.circleimageview.CircleImageView
-      android:layout_centerInParent="true"
-      android:id="@+id/profile_image"
-      android:layout_width="120dp"
-      android:layout_height="120dp"
-      android:src="@drawable/messi"
-      app:civ_border_width="2dp"
-      app:civ_border_color="#FF000000"/>
-  <pl.droidsonroids.gif.GifImageView
-      android:layout_width="300dp"
-      android:layout_height="300dp"
-      android:src="@drawable/no"
-      android:layout_marginStart="100dp"
-      android:layout_marginTop="100dp"
-      android:visibility="invisible"
-      android:rotation="20"
-      android:id="@+id/nope"
-      />
-  <pl.droidsonroids.gif.GifImageView
-      android:layout_width="300dp"
-      android:layout_height="300dp"
-      android:src="@drawable/superlike"
-      android:layout_centerHorizontal="true"
-      android:visibility="invisible"
-      android:layout_marginTop="320dp"
-      android:id="@+id/superLike"
-      />
-  <pl.droidsonroids.gif.GifImageView
-      android:layout_width="300dp"
-      android:layout_height="200dp"
-      android:src="@drawable/like"
-      android:layout_marginStart="-20dp"
-      android:rotation="-20"
-      android:layout_marginTop="100dp"
-      android:visibility="invisible"
-      android:id="@+id/like"
-      />
-  <TextView
-      android:visibility="gone"
-      android:id="@+id/buttonProceed"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="30dp"
-      android:layout_centerHorizontal="true"
-      android:text="Get more likes with Teender Gold!"
-      android:textColor="@color/white"
-      android:background="@drawable/bg_layout_premium"
-      android:paddingVertical="10dp"
-      android:paddingHorizontal="20dp"
-      android:textStyle="bold"
-      android:translationZ="90dp"
-      />
-  <com.yuyakaido.android.cardstackview.CardStackView
-      android:id="@+id/card_stack_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/relativeLayout"
-      android:layout_alignParentBottom="true"
-      android:layout_marginTop="17dp"
-      android:layout_marginBottom="33dp"
-      app:cardBackgroundColor="#FFE5E5"
-      app:strokeColor="@color/black"
-      app:strokeWidth="1dp" />
 
-<ImageView
+  <pl.bclogic.pulsator4droid.library.PulsatorLayout
+    android:id="@+id/pulsator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:pulse_color="@color/seed"
+    app:pulse_count="2"
+    app:pulse_duration="6000"
+    app:pulse_interpolator="Decelerate"
+    app:pulse_repeat="0"
+    app:pulse_startFromScratch="true"></pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+  <de.hdodenhof.circleimageview.CircleImageView
+    android:id="@+id/profile_image"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_centerInParent="true"
+    android:src="@drawable/messi"
+    app:civ_border_color="#FF000000"
+    app:civ_border_width="2dp" />
+
+  <pl.droidsonroids.gif.GifImageView
+    android:id="@+id/nope"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_marginStart="100dp"
+    android:layout_marginTop="100dp"
+    android:rotation="20"
+    android:src="@drawable/no"
+    android:visibility="invisible" />
+
+  <pl.droidsonroids.gif.GifImageView
+    android:id="@+id/superLike"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="320dp"
+    android:src="@drawable/superlike"
+    android:visibility="invisible" />
+
+  <pl.droidsonroids.gif.GifImageView
+    android:id="@+id/like"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:layout_marginStart="-20dp"
+    android:layout_marginTop="100dp"
+    android:rotation="-20"
+    android:src="@drawable/like"
+    android:visibility="invisible" />
+
+  <TextView
+    android:id="@+id/buttonProceed"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="30dp"
+    android:background="@drawable/bg_layout_premium"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp"
+    android:text="Get more likes with Teender Gold!"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    android:translationZ="90dp"
+    android:visibility="gone" />
+
+  <com.yuyakaido.android.cardstackview.CardStackView
+    android:id="@+id/card_stack_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/relativeLayout"
+    android:layout_alignParentBottom="true"
+    android:layout_marginTop="17dp"
+    android:layout_marginBottom="33dp"
+    app:cardBackgroundColor="#FFE5E5"
+    app:strokeColor="@color/black"
+    app:strokeWidth="1dp" />
+
+  <ImageView
     android:id="@+id/imageRunOutOfLike"
     android:layout_width="wrap_content"
     android:layout_height="550dp"
     android:layout_below="@+id/relativeLayout"
     android:layout_alignParentBottom="true"
     android:layout_marginTop="17dp"
-    android:scaleType="centerCrop"
     android:background="@drawable/ran_out_of_like"
-    />
+    android:scaleType="centerCrop" />
 
   <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        >
-    <TextView
-        android:id="@+id/cancel_action"
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/cancel_layout_main"
-        android:gravity="center"
-        />
+    android:layout_width="match_parent"
+    android:layout_height="69dp"
+    android:layout_alignParentBottom="true"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <TextView
-        android:layout_marginHorizontal="20dp"
-        android:id="@+id/super_like_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/super_like_layout"
-        android:gravity="center"/>
+      android:id="@+id/cancel_action"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_marginHorizontal="20dp"
+      android:layout_marginBottom="5dp"
+      android:background="@drawable/cancel_layout_main"
+      android:elevation="5dp"
+      android:gravity="center" />
+
     <TextView
-        android:layout_marginHorizontal="20dp"
-        android:id="@+id/like_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/like_layout"
-        />
+      android:id="@+id/super_like_action"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_marginHorizontal="20dp"
+      android:layout_marginBottom="5dp"
+      android:background="@drawable/super_like_layout"
+      android:elevation="5dp"
+      android:gravity="center" />
+
+    <TextView
+      android:id="@+id/like_action"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_marginHorizontal="20dp"
+      android:layout_marginBottom="5dp"
+      android:background="@drawable/like_layout"
+      android:elevation="5dp" />
 
 
-    </LinearLayout>
+  </LinearLayout>
 
 </RelativeLayout>

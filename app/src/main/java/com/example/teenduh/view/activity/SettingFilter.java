@@ -36,11 +36,17 @@ public class SettingFilter extends AppCompatActivity {
   boolean isProgrammaticChange = false;
   String educationSetting = "";
   String zodiacSetting = "";
-
+  ImageView backButton;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_setting_filter);
+    backButton = findViewById(R.id.back_button);
+    backButton.setOnClickListener(v -> {
+      finish();
+      overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    });
+
     //CardView Distance
     initDistanceCardView();
     //CardView Sexual Orientation
@@ -293,5 +299,11 @@ public class SettingFilter extends AppCompatActivity {
     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
     dialog.getWindow().setGravity(Gravity.BOTTOM);
+  }
+
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
   }
 }

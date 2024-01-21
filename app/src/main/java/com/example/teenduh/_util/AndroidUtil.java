@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teenduh.R;
 import com.example.teenduh.model.User;
+import com.example.teenduh.model.UserBan;
 import com.example.teenduh.model.message.Chat;
 import com.example.teenduh.model.message.ChatRoom;
 import com.example.teenduh.view.activity.MainLayout;
 import com.example.teenduh.view.activity.SignUpPage;
 import com.example.teenduh.view.adapter.message.ChatAdapter;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -33,8 +35,10 @@ import java.util.List;
 public class AndroidUtil {
   private static Activity activity;
   private static User curUser;
+  private static User _tempUser;
   private static ChatRoom curChatRoom;
   private static List<User> users;
+  private static List<UserBan> usersBan;
   private static List<ChatRoom> chatRooms;
   private static List<Chat> chats;
   private static RecyclerView chatView;
@@ -92,10 +96,12 @@ public class AndroidUtil {
   public static void init(Activity activity) {
     if (activity != null) AndroidUtil.activity = activity;
     users = new ArrayList<>();
+    usersBan = new ArrayList<>();
     chatRooms = new ArrayList<>();
     
     // curUser = new User();
     fetchUsers(null);
+    fetchUsersBan(null);
   }
   
   public static ChatRoom getCurChatRoom() {
@@ -108,6 +114,10 @@ public class AndroidUtil {
   
   public static List<User> getUsers() {
     return users;
+  }
+
+  public static List<UserBan> getUsersBan() {
+    return usersBan;
   }
   
   public static void setUsers(List<User> users) {
@@ -148,6 +158,14 @@ public class AndroidUtil {
     }
     
     return null;
+  }
+  
+  public static User get_tempUser() {
+    return _tempUser;
+  }
+  
+  public static void set_tempUser(User _tempUser) {
+    AndroidUtil._tempUser = _tempUser;
   }
   
   public static void setCurNewUser(String id, Runnable runnable){
@@ -195,10 +213,25 @@ public class AndroidUtil {
         String fcm = documentSnapshot.getString("fcm");
         String uid = documentSnapshot.getId();
         Timestamp bday = documentSnapshot.getTimestamp("bday");
-        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String pic = documentSnapshot.getString("pic");
+        LatLng location = null;
         
+        LocalDate bdayLocal = bday.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        List<Integer> picIdxes = new ArrayList<>();
+        for (String picIdx1 : pic.split(" ")) {
+          picIdxes.add(Integer.parseInt(picIdx1));
+        }
         if (fcm == null) fcm = "blank";
-        User user = new User(uid, name, fcm, bdayLocal);
+        Object locationObject = documentSnapshot.get("location");
+        if (locationObject != null) {
+          HashMap<String, Double> locationMap = (HashMap<String, Double>) locationObject;
+          location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
+        }
+        System.out.println("location = " + location);
+        
+        User user = new User(uid, name, fcm, bdayLocal, location);
+        user.setPicIdxes(picIdxes);
+        user.fetchPics();
         users.add(user);
       }
       
@@ -206,7 +239,24 @@ public class AndroidUtil {
       FirebaseUtil.runRunnable(runnable);
     });
   }
-  
+
+  public static void fetchUsersBan(Runnable runnable){
+    FirebaseUtil.fetchUsersBan(documentSnapshots -> {
+      for (DocumentSnapshot documentSnapshot : documentSnapshots){
+        String id = documentSnapshot.getString("userId");
+        String reason = documentSnapshot.getString("reason");
+        Timestamp deadline = documentSnapshot.getTimestamp("deadline");
+        LocalDate deadlineLocal = deadline.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        UserBan user = new UserBan(id, reason, deadlineLocal);
+        usersBan.add(user);
+      }
+
+      System.out.println(usersBan);
+      FirebaseUtil.runRunnable(runnable);
+    });
+  }
+
   public static void fetchChatRooms(Runnable runnable){
     chatRooms = new ArrayList<>();
     FirebaseUtil.fetchChatRooms(documentSnapshots -> {
@@ -288,4 +338,24 @@ public class AndroidUtil {
   public static void makeToast(Context context, String mess){
     Toast.makeText(context, mess, Toast.LENGTH_SHORT).show();
   }
+
+  public static double calculateDistance(LatLng latLng1, LatLng latLng2) {
+    double lat1 = latLng1.latitude;
+    double lon1 = latLng1.longitude;
+    double lat2 = latLng2.latitude;
+    double lon2 = latLng2.longitude;
+
+    final int R = 6371; // Radius of the earth in kilometers
+
+    double latDistance = Math.toRadians(lat2 - lat1);
+    double lonDistance = Math.toRadians(lon2 - lon1);
+    double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+            + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+            * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    double distance = R * c; // Distance in kilometers
+
+    return distance;
+  }
+
 }

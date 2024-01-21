@@ -51,6 +51,7 @@
 
 
             <LinearLayout
+              android:id="@+id/linear_layout_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -73,6 +74,7 @@
             </LinearLayout>
 
             <LinearLayout
+              android:id="@+id/linear_layout_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -97,6 +99,7 @@
             </LinearLayout>
 
             <LinearLayout
+              android:id="@+id/linear_layout_membership"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
