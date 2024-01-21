@@ -46,10 +46,11 @@ public class LifeStyleFragment extends Fragment {
         initPetCardView();
 
         next.setOnClickListener(v -> {
-            System.out.println("drink habit: " + drinkHabit);
-            System.out.println("workout habit: " + workoutHabit);
-            System.out.println("smoke habit: " + smokeHabit);
-            System.out.println("pet habit: " + petHabit);
+            AndroidUtil.getCurUser().setDrinkHabit(drinkHabit);
+            AndroidUtil.getCurUser().setWorkoutHabit(workoutHabit);
+            AndroidUtil.getCurUser().setSmokeHabit(smokeHabit);
+            AndroidUtil.getCurUser().setPetHabit(petHabit);
+
 
             if (!drinkHabit.equals("")) {
                 AndroidUtil.getCurUser().addInfoData(drinkHabit);

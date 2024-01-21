@@ -216,6 +216,22 @@ public class AndroidUtil {
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
 
+        String drink = documentSnapshot.getString("drinkHabit");
+        String workout = documentSnapshot.getString("workoutHabit");
+        String smoke = documentSnapshot.getString("smokeHabit");
+        String pet = documentSnapshot.getString("petHabit");
+        String communication = documentSnapshot.getString("communicationHabit");
+        String education = documentSnapshot.getString("educationHabit");
+        String zodiac = documentSnapshot.getString("zodiacHabit");
+
+        if (drink == null) drink = "";
+        if (workout == null) workout = "";
+        if (smoke == null) smoke = "";
+        if (pet == null) pet = "";
+        if (communication == null) communication = "";
+        if (education == null) education = "";
+        if (zodiac == null) zodiac = "";
+
         // Use the localDate as needed
         Date date = bday.toDate();
         LocalDate bdayLocal = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -243,7 +259,7 @@ public class AndroidUtil {
           info = new ArrayList<>();
         }
 
-        User user = new User(uid, name, fcm, bdayLocal, location, info);
+        User user = new User(uid, name, fcm, bdayLocal, location, info, drink, workout, smoke, pet, communication, education, zodiac);
         user.setPicIdxes(picIdxes);
         user.fetchPics();
         users.add(user);
