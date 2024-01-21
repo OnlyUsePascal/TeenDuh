@@ -36,15 +36,14 @@ public class ChitChat extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    View view =  inflater.inflate(R.layout.fragment_chit_chat, container, false);
+    View view = inflater.inflate(R.layout.fragment_chit_chat, container, false);
   
     user = view.findViewById(R.id.textView2);
     chatRoomViews = view.findViewById(R.id.messages);
     matchViews = view.findViewById(R.id.matches);
     stat = view.findViewById(R.id.button7);
-    view.findViewById(R.id.button13).setOnClickListener(this::testLogin);
-    view.findViewById(R.id.button14).setOnClickListener(this::testLogin);
-    view.findViewById(R.id.button15).setOnClickListener(this::getChatRooms);
+
+    getChatRooms(view);
     
     activity = AndroidUtil.getActivity();
     // getChatRooms();
