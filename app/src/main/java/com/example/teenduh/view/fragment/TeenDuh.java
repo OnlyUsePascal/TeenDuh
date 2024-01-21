@@ -85,7 +85,7 @@ public class TeenDuh extends Fragment {
     gifLike = view.findViewById(R.id.like);
     gifSuperLike = view.findViewById(R.id.superLike);
     buttonProceed = view.findViewById(R.id.buttonProceed);
-  
+
     imgOutLike.setVisibility(View.INVISIBLE);
     initBtn();
     loadingStart();
@@ -117,7 +117,11 @@ public class TeenDuh extends Fragment {
         swipeTop(gifSuperLike);
       }
     }
-    filterByGender(AndroidUtil.getGenderFilter());
+    if(AndroidUtil.getFilterFlag() == 1){
+      filterByGender(AndroidUtil.getGenderFilter());
+      AndroidUtil.setFilterFlag(0);
+    }
+
   }
   public void filterByGender(String gender){
     if(gender.equals("All")) {

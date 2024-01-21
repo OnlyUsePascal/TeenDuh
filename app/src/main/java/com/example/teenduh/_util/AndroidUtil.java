@@ -46,6 +46,15 @@ public class AndroidUtil {
   private static String flagMatch;
   private static boolean isAdmin = false;
   private static String genderFilter = "All";
+  private static int filterFlag = 0;
+
+  public static int getFilterFlag() {
+    return filterFlag;
+  }
+
+  public static void setFilterFlag(int filterFlag) {
+    AndroidUtil.filterFlag = filterFlag;
+  }
 
   public static String getGenderFilter() {
     return genderFilter;
@@ -224,6 +233,7 @@ public class AndroidUtil {
         Timestamp bday = documentSnapshot.getTimestamp("bday");
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
+
         String gender = documentSnapshot.getString("gender");
         String drink = documentSnapshot.getString("drinkHabit");
         String workout = documentSnapshot.getString("workoutHabit");
@@ -232,6 +242,7 @@ public class AndroidUtil {
         String communication = documentSnapshot.getString("communicationHabit");
         String education = documentSnapshot.getString("educationHabit");
         String zodiac = documentSnapshot.getString("zodiacHabit");
+
 
         if (drink == null) drink = "";
         if (workout == null) workout = "";
@@ -263,12 +274,15 @@ public class AndroidUtil {
         }
         System.out.println("location = " + location);
 
+
         List<String> info = (List<String>) documentSnapshot.get("info");
         if (info == null) {
           info = new ArrayList<>();
         }
 
         User user = new User(uid, name, fcm, bdayLocal, location, gender, drink, workout, smoke, pet, communication, education, zodiac);
+
+
         user.setPicIdxes(picIdxes);
         user.fetchPics();
         users.add(user);

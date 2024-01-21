@@ -48,8 +48,7 @@ public class SettingFilter extends AppCompatActivity {
       finish();
       overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
       if(!genderSetting.equals("")){
-        System.out.println("Gender Setting:" + genderSetting);
-        AndroidUtil.setGenderFilter(genderSetting);
+        AndroidUtil.setFilterFlag(1);
       }
     });
 
