@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.Image;
+import com.example.teenduh.model.User;
 import com.example.teenduh.view.activity.Subscription;
 import com.example.teenduh.view.adapter.MatchImageAdapter;
 
@@ -24,7 +26,7 @@ import java.util.List;
 
 public class MatchFragment extends Fragment {
   View view;
-  List<Image> images;
+  List<User> userList = new ArrayList<User>();
   RecyclerView recyclerView;
   SwipeRefreshLayout swipeRefreshLayout;
   TextView textview_who_like;
@@ -37,29 +39,15 @@ public class MatchFragment extends Fragment {
     view = inflater.inflate(R.layout.fragment_match, container, false);
     recyclerView = view.findViewById(R.id.recycler_view_match);
     textview_who_like = view.findViewById(R.id.textview_who_like);
-    images = new ArrayList<Image>();
-    images.add(new Image(R.drawable.ronaldo, "vip"));
-    images.add(new Image(R.drawable.park_seo, "Image 2"));
-    images.add(new Image(R.drawable.modric, "Image 3"));
-    images.add(new Image(R.drawable.ronaldo, "Image 1"));
-    images.add(new Image(R.drawable.park_seo, "Image 2"));
-    images.add(new Image(R.drawable.modric, "Image 3"));
-    images.add(new Image(R.drawable.ronaldo, "Image 1"));
-    images.add(new Image(R.drawable.park_seo, "Image 2"));
-    images.add(new Image(R.drawable.modric, "Image 3"));
-
+    userList = AndroidUtil.getUsers();
+    System.out.println(userList.size());
     recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-    matchImageAdapter = new MatchImageAdapter(images, true, getContext(), getActivity());
+    matchImageAdapter = new MatchImageAdapter(userList, false, getContext(), getActivity());
     recyclerView.setAdapter(matchImageAdapter);
     swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-        images.add(new Image(R.drawable.ronaldo, "Image 1"));
-        images.add(new Image(R.drawable.park_seo, "Image 2"));
-        images.add(new Image(R.drawable.modric, "Image 3"));
-        images.add(new Image(R.drawable.ronaldo, "Image 1"));
-        images.add(new Image(R.drawable.park_seo, "Image 2"));
         matchImageAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
       }

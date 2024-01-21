@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.teenduh.R;
 import com.example.teenduh.model.Image;
 import com.example.teenduh.view.adapter.ImageAdapter;
+import com.example.teenduh.view.adapter.WelcomeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class Subscription extends AppCompatActivity {
     imageList = new ArrayList<Image>();
     imageList.add(new Image(R.drawable.tinder_plus_cover, "nuill"));
     imageList.add(new Image(R.drawable.tidner_premium, "nuill"));
-    viewPager2.setAdapter(new ImageAdapter(imageList));
+    viewPager2.setAdapter(new WelcomeAdapter(imageList, viewPager2));
     viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
       public void onPageSelected(int position) {
