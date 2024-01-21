@@ -32,11 +32,16 @@ public class User {
   private List<Image> images;
   private List<String> info = new ArrayList<>();
 
+  private String drinkHabit= "", workoutHabit = "", smokeHabit = "", petHabit = "";
+  String communicationHabit= "", educationHabit = "", zodiacHabit = "";
+  String bio = "";
+
   public User(String name, String city, LocalDate birthday){
     this.name = name;
     this.city = city;
     this.birthday = birthday;
   }
+
 
   public User(String name, String gender, String interestPreference, String distancePreference, String lookingFor) {
     this.name = name;
@@ -45,6 +50,8 @@ public class User {
     this.distancePreference = distancePreference;
     this.lookingFor = lookingFor;
   }
+
+
 
   public User(String id, String name, String fcm, LocalDate bday){
     this.id = id;
@@ -61,6 +68,7 @@ public class User {
     this.location = location;
   }
 
+
   public User(String id, String name, String fcm, LocalDate bday, LatLng location, List<String> info){
     this.id = id;
     this.name = name;
@@ -68,6 +76,78 @@ public class User {
     this.birthday = bday;
     this.location = location;
     this.info = info;
+  }
+
+  public User(String id, String name, String fcm, LocalDate bday, LatLng location, List<String> info, String drinkHabit, String workoutHabit, String smokeHabit, String petHabit, String communicationHabit, String educationHabit, String zodiacHabit){
+    this.id = id;
+    this.name = name;
+    this.fcm = fcm;
+    this.birthday = bday;
+    this.location = location;
+    this.info = info;
+    this.drinkHabit = drinkHabit;
+    this.workoutHabit = workoutHabit;
+    this.smokeHabit = smokeHabit;
+    this.petHabit = petHabit;
+    this.communicationHabit = communicationHabit;
+    this.educationHabit = educationHabit;
+    this.zodiacHabit = zodiacHabit;
+  }
+
+  public String getDrinkHabit() {
+    return drinkHabit;
+  }
+
+  public void setDrinkHabit(String drinkHabit) {
+    this.drinkHabit = drinkHabit;
+  }
+
+  public String getWorkoutHabit() {
+    return workoutHabit;
+  }
+
+  public void setWorkoutHabit(String workoutHabit) {
+    this.workoutHabit = workoutHabit;
+  }
+
+  public String getSmokeHabit() {
+    return smokeHabit;
+  }
+
+  public void setSmokeHabit(String smokeHabit) {
+    this.smokeHabit = smokeHabit;
+  }
+
+  public String getPetHabit() {
+    return petHabit;
+  }
+
+  public void setPetHabit(String petHabit) {
+    this.petHabit = petHabit;
+  }
+
+  public String getCommunicationHabit() {
+    return communicationHabit;
+  }
+
+  public void setCommunicationHabit(String communicationHabit) {
+    this.communicationHabit = communicationHabit;
+  }
+
+  public String getEducationHabit() {
+    return educationHabit;
+  }
+
+  public void setEducationHabit(String educationHabit) {
+    this.educationHabit = educationHabit;
+  }
+
+  public String getZodiacHabit() {
+    return zodiacHabit;
+  }
+
+  public void setZodiacHabit(String zodiacHabit) {
+    this.zodiacHabit = zodiacHabit;
   }
 
   public void setLocation(LatLng location) {
