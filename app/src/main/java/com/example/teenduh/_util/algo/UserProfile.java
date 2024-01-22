@@ -1,20 +1,22 @@
 package com.example.teenduh._util.algo;
 
+import com.example.teenduh.model.User;
+
 import java.util.Set;
 
 public class UserProfile {
-    String userId;
+    User user;
     Double score;
     Set<String> interests;
 
-    public UserProfile(String userId, Double score, Set<String> interests) {
-        this.userId = userId;
+    public UserProfile(User user, Double score, Set<String> interests) {
+        this.user = user;
         this.score = score;
         this.interests = interests;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     public Double getScore() {

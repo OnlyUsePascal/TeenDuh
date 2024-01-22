@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh._util.algo.EloRecommendationSystem;
+import com.example.teenduh._util.algo.UserProfile;
 import com.example.teenduh.model.User;
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.view.activity.SettingFilter;
@@ -39,7 +42,9 @@ import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
@@ -124,8 +129,8 @@ public class TeenDuh extends Fragment {
   public void filterByGender(String gender){
     if(gender.equals("All")) {
       System.out.println("all");
-      resetData(addList());
-
+//      resetData(addList());
+        resetData(addListOnElo());
     } else if(gender.equals("Male")){
       System.out.println("male");
       resetData(maleList());
@@ -139,7 +144,8 @@ public class TeenDuh extends Fragment {
   }
   public List<User> femaleList(){
     List<User> users = new ArrayList<User>();
-    List<User> preUsers = addList();
+//    List<User> preUsers = addList();
+    List<User> preUsers = addListOnElo();
     for(User user : preUsers){
       if(user.getGender().equals("Female")){
         users.add(user);
@@ -149,7 +155,8 @@ public class TeenDuh extends Fragment {
   }
   public List<User> maleList(){
     List<User> users = new ArrayList<User>();
-    List<User> preUsers = addList();
+//    List<User> preUsers = addList();
+    List<User> preUsers = addListOnElo();
     for(User user: preUsers){
       if(user.getGender().equals("Male")){
         users.add(user);
@@ -327,8 +334,8 @@ public class TeenDuh extends Fragment {
     manager.setOverlayInterpolator(new LinearInterpolator());
     
     new Thread(() -> {
-      List<User> users = addList();
-      
+//      List<User> users = addList();
+        List<User> users = addListOnElo();
       getActivity().runOnUiThread(() -> {
         stackAdapter = new CardStackAdapter(users, getContext(), getActivity());
         cardStackView.setLayoutManager(manager);
@@ -345,7 +352,8 @@ public class TeenDuh extends Fragment {
     new Thread(() -> {
       // todo new list = (last elements of old list + new list)
       List<User> oldUsers = stackAdapter.getUserList();
-      List<User> newUsers = addList();
+//      List<User> newUsers = addList();
+        List<User> newUsers = addListOnElo();
       
       DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
           new CardStackCallback(oldUsers, newUsers));
@@ -366,6 +374,28 @@ public class TeenDuh extends Fragment {
   
   private List<User> addList() {
     return AndroidUtil.getUsers();
+  }
+
+  private List<User> addListOnElo() {
+    List<User> users = addList();
+    List<UserProfile> profiles = new ArrayList<>();
+    for (User user : users) {
+      if (user.getId().equals(AndroidUtil.getCurUser().getId())) {
+        continue;
+      }
+      Set<String> interests = user.getInterests();
+//      String userId = user.getId();
+      Double score = user.getElo();
+      UserProfile userProfile = new UserProfile(user, score, interests);
+      profiles.add(userProfile);
+    }
+
+    UserProfile curUser = new UserProfile(AndroidUtil.getCurUser(), AndroidUtil.getCurUser().getElo(), AndroidUtil.getCurUser().getInterests());
+    EloRecommendationSystem eloRecommendationSystem = new EloRecommendationSystem(curUser, profiles);
+    List<User> topProfiles = eloRecommendationSystem.getTopProfiles(10);
+
+    return topProfiles;
+
   }
   
   public void swipeLeft(GifImageView gifImage){
@@ -464,10 +494,18 @@ public class TeenDuh extends Fragment {
       Log.d(TAG, "Adapter size: " + stackAdapter.getItemCount());
       if (direction == Direction.Right) {
         countLike++;
+        EloRecommendationSystem.updateElo(AndroidUtil.getCurUser(), stackAdapter.getUserList().get(manager.getTopPosition() - 1), 1);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("elo", AndroidUtil.getCurUser().getElo());
+        FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), map, null);
       }
       if (direction == Direction.Top) {
       }
       if (direction == Direction.Left) {
+        EloRecommendationSystem.updateElo(AndroidUtil.getCurUser(), stackAdapter.getUserList().get(manager.getTopPosition() - 1), 0);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("elo", AndroidUtil.getCurUser().getElo());
+        FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), map, null);
       }
       if (direction == Direction.Bottom) {
       }
