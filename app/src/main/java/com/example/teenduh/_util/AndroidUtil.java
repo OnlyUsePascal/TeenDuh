@@ -250,8 +250,9 @@ public class AndroidUtil {
         String communication = documentSnapshot.getString("communicationHabit");
         String education = documentSnapshot.getString("educationHabit");
         String zodiac = documentSnapshot.getString("zodiacHabit");
-
         Double elo = documentSnapshot.getDouble("elo");
+        List<String> liked = (List<String>) documentSnapshot.get("likePeople");
+        // System.out.println("Like people:" + liked);
 
         if (elo == null) {
           elo = 800.0;
@@ -259,8 +260,7 @@ public class AndroidUtil {
           data.put("elo", elo);
           FirebaseUtil.updateUser(uid, data, null);
         }
-
-
+        
         if (drink == null) drink = "";
         if (workout == null) workout = "";
         if (smoke == null) smoke = "";
@@ -272,7 +272,6 @@ public class AndroidUtil {
         // Use the localDate as needed
         Date date = bday.toDate();
         LocalDate bdayLocal = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
         List<Integer> picIdxes = new ArrayList<>();
         if (pic == null) pic = "";
         for (String picIdx1 : pic.split(" ")) {
@@ -298,6 +297,7 @@ public class AndroidUtil {
 
         User user = new User(uid, name, fcm, bdayLocal, location, gender, elo, drink, workout, smoke, pet, communication, education, zodiac);
         user.setPicIdxes(picIdxes);
+        if (liked != null) user.setLiked(liked);
         // user.fetchPics();
         users.add(user);
       }

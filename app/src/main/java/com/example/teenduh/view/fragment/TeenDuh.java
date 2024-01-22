@@ -28,6 +28,7 @@ import com.example.teenduh._util.algo.EloRecommendationSystem;
 import com.example.teenduh._util.algo.UserProfile;
 import com.example.teenduh.model.User;
 import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh.view.activity.MatchingScreen;
 import com.example.teenduh.view.activity.SettingFilter;
 import com.example.teenduh.view.activity.Subscription;
 import com.example.teenduh.view.adapter.discovery.CardStackAdapter;
@@ -125,10 +126,10 @@ public class TeenDuh extends Fragment {
       }
     }
 // <<<<<<< HEAD
-  
+    
     System.out.println("filter = " + AndroidUtil.getFilterFlag() + "//more info =" + AndroidUtil.isIsFromMoreInfo());
     if (AndroidUtil.getFilterFlag() == 1) {
-      if (AndroidUtil.isIsFromMoreInfo()){
+      if (AndroidUtil.isIsFromMoreInfo()) {
         AndroidUtil.setIsFromMoreInfo(false);
         return;
       }
@@ -233,7 +234,7 @@ public class TeenDuh extends Fragment {
       }, 1000);
     });
   }
-
+  
   private void paginate() {
     loadingStart();
     
@@ -292,7 +293,7 @@ public class TeenDuh extends Fragment {
     
     new Thread(() -> {
 //      List<User> users = addList();
-        List<User> users = addListOnElo();
+      List<User> users = addListOnElo();
       getActivity().runOnUiThread(() -> {
         stackAdapter = new CardStackAdapter(users, getContext(), getActivity());
         cardStackView.setLayoutManager(manager);
@@ -302,7 +303,7 @@ public class TeenDuh extends Fragment {
       });
     }).start();
   }
-
+  
   private List<User> addListOnElo() {
     List<User> users = addList();
     List<UserProfile> profiles = new ArrayList<>();
@@ -316,19 +317,17 @@ public class TeenDuh extends Fragment {
       UserProfile userProfile = new UserProfile(user, score, interests);
       profiles.add(userProfile);
     }
-
-    UserProfile curUser = new UserProfile(AndroidUtil.getCurUser(), AndroidUtil.getCurUser().getElo(), AndroidUtil.getCurUser().getInterests());
+    
+    UserProfile curUser = new UserProfile(AndroidUtil.getCurUser(), AndroidUtil.getCurUser().getElo(),
+        AndroidUtil.getCurUser().getInterests());
     EloRecommendationSystem eloRecommendationSystem = new EloRecommendationSystem(curUser, profiles);
     List<User> topProfiles = eloRecommendationSystem.getTopProfiles(10);
-
+    
     return topProfiles;
-
+    
   }
   
-// >>>>>>> master
-  
-  
-  public void swipeLeft(GifImageView gifImage){
+  public void swipeLeft(GifImageView gifImage) {
     Handler handler = new Handler();
     gifImage.setVisibility(View.VISIBLE);
     gifImage.bringToFront();
@@ -387,33 +386,45 @@ public class TeenDuh extends Fragment {
       cardStackView.swipe();
     }, 1000);
   }
-
-
-class StackListener implements CardStackListener {
-  @Override
-  public void onCardDragging(Direction direction, float ratio) {
-    if (direction == Direction.Right) {
-      btnLike.setVisibility(View.VISIBLE);
-      btnCancel.setVisibility(View.INVISIBLE);
-      btnSuperLike.setVisibility(View.INVISIBLE);
-    } else if (direction == Direction.Left) {
-      btnSuperLike.setVisibility(View.INVISIBLE);
-      btnCancel.setVisibility(View.VISIBLE);
-      btnLike.setVisibility(View.INVISIBLE);
-    } else if (direction == Direction.Top) {
-      btnSuperLike.setVisibility(View.VISIBLE);
-      btnLike.setVisibility(View.INVISIBLE);
-      btnCancel.setVisibility(View.INVISIBLE);
+  
+  
+  class StackListener implements CardStackListener {
+    @Override
+    public void onCardDragging(Direction direction, float ratio) {
+      if (direction == Direction.Right) {
+        btnLike.setVisibility(View.VISIBLE);
+        btnCancel.setVisibility(View.INVISIBLE);
+        btnSuperLike.setVisibility(View.INVISIBLE);
+      } else if (direction == Direction.Left) {
+        btnSuperLike.setVisibility(View.INVISIBLE);
+        btnCancel.setVisibility(View.VISIBLE);
+        btnLike.setVisibility(View.INVISIBLE);
+      } else if (direction == Direction.Top) {
+        btnSuperLike.setVisibility(View.VISIBLE);
+        btnLike.setVisibility(View.INVISIBLE);
+        btnCancel.setVisibility(View.INVISIBLE);
+      }
     }
-  }
-
+    
+    User curCardUser;
     @Override
     public void onCardSwiped(Direction direction) {
       Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
       Log.d(TAG, "Adapter size: " + stackAdapter.getItemCount());
       if (direction == Direction.Right) {
+        // add liked users
+        if (curCardUser != null) {
+          AndroidUtil.getCurUser().likeUser(curCardUser.getId());
+          if (curCardUser.isLikeUser(AndroidUtil.getCurUser())) {
+            AndroidUtil.set_tempUser(curCardUser);
+            AndroidUtil._startActivity(getActivity(), MatchingScreen.class);
+          }
+        }
+        
+        // elo
         countLike++;
-        EloRecommendationSystem.updateElo(AndroidUtil.getCurUser(), stackAdapter.getUserList().get(manager.getTopPosition() - 1), 1);
+        EloRecommendationSystem.updateElo(AndroidUtil.getCurUser(),
+            stackAdapter.getUserList().get(manager.getTopPosition() - 1), 1);
         HashMap<String, Object> map = new HashMap<>();
         map.put("elo", AndroidUtil.getCurUser().getElo());
         FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), map, null);
@@ -421,52 +432,56 @@ class StackListener implements CardStackListener {
       if (direction == Direction.Top) {
       }
       if (direction == Direction.Left) {
-        EloRecommendationSystem.updateElo(AndroidUtil.getCurUser(), stackAdapter.getUserList().get(manager.getTopPosition() - 1), 0);
+        // elo
+        EloRecommendationSystem.updateElo(AndroidUtil.getCurUser(),
+            stackAdapter.getUserList().get(manager.getTopPosition() - 1), 0);
         HashMap<String, Object> map = new HashMap<>();
         map.put("elo", AndroidUtil.getCurUser().getElo());
         FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), map, null);
       }
       if (direction == Direction.Bottom) {
       }
-    
-    // Paginating
-    if (manager.getTopPosition() == stackAdapter.getItemCount()) {
-      manager.setTopPosition(0);
-      paginate();
+      
+      // Paginating
+      if (manager.getTopPosition() == stackAdapter.getItemCount()) {
+        manager.setTopPosition(0);
+        paginate();
+      }
     }
-  }
-  
-  @Override
-  public void onCardRewound() {
-  }
-  
-  @Override
-  public void onCardCanceled() {
-    setBtnToVisible();
-  }
-  
-  @Override
-  public void onCardAppeared(View view, int position) {
-    setBtnToVisible();
-    // setButtonToInvisible();
-    // if(countLike> 2){
-    //   System.out.println("count like: " + countLike);
-    //   imgOutLike.setVisibility(View.VISIBLE);
-    //   imgOutLike.bringToFront();
-    //   countLike = 0;
-    // }
-  }
-  
-  @Override
-  public void onCardDisappeared(View view, int position) {
-    TextView tv = view.findViewById(R.id.item_name);
+    
+    @Override
+    public void onCardRewound() {
+    }
+    
+    @Override
+    public void onCardCanceled() {
+      setBtnToVisible();
+    }
+    
+    @Override
+    public void onCardAppeared(View view, int position) {
+      setBtnToVisible();
+      curCardUser = stackAdapter.getUserList().get(position);
+      System.out.println(curCardUser);
+      // setButtonToInvisible();
+      // if(countLike> 2){
+      //   System.out.println("count like: " + countLike);
+      //   imgOutLike.setVisibility(View.VISIBLE);
+      //   imgOutLike.bringToFront();
+      //   countLike = 0;
+      // }
+    }
+    
+    @Override
+    public void onCardDisappeared(View view, int position) {
+      TextView tv = view.findViewById(R.id.item_name);
 //        System.out.println("count like: " + countLike);
 //        if (countLike > 2) {
 //          setButtonToInvisible();
 //          imageView.setVisibility(View.VISIBLE);
 //          imageView.bringToFront();
 //        }
+    }
   }
-}
   
 }
