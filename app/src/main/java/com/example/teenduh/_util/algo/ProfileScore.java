@@ -1,16 +1,18 @@
 package com.example.teenduh._util.algo;
 
+import com.example.teenduh.model.User;
+
 public class ProfileScore {
-    String profileId;
+    User user;
     Double score;
 
-    public ProfileScore(String profileId, Double score) {
-        this.profileId = profileId;
+    public ProfileScore(User user, Double score) {
+        this.user = user;
         this.score = score;
     }
 
-    public String getProfileId() {
-        return profileId;
+    public User getUser() {
+        return user;
     }
 
     public Double getScore() {
