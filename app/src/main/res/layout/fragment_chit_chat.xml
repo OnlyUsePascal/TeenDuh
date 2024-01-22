@@ -27,8 +27,17 @@
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
       android:layout_centerVertical="true"
+      android:visibility="gone"
       android:text="Stat" />
 
+    <ProgressBar
+      android:id="@+id/progress_bar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:visibility="visible"
+      android:layout_alignParentEnd="true"
+      />
   </RelativeLayout>
 
   <LinearLayout
@@ -37,6 +46,7 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/relativeLayout"
     android:layout_marginTop="5dp"
+    android:visibility="gone"
     android:orientation="vertical">
 
     <TextView
@@ -108,6 +118,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_weight="1"
+      android:visibility="gone"
       android:text="Chat" />
   </LinearLayout>
 

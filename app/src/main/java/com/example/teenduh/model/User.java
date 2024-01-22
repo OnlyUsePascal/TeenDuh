@@ -57,8 +57,6 @@ public class User {
     this.lookingFor = lookingFor;
   }
 
-
-
   public User(String id, String name, String fcm, LocalDate bday){
     this.id = id;
     this.name = name;
