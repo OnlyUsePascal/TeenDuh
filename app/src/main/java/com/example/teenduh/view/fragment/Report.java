@@ -55,7 +55,7 @@ public class Report extends Fragment {
     progressBar.setVisibility(View.VISIBLE);
     FirebaseUtil.getFirestore()
       .collection("reports")
-      .whereEqualTo("viewed", false)
+      // .whereEqualTo("viewed", false)
       .get()
 
       .addOnCompleteListener(task -> {

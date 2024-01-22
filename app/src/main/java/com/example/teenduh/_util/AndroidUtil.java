@@ -65,7 +65,7 @@ public class AndroidUtil {
   }
 
   public static boolean checkIsAdmin() {
-    return isAdmin;
+    return curUser.getName().equals("Dat Pham");
   }
 
   public static void setAdmin(boolean admin) {
@@ -280,7 +280,7 @@ public class AndroidUtil {
 
         User user = new User(uid, name, fcm, bdayLocal, location, gender, drink, workout, smoke, pet, communication, education, zodiac);
         user.setPicIdxes(picIdxes);
-        user.fetchPics();
+        // user.fetchPics();
         users.add(user);
       }
       
