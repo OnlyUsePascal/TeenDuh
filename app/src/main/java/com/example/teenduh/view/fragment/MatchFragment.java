@@ -40,21 +40,15 @@ public class MatchFragment extends Fragment {
     // Inflate the layout for this fragment
     view = inflater.inflate(R.layout.fragment_match, container, false);
     textview_who_like = view.findViewById(R.id.textview_who_like);
-    boolean isVip = AndroidUtil.getCurUser().isVip();
-    if (isVip){
-      textview_who_like.setVisibility(View.GONE);
-    }
     recyclerView = view.findViewById(R.id.recycler_view_match);
     userList = AndroidUtil.getUsers();
-    System.out.println(userList.size());
-    recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-    matchImageAdapter = new MatchImageAdapter(userList, isVip, getContext(), getActivity());
-    recyclerView.setAdapter(matchImageAdapter);
+    // System.out.println(userList.size());
     swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-        matchImageAdapter.notifyDataSetChanged();
+        // matchImageAdapter.notifyDataSetChanged();
+        initMatchAdapter();
         swipeRefreshLayout.setRefreshing(false);
       }
     });
@@ -67,6 +61,26 @@ public class MatchFragment extends Fragment {
         getActivity().overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
       }
     });
+    initMatchAdapter();
+    
+    
+    
     return view;
+  }
+  
+  public void initMatchAdapter(){
+    boolean isVip = AndroidUtil.getCurUser().isVip();
+    if (isVip){
+      textview_who_like.setVisibility(View.GONE);
+    }
+    recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+    matchImageAdapter = new MatchImageAdapter(userList, isVip, getContext(), getActivity());
+    recyclerView.setAdapter(matchImageAdapter);
+  }
+  
+  @Override
+  public void onResume() {
+    super.onResume();
+    
   }
 }
