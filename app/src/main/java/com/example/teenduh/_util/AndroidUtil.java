@@ -47,7 +47,16 @@ public class AndroidUtil {
   private static boolean isAdmin = false;
   private static String genderFilter = "All";
   private static int filterFlag = 0;
-
+  private static boolean isFromMoreInfo = false;
+  
+  public static boolean isIsFromMoreInfo() {
+    return isFromMoreInfo;
+  }
+  
+  public static void setIsFromMoreInfo(boolean isFromMoreInfo) {
+    AndroidUtil.isFromMoreInfo = isFromMoreInfo;
+  }
+  
   public static int getFilterFlag() {
     return filterFlag;
   }

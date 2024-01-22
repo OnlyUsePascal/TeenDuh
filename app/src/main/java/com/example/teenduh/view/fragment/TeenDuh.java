@@ -60,6 +60,7 @@ public class TeenDuh extends Fragment {
   private int countLike = 0;
   private ImageView imgOutLike;
   private TextView buttonProceed;
+  
   public TeenDuh() {
     activity = AndroidUtil.getActivity();
   }
@@ -83,12 +84,15 @@ public class TeenDuh extends Fragment {
     gifLike = view.findViewById(R.id.like);
     gifSuperLike = view.findViewById(R.id.superLike);
     buttonProceed = view.findViewById(R.id.buttonProceed);
-
+    
     imgOutLike.setVisibility(View.INVISIBLE);
+    AndroidUtil.setGenderFilter("All");
+    AndroidUtil.setFilterFlag(0);
+    
     initBtn();
     loadingStart();
     initCardStack();
-    filterByGender(AndroidUtil.getGenderFilter());
+    // filterByGender(AndroidUtil.getGenderFilter());
     return view;
   }
   
@@ -100,134 +104,46 @@ public class TeenDuh extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    if(AndroidUtil.getFlagMatch()!= null){
-      if(AndroidUtil.getFlagMatch().equals("cancel")){
+    if (AndroidUtil.getFlagMatch() != null) {
+      if (AndroidUtil.getFlagMatch().equals("cancel")) {
         String flag = AndroidUtil.getFlagMatch();
         System.out.println("flag: " + flag);
         swipeLeft(gifCancel);
-      }else if(AndroidUtil.getFlagMatch().equals("like")){
+      } else if (AndroidUtil.getFlagMatch().equals("like")) {
         String flag = AndroidUtil.getFlagMatch();
         System.out.println("flag: " + flag);
         swipeRight(gifLike);
-      } else if(AndroidUtil.getFlagMatch().equals("superlike")) {
+      } else if (AndroidUtil.getFlagMatch().equals("superlike")) {
         String flag = AndroidUtil.getFlagMatch();
         System.out.println("flag: " + flag);
         swipeTop(gifSuperLike);
       }
     }
-    if(AndroidUtil.getFilterFlag() == 1){
-      filterByGender(AndroidUtil.getGenderFilter());
-      AndroidUtil.setFilterFlag(0);
-    }
-
-  }
-  public void filterByGender(String gender){
-    if(gender.equals("All")) {
-      System.out.println("all");
-      resetData(addList());
-
-    } else if(gender.equals("Male")){
-      System.out.println("male");
-      resetData(maleList());
-      for(User user: maleList()){
-        System.out.println("user: " + user.getName()+ ", gender: " + user.getGender());
+  
+    System.out.println("filter = " + AndroidUtil.getFilterFlag() + "//more info =" + AndroidUtil.isIsFromMoreInfo());
+    if (AndroidUtil.getFilterFlag() == 1) {
+      if (AndroidUtil.isIsFromMoreInfo()){
+        AndroidUtil.setIsFromMoreInfo(false);
+        return;
       }
-    } else if(gender.equals("Female")){
-      System.out.println("female");
-      resetData(femaleList());
+      paginate();
+      // AndroidUtil.setFilterFlag(0);
     }
   }
-  public List<User> femaleList(){
-    List<User> users = new ArrayList<User>();
-    List<User> preUsers = addList();
-    for(User user : preUsers){
-      if(user.getGender().equals("Female")){
-        users.add(user);
-      }
-    }
-    return users;
-  }
-  public List<User> maleList(){
-    List<User> users = new ArrayList<User>();
-    List<User> preUsers = addList();
-    for(User user: preUsers){
-      if(user.getGender().equals("Male")){
-        users.add(user);
-      }
-    }
-    return users;
-  }
-  public void resetData(List<User> usersList){
-    loadingStart();
-
-    // todo new list = (last elements of old list + new list)
-//    List<User> oldUsers = stackAdapter.getUserList();
-//    List<User> newUsers = addList();
-//
-//    DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
-//        new CardStackCallback(oldUsers, newUsers));
-//    stackAdapter.setItems(newUsers);
-//
-//    try {
-//      Thread.sleep(2000);
-//    } catch (InterruptedException e) {
-//      throw new RuntimeException(e);
-//    }
-//
-//    getActivity().runOnUiThread(() -> {
-//      diffResult.dispatchUpdatesTo(stackAdapter);
-//      loadingStop();
-//    });
-
-    new Thread(() -> {
-      getActivity().runOnUiThread(() -> {
-        List<User> oldUsers = stackAdapter.getUserList();
-        List<User> newUsers = usersList;
-
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
-        new CardStackCallback(oldUsers, newUsers));
-        stackAdapter.setItems(newUsers);
-
-        try {
-          Thread.sleep(2000);
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
-
-        getActivity().runOnUiThread(() -> {
-          diffResult.dispatchUpdatesTo(stackAdapter);
-          loadingStop();
-        });
-
-//        stackAdapter = new CardStackAdapter(usersList, getContext(), getActivity());
-//        cardStackView.setLayoutManager(manager);
-//        cardStackView.setAdapter(stackAdapter);
-//        cardStackView.setItemAnimator(new DefaultItemAnimator());
-//        loadingStop();
-      });
-    }).start();
-
-  }
-  public void setButtonToInvisible(){
+  
+  public void setButtonToInvisible() {
     btnLike.setVisibility(View.GONE);
     btnCancel.setVisibility(View.GONE);
     btnSuperLike.setVisibility(View.GONE);
-    // cardStackView.setVisibility(View.GONE);
-    // buttonProceed.setVisibility(View.VISIBLE);
-    // buttonProceed.bringToFront();
   }
   
-  public void setBtnToVisible(){
+  public void setBtnToVisible() {
     btnLike.setVisibility(View.VISIBLE);
     btnCancel.setVisibility(View.VISIBLE);
     btnSuperLike.setVisibility(View.VISIBLE);
-    
-    // btnLike.bringToFront();
-    // btnCancel.bringToFront();
-    // btnSuperLike.bringToFront();
   }
   
-  public void loadingStart(){
+  public void loadingStart() {
     cardStackView.setVisibility(View.INVISIBLE);
     setButtonToInvisible();
     
@@ -238,7 +154,7 @@ public class TeenDuh extends Fragment {
     loadingCircleAnim.start();
   }
   
-  public void loadingStop(){
+  public void loadingStop() {
     cardStackView.setVisibility(View.VISIBLE);
     setBtnToVisible();
     
@@ -312,6 +228,48 @@ public class TeenDuh extends Fragment {
       }, 1000);
     });
   }
+
+  private void paginate() {
+    loadingStart();
+    
+    new Thread(() -> {
+      // todo new list = (last elements of old list + new list)
+      List<User> oldUsers = stackAdapter.getUserList();
+      List<User> newUsers = addList();
+      
+      DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
+          new CardStackCallback(oldUsers, newUsers));
+      stackAdapter.setItems(newUsers);
+      
+      try {
+        Thread.sleep(1500);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+      
+      getActivity().runOnUiThread(() -> {
+        diffResult.dispatchUpdatesTo(stackAdapter);
+        // stackAdapter.notifyDataSetChanged();
+        loadingStop();
+      });
+    }).start();
+  }
+  
+  private List<User> addList() {
+    System.out.println(AndroidUtil.getFilterFlag() + "--" + AndroidUtil.getGenderFilter());
+    List<User> usersOrigin = AndroidUtil.getUsers();
+    if (AndroidUtil.getGenderFilter().equals("All") || AndroidUtil.getFilterFlag() == 0)
+      return usersOrigin;
+    
+    List<User> usersNew = new ArrayList<>();
+    String requiredGender = AndroidUtil.getGenderFilter();
+    usersOrigin.forEach(user -> {
+      if (user.getGender().equals(requiredGender)) {
+        usersNew.add(user);
+      }
+    });
+    return usersNew;
+  }
   
   private void initCardStack() {
     manager = new CardStackLayoutManager(getContext(), new StackListener());
@@ -339,73 +297,44 @@ public class TeenDuh extends Fragment {
     }).start();
   }
   
-  private void paginate() {
-    loadingStart();
-  
-    new Thread(() -> {
-      // todo new list = (last elements of old list + new list)
-      List<User> oldUsers = stackAdapter.getUserList();
-      List<User> newUsers = addList();
-      
-      DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
-          new CardStackCallback(oldUsers, newUsers));
-      stackAdapter.setItems(newUsers);
-
-      try {
-        Thread.sleep(2000);
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-      }
-      
-      getActivity().runOnUiThread(() -> {
-        diffResult.dispatchUpdatesTo(stackAdapter);
-        loadingStop();
-      });
-    }).start();
-  }
-  
-  private List<User> addList() {
-    return AndroidUtil.getUsers();
-  }
-  
-  public void swipeLeft(GifImageView gifImage){
+  public void swipeLeft(GifImageView gifImage) {
     Handler handler = new Handler();
     gifImage.setVisibility(View.VISIBLE);
     gifImage.bringToFront();
     handler.postDelayed(() -> {
       manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
       manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
-          .setDirection(Direction.Left)
-          .setDuration(Duration.Normal.duration)
-          .setInterpolator(new AccelerateInterpolator())
-          .build());
+                                           .setDirection(Direction.Left)
+                                           .setDuration(Duration.Normal.duration)
+                                           .setInterpolator(new AccelerateInterpolator())
+                                           .build());
       cardStackView.swipe();
       gifImage.setVisibility(View.INVISIBLE);
       AndroidUtil.setFlagMatch(null);
     }, 1000);
   }
   
-  public void rewindManually(){
+  public void rewindManually() {
     manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
     manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
-        .setDirection(Direction.Left)
-        .setDuration(Duration.Normal.duration)
-        .setInterpolator(new AccelerateInterpolator())
-        .build());
+                                         .setDirection(Direction.Left)
+                                         .setDuration(Duration.Normal.duration)
+                                         .setInterpolator(new AccelerateInterpolator())
+                                         .build());
     cardStackView.rewind();
   }
   
-  public void swipeRight(GifImageView gifImage){
+  public void swipeRight(GifImageView gifImage) {
     Handler handler = new Handler();
     gifImage.setVisibility(View.VISIBLE);
     gifImage.bringToFront();
     handler.postDelayed(() -> {
       manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
       manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
-          .setDirection(Direction.Right)
-          .setDuration(Duration.Normal.duration)
-          .setInterpolator(new AccelerateInterpolator())
-          .build());
+                                           .setDirection(Direction.Right)
+                                           .setDuration(Duration.Normal.duration)
+                                           .setInterpolator(new AccelerateInterpolator())
+                                           .build());
       gifImage.setVisibility(View.INVISIBLE);
       cardStackView.swipe();
       AndroidUtil.setFlagMatch(null);
@@ -419,96 +348,86 @@ public class TeenDuh extends Fragment {
     handler.postDelayed(() -> {
       manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
       manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
-          .setDirection(Direction.Top)
-          .setDuration(Duration.Normal.duration)
-          .setInterpolator(new AccelerateInterpolator())
-          .build());
+                                           .setDirection(Direction.Top)
+                                           .setDuration(Duration.Normal.duration)
+                                           .setInterpolator(new AccelerateInterpolator())
+                                           .build());
       gifImage.setVisibility(View.INVISIBLE);
       cardStackView.swipe();
     }, 1000);
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  class StackListener implements CardStackListener {
-    @Override
-    public void onCardDragging(Direction direction, float ratio) {
-      if (direction == Direction.Right) {
-        btnLike.setVisibility(View.VISIBLE);
-        btnCancel.setVisibility(View.INVISIBLE);
-        btnSuperLike.setVisibility(View.INVISIBLE);
-      } else if (direction == Direction.Left) {
-        btnSuperLike.setVisibility(View.INVISIBLE);
-        btnCancel.setVisibility(View.VISIBLE);
-        btnLike.setVisibility(View.INVISIBLE);
-      } else if (direction == Direction.Top) {
-        btnSuperLike.setVisibility(View.VISIBLE);
-        btnLike.setVisibility(View.INVISIBLE);
-        btnCancel.setVisibility(View.INVISIBLE);
-      }
+
+
+class StackListener implements CardStackListener {
+  @Override
+  public void onCardDragging(Direction direction, float ratio) {
+    if (direction == Direction.Right) {
+      btnLike.setVisibility(View.VISIBLE);
+      btnCancel.setVisibility(View.INVISIBLE);
+      btnSuperLike.setVisibility(View.INVISIBLE);
+    } else if (direction == Direction.Left) {
+      btnSuperLike.setVisibility(View.INVISIBLE);
+      btnCancel.setVisibility(View.VISIBLE);
+      btnLike.setVisibility(View.INVISIBLE);
+    } else if (direction == Direction.Top) {
+      btnSuperLike.setVisibility(View.VISIBLE);
+      btnLike.setVisibility(View.INVISIBLE);
+      btnCancel.setVisibility(View.INVISIBLE);
     }
+  }
   
-    @Override
-    public void onCardSwiped(Direction direction) {
-      Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
-      Log.d(TAG, "Adapter size: " + stackAdapter.getItemCount());
-      if (direction == Direction.Right) {
-        countLike++;
-      }
-      if (direction == Direction.Top) {
-      }
-      if (direction == Direction.Left) {
-      }
-      if (direction == Direction.Bottom) {
-      }
+  @Override
+  public void onCardSwiped(Direction direction) {
+    Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
+    Log.d(TAG, "Adapter size: " + stackAdapter.getItemCount());
+    if (direction == Direction.Right) {
+      countLike++;
+    }
+    if (direction == Direction.Top) {
+    }
+    if (direction == Direction.Left) {
+    }
+    if (direction == Direction.Bottom) {
+    }
     
-      // Paginating
-      if (manager.getTopPosition() == stackAdapter.getItemCount()) {
-        manager.setTopPosition(0);
-        paginate();
-      }
+    // Paginating
+    if (manager.getTopPosition() == stackAdapter.getItemCount()) {
+      manager.setTopPosition(0);
+      paginate();
     }
+  }
   
-    @Override
-    public void onCardRewound() {}
+  @Override
+  public void onCardRewound() {
+  }
   
-    @Override
-    public void onCardCanceled() {
-      setBtnToVisible();
-    }
+  @Override
+  public void onCardCanceled() {
+    setBtnToVisible();
+  }
   
-    @Override
-    public void onCardAppeared(View view, int position) {
-      setBtnToVisible();
-      // setButtonToInvisible();
-      // if(countLike> 2){
-      //   System.out.println("count like: " + countLike);
-      //   imgOutLike.setVisibility(View.VISIBLE);
-      //   imgOutLike.bringToFront();
-      //   countLike = 0;
-      // }
-    }
+  @Override
+  public void onCardAppeared(View view, int position) {
+    setBtnToVisible();
+    // setButtonToInvisible();
+    // if(countLike> 2){
+    //   System.out.println("count like: " + countLike);
+    //   imgOutLike.setVisibility(View.VISIBLE);
+    //   imgOutLike.bringToFront();
+    //   countLike = 0;
+    // }
+  }
   
-    @Override
-    public void onCardDisappeared(View view, int position) {
-      TextView tv = view.findViewById(R.id.item_name);
+  @Override
+  public void onCardDisappeared(View view, int position) {
+    TextView tv = view.findViewById(R.id.item_name);
 //        System.out.println("count like: " + countLike);
 //        if (countLike > 2) {
 //          setButtonToInvisible();
 //          imageView.setVisibility(View.VISIBLE);
 //          imageView.bringToFront();
 //        }
-    }
   }
+}
   
 }
