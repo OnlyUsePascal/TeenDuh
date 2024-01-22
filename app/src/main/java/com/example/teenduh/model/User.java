@@ -8,9 +8,10 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLng;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +35,7 @@ public class User {
   private Uri[] imageUris = new Uri[6];
   private List<Image> images;
   private List<String> info = new ArrayList<>();
+  private List<String> liked = new ArrayList<>();
 
   private String drinkHabit= "", workoutHabit = "", smokeHabit = "", petHabit = "";
   private String communicationHabit= "", educationHabit = "", zodiacHabit = "";
@@ -142,7 +144,29 @@ public class User {
     if (zodiacHabit != null && !zodiacHabit.isEmpty()) interests.add(zodiacHabit);
     return interests;
   }
-
+  
+  public List<String> getLiked() {
+    return liked;
+  }
+  
+  public void setLiked(List<String> liked) {
+    this.liked = liked;
+  }
+  
+  public void likeUser(String uid){
+    if (!liked.contains(uid)){
+      liked.add(uid);
+  
+      HashMap<String, Object> data = new HashMap<>();
+      data.put("likePeople", liked);
+      FirebaseUtil.updateUser(id, data, null);
+    }
+  }
+  
+  public boolean isLikeUser(User user){
+    return liked.contains(user.getId());
+  }
+  
   public Double getElo() {
     return elo;
   }
@@ -373,6 +397,7 @@ public class User {
       "id='" + id + '\'' +
       ", name='" + name + '\'' +
       ", fcm='" + fcm + '\'' +
+               "like user:'" + liked + '\'' +
       '}';
   }
 }
