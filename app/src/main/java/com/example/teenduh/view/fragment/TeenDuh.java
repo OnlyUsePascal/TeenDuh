@@ -352,8 +352,8 @@ public class TeenDuh extends Fragment {
     new Thread(() -> {
       // todo new list = (last elements of old list + new list)
       List<User> oldUsers = stackAdapter.getUserList();
-      List<User> newUsers = addList();
-//        List<User> newUsers = addListOnElo();
+//      List<User> newUsers = addList();
+        List<User> newUsers = addListOnElo();
       
       DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
           new CardStackCallback(oldUsers, newUsers));
