@@ -233,7 +233,8 @@ public class AndroidUtil {
         Timestamp bday = documentSnapshot.getTimestamp("bday");
         String pic = documentSnapshot.getString("pic");
         LatLng location = null;
-
+        List<User> likedUsers = new ArrayList<>();
+        likedUsers = (List<User>) documentSnapshot.get("likedUsers");
         String gender = documentSnapshot.getString("gender");
         String drink = documentSnapshot.getString("drinkHabit");
         String workout = documentSnapshot.getString("workoutHabit");
@@ -280,7 +281,7 @@ public class AndroidUtil {
           info = new ArrayList<>();
         }
 
-        User user = new User(uid, name, fcm, bdayLocal, location, gender, drink, workout, smoke, pet, communication, education, zodiac);
+        User user = new User(uid, name, fcm, bdayLocal, location, gender, drink, workout, smoke, pet, communication, education, zodiac,likedUsers);
 
 
         user.setPicIdxes(picIdxes);

@@ -27,7 +27,7 @@ public class User {
   private String InterestedIn;
   private String city;
   private boolean isInitial = true;
-  private String likedPeople;
+  private List<User> likedUserList= new ArrayList<User>();
   private Uri[] imageUris = new Uri[6];
   private List<Image> images;
   private List<String> info = new ArrayList<>();
@@ -35,6 +35,14 @@ public class User {
   private String drinkHabit= "", workoutHabit = "", smokeHabit = "", petHabit = "";
   private String communicationHabit= "", educationHabit = "", zodiacHabit = "";
   String bio = "";
+
+  public List<User> getLikedUserList() {
+    return likedUserList;
+  }
+
+  public void setLikedUserList(List<User> likedUserList) {
+    this.likedUserList = likedUserList;
+  }
 
   public User(String name, String city, LocalDate birthday){
     this.name = name;
@@ -78,7 +86,7 @@ public class User {
     this.info = info;
   }
 
-  public User(String id, String name, String fcm, LocalDate bday, LatLng location, String gender, String drinkHabit, String workoutHabit, String smokeHabit, String petHabit, String communicationHabit, String educationHabit, String zodiacHabit){
+  public User(String id, String name, String fcm, LocalDate bday, LatLng location, String gender, String drinkHabit, String workoutHabit, String smokeHabit, String petHabit, String communicationHabit, String educationHabit, String zodiacHabit, List<User> likedList){
     this.id = id;
     this.name = name;
     this.fcm = fcm;
@@ -92,6 +100,7 @@ public class User {
     this.communicationHabit = communicationHabit;
     this.educationHabit = educationHabit;
     this.zodiacHabit = zodiacHabit;
+    this.likedUserList = likedList;
   }
 
 
@@ -172,9 +181,7 @@ public class User {
 
   public User(){}
   
-  public String getLikedPeople() {
-    return likedPeople;
-  }
+
   
   public List<Image> getPics(){
     if (images != null) return images;

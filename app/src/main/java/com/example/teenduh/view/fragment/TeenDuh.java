@@ -24,8 +24,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.teenduh.R;
+import com.example.teenduh._util.FirebaseUtil;
 import com.example.teenduh.model.User;
 import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh.view.activity.MatchingScreen;
 import com.example.teenduh.view.activity.SettingFilter;
 import com.example.teenduh.view.activity.Subscription;
 import com.example.teenduh.view.adapter.discovery.CardStackAdapter;
@@ -41,6 +43,7 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -62,6 +65,7 @@ public class TeenDuh extends Fragment {
   private int countLike = 0;
   private ImageView imgOutLike;
   private TextView buttonProceed;
+  private List<User> likedUserList = new ArrayList<User>();
   public TeenDuh() {
     activity = AndroidUtil.getActivity();
   }
@@ -462,10 +466,19 @@ public class TeenDuh extends Fragment {
   
     @Override
     public void onCardSwiped(Direction direction) {
-      Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
-      Log.d(TAG, "Adapter size: " + stackAdapter.getItemCount());
       if (direction == Direction.Right) {
         countLike++;
+        for(User user: stackAdapter.getUserList()){
+          if(user.getName().equals(stackAdapter.getUserList().get(manager.getTopPosition()-1).getName())){
+            likedUserList.add(user);
+          }
+        }
+        AndroidUtil.getCurUser().setLikedUserList(likedUserList);
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("likedUserList", likedUserList);
+        FirebaseUtil.updateUser(AndroidUtil.getCurUser().getId(), data, null);
+
+
       }
       if (direction == Direction.Top) {
       }
@@ -499,6 +512,7 @@ public class TeenDuh extends Fragment {
       //   imgOutLike.bringToFront();
       //   countLike = 0;
       // }
+
     }
   
     @Override
@@ -510,6 +524,17 @@ public class TeenDuh extends Fragment {
 //          imageView.setVisibility(View.VISIBLE);
 //          imageView.bringToFront();
 //        }
+      List<User> userLike = stackAdapter.getUserList().get(position).getLikedUserList();
+      if(userLike != null){
+        for(User user: userLike){
+          System.out.println("user like: " + user.getName());
+          if(user.getName().equals(AndroidUtil.getCurUser().getName())){
+            Intent intent = new Intent(getContext(), MatchingScreen.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+          }
+        }
+      }
     }
   }
   
