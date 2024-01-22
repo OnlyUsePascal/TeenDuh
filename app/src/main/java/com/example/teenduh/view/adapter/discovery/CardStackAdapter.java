@@ -159,8 +159,9 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         Intent intent = new Intent(context, ShowMoreInfo.class);
         String currentPositionStr = String.valueOf(curPicIdx);
         intent.putExtra("position", currentPositionStr);
-        AndroidUtil.set_tempUser(_tempUser);
         
+        AndroidUtil.set_tempUser(_tempUser);
+        AndroidUtil.setIsFromMoreInfo(true);
         context.startActivity(intent);
         mActivity.overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
       });

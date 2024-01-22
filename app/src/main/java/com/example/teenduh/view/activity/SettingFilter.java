@@ -37,7 +37,7 @@ public class SettingFilter extends AppCompatActivity {
   boolean isProgrammaticChange = false;
   String educationSetting = "";
   String zodiacSetting = "";
-  String genderSetting = "";
+  String genderSetting = "All";
   ImageView backButton;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +45,13 @@ public class SettingFilter extends AppCompatActivity {
     setContentView(R.layout.activity_setting_filter);
     backButton = findViewById(R.id.back_button);
     backButton.setOnClickListener(v -> {
-      finish();
+      System.out.println(genderSetting);
+      // AndroidUtil.setFilterFlag((!genderSetting.equals("All")) ? 1 : 0);
       overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-      if(!genderSetting.equals("")){
+      if(!genderSetting.equals("All")){
         AndroidUtil.setFilterFlag(1);
       }
+      finish();
     });
 
     //CardView Distance
