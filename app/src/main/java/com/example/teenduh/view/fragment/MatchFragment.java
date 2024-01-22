@@ -30,19 +30,25 @@ public class MatchFragment extends Fragment {
   RecyclerView recyclerView;
   SwipeRefreshLayout swipeRefreshLayout;
   TextView textview_who_like;
+  
 
   MatchImageAdapter matchImageAdapter;
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
+    
     // Inflate the layout for this fragment
     view = inflater.inflate(R.layout.fragment_match, container, false);
-    recyclerView = view.findViewById(R.id.recycler_view_match);
     textview_who_like = view.findViewById(R.id.textview_who_like);
+    boolean isVip = AndroidUtil.getCurUser().isVip();
+    if (isVip){
+      textview_who_like.setVisibility(View.GONE);
+    }
+    recyclerView = view.findViewById(R.id.recycler_view_match);
     userList = AndroidUtil.getUsers();
     System.out.println(userList.size());
     recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-    matchImageAdapter = new MatchImageAdapter(userList, true, getContext(), getActivity());
+    matchImageAdapter = new MatchImageAdapter(userList, isVip, getContext(), getActivity());
     recyclerView.setAdapter(matchImageAdapter);
     swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

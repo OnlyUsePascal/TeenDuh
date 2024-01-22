@@ -299,7 +299,14 @@ public class AndroidUtil {
         user.setPicIdxes(picIdxes);
         if (liked != null) user.setLiked(liked);
         // user.fetchPics();
+        try {
+          Integer vipLevel = Math.toIntExact(documentSnapshot.getLong("vipLevel"));
+          if (vipLevel >= 1) user.setVip(true);
+        } catch (Exception err) {
+          err.printStackTrace();
+        }
         users.add(user);
+        
       }
       
       System.out.println(users);
