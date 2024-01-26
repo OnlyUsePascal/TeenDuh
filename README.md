@@ -1,42 +1,36 @@
 # TinDuh
-Group Member
-    Pham Xuan Dat - s3927188
-    Nguyen Dang Huan - s3927467
-    Pavel Potemkin - s3963284
-    Truong Vo Thien Nhan - s3929215 
+## About
+Trying to clone Tinder
 
-# Note
-- To use stripe, it is recommended to run the server "stripe-t1" locally first.
+## Note
+- To use Stripe payment, you should run the [server](https://github.com/OnlyUsePascal/TeenDuh-Stripe) first
 
-# Features
-- Matching based on Elo calculation
-    + edit profile (image, interest prompts, )
-    + convenient swiping animation
-    + filter users based on gender, ...
-    + See who likes you
-- Chatting
-- Report user
-- Payment for premium features (super like, gold, platnum) with stripe
-  + Billing page
+## Features
+- Matching based on the Elo Matching Algorithm
+  - Can filter specific users based on your needs
+- Able to message anyone after getting matched
+  - You can also report them if annoyed
+- Diverify your profile with personality prompts, images, etc.
+- Optional Premium features: rewind, see you like you,...
 
-- Admin 
+- Admin Ability
   + Statistics
   + View user database
   + handling report & ban user
 
-# Contribution
-All members had contributed equally
-
-# Technologies
+## Technologies
 - Firebase 
   + Firestore
   + Storage
   + Cloud Messaging
   + Authentication 
-- Okhttp3 for sending request to Stripe, Cloud Messaging
-- Stripe Library
+- Okhttp3
+- Stripe
 - Some external UI library for card stack.
 
-# On-going issues
-- Syncing of messages in chatting
-
+## Contributors
+<a href="https://github.com/OnlyUsePascal/NeckFlex/graphs/contributors">
+  <img width="64" height="64" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/62138004?v=4" alt="">
+  <img width="64" height="64" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/17351940?v=4" alt="">
+  <img width="64" height="64" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/68006452?v=4" alt="">
+  <img width="64" height="64" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/100990206?v=4" alt="">
