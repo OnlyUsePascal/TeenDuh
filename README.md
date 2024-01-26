@@ -7,7 +7,7 @@ Group Member
 
 # Note
 - To use stripe, it is recommended to run the server "stripe-t1" locally first.
-- 
+
 # Features
 - Matching based on Elo calculation
     + edit profile (image, interest prompts, )

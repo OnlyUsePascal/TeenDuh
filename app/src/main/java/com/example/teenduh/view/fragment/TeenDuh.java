@@ -113,19 +113,18 @@ public class TeenDuh extends Fragment {
     if (AndroidUtil.getFlagMatch() != null) {
       if (AndroidUtil.getFlagMatch().equals("cancel")) {
         String flag = AndroidUtil.getFlagMatch();
-        System.out.println("flag: " + flag);
+        // System.out.println("flag: " + flag);
         swipeLeft(gifCancel);
       } else if (AndroidUtil.getFlagMatch().equals("like")) {
         String flag = AndroidUtil.getFlagMatch();
-        System.out.println("flag: " + flag);
+        // System.out.println("flag: " + flag);
         swipeRight(gifLike);
       } else if (AndroidUtil.getFlagMatch().equals("superlike")) {
         String flag = AndroidUtil.getFlagMatch();
-        System.out.println("flag: " + flag);
+        // System.out.println("flag: " + flag);
         swipeTop(gifSuperLike);
       }
     }
-// <<<<<<< HEAD
     
     System.out.println("filter = " + AndroidUtil.getFilterFlag() + "//more info =" + AndroidUtil.isIsFromMoreInfo());
     if (AndroidUtil.getFilterFlag() == 1) {
@@ -271,7 +270,8 @@ public class TeenDuh extends Fragment {
     List<User> usersNew = new ArrayList<>();
     String requiredGender = AndroidUtil.getGenderFilter();
     usersOrigin.forEach(user -> {
-      if (user.getGender().equals(requiredGender)) {
+      if (user.getGender().equals(requiredGender)
+              && !user.getId().equals(AndroidUtil.getCurUser().getId())) {
         usersNew.add(user);
       }
     });
@@ -407,6 +407,7 @@ public class TeenDuh extends Fragment {
     }
     
     User curCardUser;
+    
     @Override
     public void onCardSwiped(Direction direction) {
       Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
@@ -458,29 +459,33 @@ public class TeenDuh extends Fragment {
       setBtnToVisible();
     }
     
+    
     @Override
     public void onCardAppeared(View view, int position) {
       setBtnToVisible();
       curCardUser = stackAdapter.getUserList().get(position);
-      System.out.println(curCardUser);
-      // setButtonToInvisible();
-      // if(countLike> 2){
-      //   System.out.println("count like: " + countLike);
-      //   imgOutLike.setVisibility(View.VISIBLE);
-      //   imgOutLike.bringToFront();
-      //   countLike = 0;
-      // }
+      // System.out.println(curCardUser);
+      checkVip();
     }
     
     @Override
     public void onCardDisappeared(View view, int position) {
       TextView tv = view.findViewById(R.id.item_name);
-//        System.out.println("count like: " + countLike);
-//        if (countLike > 2) {
-//          setButtonToInvisible();
-//          imageView.setVisibility(View.VISIBLE);
-//          imageView.bringToFront();
-//        }
+    }
+    
+    public void checkVip() {
+      if (!AndroidUtil.getCurUser().isVip() && countLike >= 3) {
+        // todo also on resume
+        imgOutLike.setVisibility(View.VISIBLE);
+        imgOutLike.bringToFront();
+        buttonProceed.setVisibility(View.VISIBLE);
+        buttonProceed.bringToFront();
+      } else {
+        imgOutLike.setVisibility(View.GONE);
+        // imgOutLike.bringToFront();
+        buttonProceed.setVisibility(View.GONE);
+        // buttonProceed.bringToFront();
+      }
     }
   }
   

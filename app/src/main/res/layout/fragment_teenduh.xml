@@ -95,7 +95,8 @@
     android:textColor="@color/white"
     android:textStyle="bold"
     android:translationZ="90dp"
-    android:visibility="gone" />
+    android:visibility="gone"
+    />
 
   <com.yuyakaido.android.cardstackview.CardStackView
     android:id="@+id/card_stack_view"
