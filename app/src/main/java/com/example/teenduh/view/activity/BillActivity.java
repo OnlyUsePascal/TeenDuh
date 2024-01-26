@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.teenduh.R;
 import com.example.teenduh._util.AndroidUtil;
+import com.example.teenduh._util.FirebaseUtil;
+import com.example.teenduh.model.User;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.stripe.android.paymentsheet.PaymentSheetResult;
@@ -24,6 +26,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
@@ -207,8 +210,16 @@ public class BillActivity extends AppCompatActivity {
       // Display
       // for example, an order confirmation screen
       Log.d(TAG, "Completed");
-      finish();
       AndroidUtil.makeToast(this, "Payment Success!");
+      
+      User user = AndroidUtil.getCurUser();
+      AndroidUtil.getCurUser().setVip(true);
+      HashMap<String, Object> data = new HashMap<>();
+      data.put("vipLevel", 1);
+      FirebaseUtil.getFirestore().collection("users")
+          .document(user.getId())
+          .update(data);
+      finish();
     }
   }
 }

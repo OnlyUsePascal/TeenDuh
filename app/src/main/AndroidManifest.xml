@@ -24,14 +24,14 @@
       android:exported="false"/>
     <activity
       android:name=".view.activity.BillActivity"
-      android:exported="false"></activity>
+      android:exported="false" />
     <activity
       android:name=".view.activity.MatchingScreen"
       android:exported="true" />
     <activity
       android:name=".view.activity.admin.AdminViewUserActivity"
       android:exported="false"
-      android:screenOrientation="portrait"></activity>
+      android:screenOrientation="portrait" />
     <activity
       android:name=".view.activity.AskPermission"
       android:exported="false" />
@@ -39,19 +39,6 @@
       android:name=".view.activity.admin.BarChartActivity"
       android:exported="false"
       android:screenOrientation="portrait" />
-    <activity
-      android:name=".view.activity.payment.PaymentActivity"
-      android:exported="true"
-      android:launchMode="singleTask">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-
-        <data android:scheme="${applicationId}.braintree" />
-      </intent-filter>
-    </activity>
     <activity
       android:name=".view.activity.Subscription"
       android:exported="true" />
@@ -62,9 +49,7 @@
       <intent-filter tools:node="removeAll" />
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-
         <data android:scheme="my-custom-url-scheme" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
       </intent-filter>

@@ -13,8 +13,11 @@ android {
     targetSdk = 34
     versionCode = 1
     versionName = "1.0"
-
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+//    resValue("string", "default_web_client_id", properties["default_web_client_id"]?.toString() ?: "")
+    resValue("string", "web_client_secret", properties["web_client_secret"]?.toString() ?: "")
+    resValue("string", "cloud_mess_key", properties["cloud_mess_key"]?.toString() ?: "")
   }
 
   buildTypes {

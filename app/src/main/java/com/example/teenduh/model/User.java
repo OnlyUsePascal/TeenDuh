@@ -41,7 +41,16 @@ public class User {
   private String communicationHabit= "", educationHabit = "", zodiacHabit = "";
   String bio = "";
   private Double elo;
-
+  private boolean isVip = false;
+  
+  public boolean isVip() {
+    return isVip;
+  }
+  
+  public void setVip(boolean vip) {
+    isVip = vip;
+  }
+  
   public User(String name, String city, LocalDate birthday){
     this.name = name;
     this.city = city;
@@ -56,8 +65,6 @@ public class User {
     this.distancePreference = distancePreference;
     this.lookingFor = lookingFor;
   }
-
-
 
   public User(String id, String name, String fcm, LocalDate bday){
     this.id = id;
