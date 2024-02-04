@@ -29,8 +29,6 @@ Trying to clone Tinder
 - Some external UI library for card stack.
 
 ## Contributors
-<a href="https://github.com/OnlyUsePascal/NeckFlex/graphs/contributors">
-  <img width="64" height="64" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/62138004?v=4" alt="">
-  <img width="64" height="64" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/17351940?v=4" alt="">
-  <img width="64" height="64" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/68006452?v=4" alt="">
-  <img width="64" height="64" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/100990206?v=4" alt="">
+<a href="https://github.com/OnlyUsePascal/TeenDuh/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=OnlyUsePascal/TeenDuh" />
+</a>
