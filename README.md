@@ -24,15 +24,16 @@ A bold attempt for Tinder clone
 - Some UI libraries for card animation.
 
 ## Misc
-- A [Nodejs server](https://github.com/OnlyUsePascal/TeenDuh-Stripe) should be run to test the payment feature.
+- A [server](https://github.com/OnlyUsePascal/TeenDuh-Stripe) should be run to test the payment feature.
 
 ## Showcase
-![alt text](_showcase/user0.jpg) 
-![alt text](_showcase/user1.png)
-![alt text](_showcase/user2.png)
-![alt text](_showcase/user3.png)
-<!-- ![alt text](_showcase/user2.jpg) -->
+For User
 
+<img src=_showcase/user0.jpg width="190"> <img src=_showcase/user1.png width="200"> <img src=_showcase/user2.png width="200"> <img src=_showcase/user3.png width="200">
+
+For Admin
+
+<img src=_showcase/admin0.png width="190"> <img src=_showcase/admin1.png width="190"> <img src=_showcase/admin2.png width="190"> 
 
 ## Contributors
 <a href="https://github.com/OnlyUsePascal/TeenDuh/graphs/contributors">
