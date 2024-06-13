@@ -41,6 +41,7 @@ public class AuthLayout extends AppCompatActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
+    System.out.println("> " + Integer.toString(requestCode) + " - " + Integer.toString(resultCode));
     switch (requestCode) {
       case PHONE_AUTH_REQUEST_CODE:
         // finish();
@@ -56,8 +57,10 @@ public class AuthLayout extends AppCompatActivity {
   
   public void googleLogin(View view) {
     Toast.makeText(this, "google login", Toast.LENGTH_SHORT).show();
+    System.out.println("> " + getString(R.string.web_client_id));
+    System.out.println("> " + getString(R.string.cloud_mess_key));
     googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                              .requestIdToken(getString(R.string.default_web_client_id))
+                              .requestIdToken(getString(R.string.web_client_id))
                               .requestEmail()
                               .build();
     googleSignInClient = GoogleSignIn.getClient(AuthLayout.this, googleSignInOptions);

@@ -14,10 +14,10 @@ android {
     versionCode = 1
     versionName = "1.0"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-//    resValue("string", "default_web_client_id", properties["default_web_client_id"]?.toString() ?: "")
-    resValue("string", "web_client_secret", properties["web_client_secret"]?.toString() ?: "")
-    resValue("string", "cloud_mess_key", properties["cloud_mess_key"]?.toString() ?: "")
+//    System.getenv("MY_VARIABLE_NAME")
+    resValue("string", "web_client_id", properties["web_client_id"]?.toString() ?: "what1")
+    resValue("string", "web_client_secret", properties["web_client_secret"]?.toString() ?: "what2")
+    resValue("string", "cloud_mess_key", properties["cloud_mess_key"]?.toString() ?: "what3")
   }
 
   buildTypes {
@@ -42,10 +42,10 @@ dependencies {
   implementation("androidx.constraintlayout:constraintlayout:2.1.4")
   implementation("androidx.navigation:navigation-fragment:2.7.5")
   implementation("androidx.navigation:navigation-ui:2.7.5")
-  implementation("androidx.annotation:annotation:1.6.0")
+  implementation("androidx.annotation:annotation:1.8.0")
   implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-  implementation("pl.bclogic:pulsator4droid:1.0.3"  )
+  implementation("pl.bclogic:pulsator4droid:1.0.3")
   implementation("de.hdodenhof:circleimageview:3.1.0")
 
   // auth
