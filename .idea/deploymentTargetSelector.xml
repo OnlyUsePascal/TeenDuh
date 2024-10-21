@@ -13,7 +13,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="WelcomeActivity">
+      <SelectionState runConfigName="build app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

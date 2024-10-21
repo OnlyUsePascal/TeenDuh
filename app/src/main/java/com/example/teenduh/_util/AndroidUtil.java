@@ -335,8 +335,8 @@ public class AndroidUtil {
   }
   
   public static void fetchChatRooms(Runnable runnable) {
-    chatRooms = new ArrayList<>();
     FirebaseUtil.fetchChatRooms(documentSnapshots -> {
+      chatRooms = new ArrayList<>();
       for (DocumentSnapshot documentSnapshot : documentSnapshots) {
         Timestamp lastAct = documentSnapshot.getTimestamp("lastActive");
         String lastMess = documentSnapshot.getString("lastMess");

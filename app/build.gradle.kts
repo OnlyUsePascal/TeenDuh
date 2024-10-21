@@ -50,7 +50,7 @@ dependencies {
 
   // auth
   implementation("com.google.android.gms:play-services-auth:20.7.0")
-  implementation("com.facebook.android:facebook-login:latest.release")
+//  implementation("com.facebook.android:facebook-login:latest.release")
   implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
   // testing
