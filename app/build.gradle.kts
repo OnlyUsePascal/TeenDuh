@@ -50,7 +50,7 @@ dependencies {
 
   // auth
   implementation("com.google.android.gms:play-services-auth:20.7.0")
-  implementation("com.facebook.android:facebook-login:latest.release")
+//  implementation("com.facebook.android:facebook-login:latest.release")
   implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
   // testing
@@ -92,7 +92,7 @@ dependencies {
   implementation("com.makeramen:roundedimageview:2.3.0")
   implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.23")
   implementation ("com.github.dhaval2404:imagepicker:2.1")
-  implementation ("com.yuyakaido.android:card-stack-view:2.3.4")
+  implementation ("com.github.yuyakaido:CardStackView:v2.3.4")
   implementation ("com.squareup.picasso:picasso:2.71828")
   implementation("com.lorentzos.swipecards:library:1.0.9")
   implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")

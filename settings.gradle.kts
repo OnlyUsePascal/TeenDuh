@@ -14,9 +14,12 @@ dependencyResolutionManagement {
   repositories {
     google()
     mavenCentral()
-    maven("https://jitpack.io")
-    jcenter()
+//    maven("https://jitpack.io")
+//    jcenter()
     maven{
+      setUrl("https://jitpack.io")
+    }
+    maven {
       url = uri("https://cardinalcommerceprod.jfrog.io/artifactory/android")
       credentials{
         username = "braintree_team_sdk"
