@@ -74,7 +74,7 @@ public class AndroidUtil {
   }
   
   public static boolean checkIsAdmin() {
-    return curUser.getName().equals("");
+    return curUser.getName().isEmpty();
   }
 
   public static void setAdmin(boolean admin) {
