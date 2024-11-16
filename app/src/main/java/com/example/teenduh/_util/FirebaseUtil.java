@@ -36,7 +36,6 @@ public class FirebaseUtil {
     auth = FirebaseAuth.getInstance();
     messaging = FirebaseMessaging.getInstance();
     firestore = FirebaseFirestore.getInstance();
-    auth = FirebaseAuth.getInstance();
     storage = FirebaseStorage.getInstance("gs://teenduh-t1.appspot.com");
 
     firestore.setLoggingEnabled(true);
