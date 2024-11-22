@@ -25,6 +25,7 @@
       android:layout_marginTop="50dp"
       />
   <TextView
+      android:id="@+id/upgradeText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Upgrade to Gold to see people\n who already liked you"

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
     holder.usernameText.setText(otherName);
     holder.lastMessageText.setText(chatRoom.getLastMess());
     holder.lastMessageTime.setText(timeStr);
+    holder.profilePic.setImageURI(chatRoom.getPicUri());
     holder.itemView.setOnClickListener(view -> {
       AndroidUtil.setCurChatRoom(chatRoom);
       context.startActivity(new Intent(context, ChatActivity.class));
@@ -63,14 +65,14 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
     TextView usernameText;
     TextView lastMessageText;
     TextView lastMessageTime;
-    // ImageView profilePic;
-    
+   ImageView profilePic;
+
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
       usernameText = itemView.findViewById(R.id.name);
       lastMessageText = itemView.findViewById(R.id.messagePreview);
       lastMessageTime = itemView.findViewById(R.id.date);
-      // profilePic = itemView.findViewById(R.id.profile_pic_image_view);
+       profilePic = itemView.findViewById(R.id.profile_pic_image_view);
     }
   }
 }

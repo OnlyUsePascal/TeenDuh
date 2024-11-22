@@ -25,7 +25,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class AuthLayout extends AppCompatActivity {
   private final String TAG = "AuthLayout";
   private final int PHONE_AUTH_REQUEST_CODE = 1;
-  private final int GOOGLE_AUTH_REQUEST_CODE = 2;
+  private final int EMAIL_AUTH_REQUEST_CODE = 2;
   private GoogleSignInOptions googleSignInOptions;
   private GoogleSignInClient googleSignInClient;
   
@@ -47,27 +47,26 @@ public class AuthLayout extends AppCompatActivity {
         // finish();
         // if (resultCode == RESULT_OK) handlePhoneAccount();
         break;
-      case GOOGLE_AUTH_REQUEST_CODE:
-        GoogleSignIn.getSignedInAccountFromIntent(data)
-            .addOnCompleteListener(this::handleGoogleAccount);
+      case EMAIL_AUTH_REQUEST_CODE:
+//        GoogleSignIn.getSignedInAccountFromIntent(data)
+//            .addOnCompleteListener(this::handleGoogleAccount);
         break;
     }
     
   }
   
   public void googleLogin(View view) {
-    Toast.makeText(this, "google login", Toast.LENGTH_SHORT).show();
-    System.out.println("> " + getString(R.string.web_client_id));
-    System.out.println("> " + getString(R.string.cloud_mess_key));
-    googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                              .requestIdToken(getString(R.string.web_client_id))
-                              .requestEmail()
-                              .build();
-    googleSignInClient = GoogleSignIn.getClient(AuthLayout.this, googleSignInOptions);
-    googleSignInClient.signOut().addOnCompleteListener(task -> {
-      AndroidUtil._startActivityForResult(AuthLayout.this,
-          googleSignInClient.getSignInIntent(), GOOGLE_AUTH_REQUEST_CODE);
-    });
+//    Toast.makeText(this, "google login", Toast.LENGTH_SHORT).show();;
+//    googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                              .requestIdToken(getString(R.string.web_client_id))
+//                              .requestEmail()
+//                              .build();
+//    googleSignInClient = GoogleSignIn.getClient(AuthLayout.this, googleSignInOptions);
+//    googleSignInClient.signOut().addOnCompleteListener(task -> {
+//      AndroidUtil._startActivityForResult(AuthLayout.this,
+//          googleSignInClient.getSignInIntent(), GOOGLE_AUTH_REQUEST_CODE);
+//    });
+    AndroidUtil._startActivityForResult(AuthLayout.this, EmailAuthLayout.class, EMAIL_AUTH_REQUEST_CODE);
   }
   
   public void handleGoogleAccount(Task<GoogleSignInAccount> task) {

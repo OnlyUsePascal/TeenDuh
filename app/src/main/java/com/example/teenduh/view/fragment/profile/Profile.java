@@ -45,6 +45,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class Profile extends Fragment {
   private MainLayout mainLayout;
@@ -189,7 +190,7 @@ public class Profile extends Fragment {
       }
 
       Uri tempUri = Uri.fromFile(localFile);
-      getActivity().runOnUiThread(() -> {
+      requireActivity().runOnUiThread(() -> {
         imageView.setImageURI(tempUri);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
       });

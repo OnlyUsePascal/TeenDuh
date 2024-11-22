@@ -1,5 +1,7 @@
 package com.example.teenduh.model.message;
 
+import android.net.Uri;
+
 import com.example.teenduh._util.AndroidUtil;
 import com.example.teenduh.model.User;
 import com.google.firebase.Timestamp;
@@ -14,16 +16,26 @@ public class ChatRoom {
   private String lastMess;
   private int lastSender;
   private List<Chat> chats;
+  private Uri picUri;
   
-  public ChatRoom(String id, List<String> users, Timestamp lastAct, String lastMess, int lastSender) {
+  public ChatRoom(String id, List<String> users, Timestamp lastAct, String lastMess, int lastSender, Uri uri) {
     this.id = id;
     this.users = users;
     this.lastAct = lastAct;
     this.lastMess = lastMess;
     this.lastSender = lastSender;
     this.chats = new ArrayList<>();
+    this.picUri = uri;
   }
-  
+
+  public Uri getPicUri() {
+    return picUri;
+  }
+
+  public void setPicUri(Uri picUri) {
+    this.picUri = picUri;
+  }
+
   public String getId() {
     return id;
   }

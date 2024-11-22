@@ -73,7 +73,7 @@ public class MessagesPreviewAdapter extends RecyclerView.Adapter<MessagesPreview
 
       name = itemView.findViewById(R.id.name);
       messagePreview = itemView.findViewById(R.id.messagePreview);
-      image = itemView.findViewById(R.id.user_img);
+      image = itemView.findViewById(R.id.profile_pic_image_view);
       date = itemView.findViewById(R.id.date);
       unreadCount = itemView.findViewById(R.id.unreadCount);
       unreadContainer = itemView.findViewById(R.id.unreadContainer);

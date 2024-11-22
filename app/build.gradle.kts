@@ -5,12 +5,12 @@ plugins {
 
 android {
   namespace = "com.example.teenduh"
-  compileSdk = 34
+  compileSdk = 35
 
   defaultConfig {
     applicationId = "com.example.teenduh"
     minSdk = 26
-    targetSdk = 34
+    targetSdk = 35
     versionCode = 1
     versionName = "1.0"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -32,6 +32,7 @@ android {
   }
     buildFeatures {
         viewBinding = true
+      compose = true
     }
 }
 
@@ -49,10 +50,17 @@ dependencies {
   implementation("pl.bclogic:pulsator4droid:1.0.3")
   implementation("de.hdodenhof:circleimageview:3.1.0")
 
+  implementation("androidx.compose.ui:ui:1.6.1")
+  implementation("androidx.compose.ui:ui-tooling:1.6.1")
+  implementation("androidx.compose.material:material:1.6.1")
+  implementation("androidx.compose.runtime:runtime:1.6.1")
+
   // auth
   implementation("com.google.android.gms:play-services-auth:21.2.0")
 //  implementation("com.facebook.android:facebook-login:latest.release")
   implementation("com.squareup.okhttp3:okhttp:4.12.0")
+  implementation("androidx.activity:activity:1.8.0")
+  implementation("androidx.core:core-ktx:1.15.0")
 
   // testing
   androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -102,7 +110,7 @@ dependencies {
   // implementation("com.braintreepayments.api:braintree:3.21.1")
   implementation("com.braintreepayments.api:drop-in:6.14.0")
   implementation("org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.7-5")
-  implementation("com.stripe:stripe-android:20.36.1")
+  implementation("com.stripe:stripe-android:20.53.0")
 
 }
 java {

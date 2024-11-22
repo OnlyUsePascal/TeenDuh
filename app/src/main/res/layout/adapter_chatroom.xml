@@ -16,7 +16,7 @@
     android:layout_marginRight="15dp">
 
     <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/user_img"
+      android:id="@+id/profile_pic_image_view"
       android:layout_width="55dp"
       android:layout_height="55dp"
       android:scaleType="centerCrop"

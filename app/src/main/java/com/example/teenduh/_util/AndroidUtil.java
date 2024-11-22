@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -232,91 +233,97 @@ public class AndroidUtil {
   
   public static Date parseDate(int year, int month, int day, int hour, int minute) {
     return Date.from(LocalDateTime.of(year, month, day, hour, minute).atZone(
-        java.time.ZoneId.systemDefault()).toInstant());
+        ZoneId.systemDefault()).toInstant());
   }
   
+  public static User documentToUser(DocumentSnapshot documentSnapshot) {
+    String name = documentSnapshot.getString("name");
+    String fcm = documentSnapshot.getString("fcm");
+    String uid = documentSnapshot.getId();
+    Timestamp bday = documentSnapshot.getTimestamp("bday");
+    String pic = documentSnapshot.getString("pic");
+    LatLng location = null;
+    String gender = documentSnapshot.getString("gender");
+    String drink = documentSnapshot.getString("drinkHabit");
+    String workout = documentSnapshot.getString("workoutHabit");
+    String smoke = documentSnapshot.getString("smokeHabit");
+    String pet = documentSnapshot.getString("petHabit");
+    String communication = documentSnapshot.getString("communicationHabit");
+    String education = documentSnapshot.getString("educationHabit");
+    String zodiac = documentSnapshot.getString("zodiacHabit");
+    Double elo = documentSnapshot.getDouble("elo");
+    List<String> liked = (List<String>) documentSnapshot.get("likePeople");
+    // System.out.println("Like people:" + liked);
+
+    if (elo == null) {
+      elo = 800.0;
+      HashMap<String, Object> data = new HashMap<>();
+      data.put("elo", elo);
+      FirebaseUtil.updateUser(uid, data, null);
+    }
+
+    if (drink == null) drink = "";
+    if (workout == null) workout = "";
+    if (smoke == null) smoke = "";
+    if (pet == null) pet = "";
+    if (communication == null) communication = "";
+    if (education == null) education = "";
+    if (zodiac == null) zodiac = "";
+
+    // Use the localDate as needed
+
+    Date date = bday != null ? bday.toDate() : new Date();
+    LocalDate bdayLocal = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+    List<Integer> picIdxes = new ArrayList<>();
+    if (pic == null) pic = "";
+    for (String picIdx1 : pic.split(" ")) {
+      try {
+        picIdxes.add(Integer.parseInt(picIdx1));
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    if (fcm == null) fcm = "blank";
+    Object locationObject = documentSnapshot.get("location");
+    if (locationObject != null) {
+      HashMap<String, Double> locationMap = (HashMap<String, Double>) locationObject;
+      location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
+    }
+    System.out.println("location = " + location);
+
+    List<String> info = (List<String>) documentSnapshot.get("info");
+    if (info == null) {
+      info = new ArrayList<>();
+    }
+
+    User user = new User(uid, name, fcm, bdayLocal, location, gender, elo, drink, workout, smoke, pet,
+            communication, education, zodiac);
+    user.setPicIdxes(picIdxes);
+    if (liked != null) user.setLiked(liked);
+    user.fetchPics();
+    try {
+      Integer vipLevel = Math.toIntExact(documentSnapshot.getLong("vipLevel"));
+      if (vipLevel >= 1) user.setVip(true);
+    } catch (Exception err) {
+      err.printStackTrace();
+    }
+    return user;
+  }
+
   public static void fetchUsers(Runnable runnable) {
     FirebaseUtil.fetchUsers(documentSnapshots -> {
       for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-        String name = documentSnapshot.getString("name");
-        String fcm = documentSnapshot.getString("fcm");
-        String uid = documentSnapshot.getId();
-        Timestamp bday = documentSnapshot.getTimestamp("bday");
-        String pic = documentSnapshot.getString("pic");
-        LatLng location = null;
-        String gender = documentSnapshot.getString("gender");
-        String drink = documentSnapshot.getString("drinkHabit");
-        String workout = documentSnapshot.getString("workoutHabit");
-        String smoke = documentSnapshot.getString("smokeHabit");
-        String pet = documentSnapshot.getString("petHabit");
-        String communication = documentSnapshot.getString("communicationHabit");
-        String education = documentSnapshot.getString("educationHabit");
-        String zodiac = documentSnapshot.getString("zodiacHabit");
-        Double elo = documentSnapshot.getDouble("elo");
-        List<String> liked = (List<String>) documentSnapshot.get("likePeople");
-        // System.out.println("Like people:" + liked);
-        
-        if (elo == null) {
-          elo = 800.0;
-          HashMap<String, Object> data = new HashMap<>();
-          data.put("elo", elo);
-          FirebaseUtil.updateUser(uid, data, null);
-        }
-        
-        if (drink == null) drink = "";
-        if (workout == null) workout = "";
-        if (smoke == null) smoke = "";
-        if (pet == null) pet = "";
-        if (communication == null) communication = "";
-        if (education == null) education = "";
-        if (zodiac == null) zodiac = "";
-        
-        // Use the localDate as needed
-        Date date = bday.toDate();
-        LocalDate bdayLocal = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        List<Integer> picIdxes = new ArrayList<>();
-        if (pic == null) pic = "";
-        for (String picIdx1 : pic.split(" ")) {
-          try {
-            picIdxes.add(Integer.parseInt(picIdx1));
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
-        }
-        
-        if (fcm == null) fcm = "blank";
-        Object locationObject = documentSnapshot.get("location");
-        if (locationObject != null) {
-          HashMap<String, Double> locationMap = (HashMap<String, Double>) locationObject;
-          location = new LatLng(locationMap.get("latitude"), locationMap.get("longitude"));
-        }
-        System.out.println("location = " + location);
-        
-        List<String> info = (List<String>) documentSnapshot.get("info");
-        if (info == null) {
-          info = new ArrayList<>();
-        }
-        
-        User user = new User(uid, name, fcm, bdayLocal, location, gender, elo, drink, workout, smoke, pet,
-            communication, education, zodiac);
-        user.setPicIdxes(picIdxes);
-        if (liked != null) user.setLiked(liked);
-        user.fetchPics();
-        try {
-          Integer vipLevel = Math.toIntExact(documentSnapshot.getLong("vipLevel"));
-          if (vipLevel >= 1) user.setVip(true);
-        } catch (Exception err) {
-          err.printStackTrace();
-        }
+        User user = documentToUser(documentSnapshot);
         users.add(user);
-        
       }
-      
+
       System.out.println(users);
       FirebaseUtil.runRunnable(runnable);
     });
   }
-  
+
   public static void fetchUsersBan(Runnable runnable) {
     FirebaseUtil.fetchUsersBan(documentSnapshots -> {
       for (DocumentSnapshot documentSnapshot : documentSnapshots) {
@@ -342,9 +349,21 @@ public class AndroidUtil {
         String lastMess = documentSnapshot.getString("lastMess");
         int lastSender = documentSnapshot.getDouble("lastSender").intValue();
         List<String> uids = (List<String>) documentSnapshot.get("users");
+        final String[] otherUid = {null};
+        uids.forEach(uid -> {
+          if (!uid.equals(getCurUser().getId())) {
+            otherUid[0] = uid;
+          }
+        });
         String id = documentSnapshot.getId();
+        final Uri[] otherUri = {null};
+        AndroidUtil.getUsers().forEach(user -> {
+          if (user.getId().equals(otherUid[0])) {
+            otherUri[0] = user.getImageListItem(0);
+          }
+        });
         
-        ChatRoom chatRoom = new ChatRoom(id, uids, lastAct, lastMess, lastSender);
+        ChatRoom chatRoom = new ChatRoom(id, uids, lastAct, lastMess, lastSender, otherUri[0]);
         chatRooms.add(chatRoom);
       }
       
@@ -375,12 +394,12 @@ public class AndroidUtil {
     String mail = (btnId == R.id.button13) ? "usera@mail.com" : "userb@mail.com";
     String pwd = "123123";
     
-    FirebaseUtil.loginEmail(mail, pwd, () -> {
-      setCurUserWithId(FirebaseUtil.getCurUser().getUid());
-      HashMap<String, Object> data = new HashMap<>();
-      data.put("fcm", FirebaseUtil.getFcm());
-      FirebaseUtil.updateUser(curUser.getId(), data, runnable);
-    });
+//    FirebaseUtil.loginEmail(mail, pwd, () -> {
+//      setCurUserWithId(FirebaseUtil.getCurUser().getUid());
+//      HashMap<String, Object> data = new HashMap<>();
+//      data.put("fcm", FirebaseUtil.getFcm());
+//      FirebaseUtil.updateUser(curUser.getId(), data, runnable);
+//    });
   }
   
   public static void setupLogin(Activity activity1) {

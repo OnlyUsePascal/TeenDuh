@@ -37,10 +37,10 @@
             style="@style/Widget.Material3.Button.OutlinedButton.Icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log In With Google"
+            android:text="Log In With Email"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
-            android:drawableLeft="@drawable/google_circled"
+            android:drawableLeft="@drawable/email"
             android:onClick="googleLogin" />
 
         <Button
