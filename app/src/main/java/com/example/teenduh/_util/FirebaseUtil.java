@@ -7,6 +7,7 @@ import com.example.teenduh.model.User;
 import com.example.teenduh.model.message.Chat;
 import com.example.teenduh.model.message.ChatRoom;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -71,17 +72,61 @@ public class FirebaseUtil {
   public static void setCurUser(FirebaseUser _user) {
     curUser = _user;
   }
-  
-  public static void loginEmail(String mail, String pwd, Runnable runnable) {
-    auth.signOut();
-    auth.signInWithEmailAndPassword(mail, pwd)
-        .addOnCompleteListener(task -> {
-          setCurUser(auth.getCurrentUser());
-          runRunnable(runnable);
-        });
-  }
-  
-  public static PhoneAuthCredential getCredential() {
+
+    public static void loginEmail(String mail, String pwd, Runnable onSuccess, Consumer<String> onFailure) {
+        auth.signInWithEmailAndPassword(mail, pwd)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = task.getResult().getUser();
+                        setCurUser(task.getResult().getUser());
+                        runRunnable(onSuccess);
+                    } else if (onFailure != null) {
+                        Exception exception = task.getException();
+                        if (exception instanceof FirebaseAuthException) {
+                            String errorCode = ((FirebaseAuthException) exception).getErrorCode();
+                            onFailure.accept(errorCode);
+                        } else {
+                            onFailure.accept("UNKNOWN_ERROR");
+                        }
+                    }
+                })
+                .addOnFailureListener(exception -> {
+                    if (onFailure != null && exception instanceof FirebaseAuthException) {
+                        String errorCode = ((FirebaseAuthException) exception).getErrorCode();
+                        onFailure.accept(errorCode);
+                    } else if (onFailure != null) {
+                        onFailure.accept("UNKNOWN_ERROR");
+                    }
+                });
+    }
+
+    public static void registerEmail(String mail, String pwd, Runnable onSuccess, Consumer<String> onFailure) {
+        auth.createUserWithEmailAndPassword(mail, pwd)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        setCurUser(task.getResult().getUser());
+                        runRunnable(onSuccess);
+                    } else if (onFailure != null) {
+                        Exception exception = task.getException();
+                        if (exception instanceof FirebaseAuthException) {
+                            String errorCode = ((FirebaseAuthException) exception).getErrorCode();
+                            onFailure.accept(errorCode);
+                        } else {
+                            onFailure.accept("UNKNOWN_ERROR");
+                        }
+                    }
+                })
+                .addOnFailureListener(exception -> {
+                    if (onFailure != null && exception instanceof FirebaseAuthException) {
+                        String errorCode = ((FirebaseAuthException) exception).getErrorCode();
+                        onFailure.accept(errorCode);
+                    } else if (onFailure != null) {
+                        onFailure.accept("UNKNOWN_ERROR");
+                    }
+                });
+    }
+
+    public static PhoneAuthCredential getCredential() {
     return credential;
     
   }

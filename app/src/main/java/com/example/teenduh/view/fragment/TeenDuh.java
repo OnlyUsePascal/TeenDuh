@@ -264,14 +264,12 @@ public class TeenDuh extends Fragment {
   private List<User> addList() {
     System.out.println(AndroidUtil.getFilterFlag() + "--" + AndroidUtil.getGenderFilter());
     List<User> usersOrigin = AndroidUtil.getUsers();
-    if (AndroidUtil.getGenderFilter().equals("All") || AndroidUtil.getFilterFlag() == 0)
-      return usersOrigin;
-    
     List<User> usersNew = new ArrayList<>();
     String requiredGender = AndroidUtil.getGenderFilter();
     usersOrigin.forEach(user -> {
-      if (user.getGender().equals(requiredGender)
-              && !user.getId().equals(AndroidUtil.getCurUser().getId())) {
+      if ((AndroidUtil.getGenderFilter().equals("All") || AndroidUtil.getFilterFlag() == 0 || user.getGender().equals(requiredGender))
+              && !user.getId().equals(AndroidUtil.getCurUser().getId())
+              && !AndroidUtil.getCurUser().isLikeUser(user)) {
         usersNew.add(user);
       }
     });
