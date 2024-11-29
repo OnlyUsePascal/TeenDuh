@@ -144,7 +144,7 @@ public class BillActivity extends AppCompatActivity {
     }
 
     public void proceedPayment(View view) {
-            String url = "http://127.0.0.1:3000/payment-sheet";
+            String url = "https://teenduh-stripe.onrender.com/payment-sheet";
             OkHttpClient client = new OkHttpClient();
             RequestBody body1 = new FormBody.Builder()
                     .addEncoded("price", Double.toString(totalPrice * 100))
