@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -145,7 +146,11 @@ public class BillActivity extends AppCompatActivity {
 
     public void proceedPayment(View view) {
             String url = "https://teenduh-stripe.onrender.com/payment-sheet";
-            OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(120, TimeUnit.SECONDS) // Connection timeout
+                    .writeTimeout(120, TimeUnit.SECONDS)   // Write timeout
+                    .readTimeout(120, TimeUnit.SECONDS)    // Read timeout
+                    .build();
             RequestBody body1 = new FormBody.Builder()
                     .addEncoded("price", Double.toString(totalPrice * 100))
                     .build();
